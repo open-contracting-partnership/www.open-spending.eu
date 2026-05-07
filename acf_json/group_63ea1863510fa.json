@@ -48,46 +48,6 @@
             "show_column": 0,
             "allow_quickedit": 0,
             "allow_bulkedit": 0
-        },
-        {
-            "key": "field_63fd877781453",
-            "label": "View all resources Button Title Text",
-            "name": "view_all_resources_btn",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_63fd88ac82ad6",
-            "label": "View all resources Btn link",
-            "name": "view_all_resources_btn_link",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
         }
     ],
     "location": [
