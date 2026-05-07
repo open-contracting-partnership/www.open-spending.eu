@@ -12,6 +12,17 @@
     background: linear-gradient(135deg, #3387d7 0%, #093157 100%);
     opacity: 0.5;
     mix-blend-mode: normal;
+    pointer-events: none;
+  }
+
+  .wp-block-cover__background,
+  .wp-block-cover__image-background {
+    pointer-events: none;
+  }
+
+  .wp-block-cover__inner-container {
+    position: relative;
+    z-index: 1;
   }
 
   .footer-links ul li {
