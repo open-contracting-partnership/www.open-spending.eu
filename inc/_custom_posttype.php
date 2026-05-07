@@ -276,7 +276,7 @@ function cptui_register_my_cpts()
 		"map_meta_cap" => true,
 		"hierarchical" => false,
 		"can_export" => false,
-		"rewrite" => ["slug" => "tools", "with_front" => true],
+		"rewrite" => ["slug" => "toolkit", "with_front" => true],
 		"query_var" => true,
 		"menu_icon" => "dashicons-list-view",
 		"supports" => ["title", "editor", "thumbnail"],
