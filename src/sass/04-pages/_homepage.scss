@@ -35,25 +35,6 @@
 }
 .member-data {
   @apply grid grid-cols-2 gap-4 lg:gap-8;
-  // animation: bottomtop 50s linear infinite alternate-reverse;
-
-  // &:hover {
-  //   animation-play-state: paused;
-  // }
-
-  // .member-item:nth-child(2) {
-  //   @apply mt-[60%];
-  // }
-
-  // .member-item:nth-child(odd):not(:nth-child(1)) {
-  //   @apply -mt-[60%];
-  // }
-
-  // .member-item:hover {
-  //   img {
-  //     @apply scale-105;
-  //   }
-  // }
 }
 .member-item {
   overflow: hidden;

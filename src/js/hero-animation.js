@@ -51,7 +51,6 @@ jQuery(function ($) {
       for (var j = 0, x = stars.length; j < x; j++) {
         var starII = stars[j];
         if (distance(starI, starII) < 150) {
-          //ctx.globalAlpha = (1 / 150 * distance(starI, starII).toFixed(1));
           ctx.lineTo(starII.x, starII.y);
         }
       }

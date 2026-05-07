@@ -29,12 +29,10 @@ jQuery(function ($) {
   $(document).mouseup(function (e) {
     var container = $(".has-inline-text");
     var tweetPopup = $(".highlight-and-share-wrapper");
-    // var container = $(".highlight-and-share-wrapper");
 
     // if the target of the click isn't the container nor a descendant of the container
     if (!container.is(e.target) && container.has(e.target).length === 0) {
       if (!tweetPopup.is(e.target) && tweetPopup.has(e.target).length === 0) {
-        // $(".highlight-and-share-wrapper").css("opacity", "0");
         $(".highlight-and-share-wrapper").hide();
         if ($(".highlight-and-share-wrapper").length == 2) {
           container.trigger("click");
@@ -78,64 +76,6 @@ jQuery(function ($) {
       },
     ],
   });
-
-  /**
-   * =================================================
-   * Archive page accordion card height
-   * =================================================
-   */
-  // if (window.innerWidth > 640) {
-  //   var cardItems = document.querySelectorAll(".accordion-card-inside");
-  //   var maxHeight = 0;
-  //   cardItems.forEach((cardItem) => {
-  //     var cardHeight = $(cardItem).height();
-  //     if (cardHeight > maxHeight) {
-  //       maxHeight = cardHeight;
-  //     }
-  //   });
-  //   cardItems.forEach((cardItem) => {
-  //     $(cardItem).css("min-height", maxHeight + 40);
-  //   });
-  // }
-
-  /**
-   * =================================================
-   * Archive page accordion
-   * =================================================
-   */
-  // var $box = $(".archive-accordion").isotope({
-  //   itemSelector: ".archive-accordion-items",
-  //   layoutMode: "fitRows",
-  // });
-  // var iso = $box.data("isotope");
-
-  // $(".archive-accordion-category").on("click", "p", function (e) {
-  //   console.log("Helloww");
-  //   e.preventDefault();
-  //   var blockToShow = $(".no-filter-items");
-  //   $(blockToShow).hide();
-  //   var filterValue = $(this).attr("data-filter");
-  //   $(".category-item").removeClass("active");
-  //   $(this).addClass("active");
-  //   $box.isotope({ filter: filterValue });
-  //   var filteredItems = iso.filteredItems.length;
-  //   if (filteredItems == 0) {
-  //     $(blockToShow).show();
-  //   }
-  // });
-
-  /**
-   * =================================================
-   * News filter by country accordion
-   * =================================================
-   */
-  // $("#news-country-filter").change(function (e) {
-  //   e.preventDefault();
-  //   // var filterValue = $(this).attr("data-filter");
-  //   // $box.isotope({ filter: filterValue });
-  //   var filterValue = $(this).children(":selected").attr("data-filter");
-  //   $box.isotope({ filter: filterValue });
-  // });
 
   /**
    * =================================================
@@ -183,28 +123,12 @@ jQuery(function ($) {
 
   /**
    * =================================================
-   * Member quote animation
-   * =================================================
-   */
-  // $(".member-card").on("mouseenter", function () {
-  //   $(this).addClass("animateUp");
-  //   $(this).removeClass("animateDown");
-  // });
-
-  // $(".member-card").on("mouseleave", function () {
-  //   $(this).removeClass("animateUp");
-  //   $(this).addClass("animateDown");
-  // });
-
-  /**
-   * =================================================
    * Responsive nabvar hide on click outside
    * =================================================
    */
   $(document).mouseup(function (e) {
     var container = $(".wp-block-navigation__responsive-container");
     if (!container.is(e.target) && container.has(e.target).length === 0) {
-      // $(".highlight-and-share-wrapper").css("opacity", "0");
       $(".wp-block-navigation__responsive-container-close").trigger("click");
     }
   });

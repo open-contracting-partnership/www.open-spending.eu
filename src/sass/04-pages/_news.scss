@@ -22,30 +22,6 @@
     @apply border border-n-50;
   }
 }
-// .archive-accordion-items {
-// @apply mb-6 w-full;
-
-// &:hover {
-//   box-shadow: 0px 5px 8px rgba(233, 233, 234, 1);
-//   border-radius: 24px;
-//   @apply border border-n-50;
-// }
-// @include mq("lg", max) {
-//   @apply w-[47%] mr-[3%];
-//   &:not(:nth-child(2n)) {
-//     margin-right: 2%;
-//   }
-// }
-// @include mq("sm", max) {
-//   @apply w-full;
-// }
-// @include mq("lg", min) {
-//   @apply w-[31%] mr-[2.33%];
-//   &:not(:nth-child(3n)) {
-//     margin-right: 2%;
-//   }
-// }
-// }
 
 //Detail page
 .single-detail-content {
@@ -103,9 +79,6 @@ select#news-country-filter {
   &:before {
     position: absolute;
     content: "";
-    // height: 10px;
-    // width: 10px;
-    // background: #1da1f2;
     bottom: -19px;
     left: 50%;
     border-width: 10px;

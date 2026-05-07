@@ -15,26 +15,6 @@
   p {
     @apply text-lg;
   }
-  // h2 {
-  //   font-weight: 700;
-  //   margin-top: 32px !important;
-  //   margin-bottom: 16px !important;
-  //   @include mq("md", min) {
-  //     margin-top: 48px !important;
-  //     margin-bottom: 36px !important;
-  //   }
-  //   @include mq("lg", min) {
-  //     margin-top: 64px !important;
-  //   }
-  // }
-  // h3 {
-  //   font-weight: 700;
-  //   margin-top: 24px !important;
-  //   margin-bottom: 10px !important;
-  //   @include mq("md", min) {
-  //     margin-top: 56px !important;
-  //   }
-  // }
 
   figure.wp-block-image {
     margin-top: 24px !important;
@@ -55,22 +35,6 @@
     }
   }
 }
-
-// .about-feature-image {
-//   & > * {
-//     border-radius: 12px;
-//   }
-//   @apply pt-[44%] relative min-h-[315px] sm:min-h-[430px];
-//   img {
-//     @apply absolute top-0 h-full w-full object-cover rounded-xl;
-//   }
-//   .wp-block-cover__inner-container {
-//     @apply flex absolute top-0 h-full justify-center md:justify-end items-center lg:items-end p-8 lg:p-36;
-//     .about-image-text {
-//       @apply max-w-[340px] pt-14 lg:pt-0;
-//     }
-//   }
-// }
 
 .about-feature-image {
   @apply min-h-[315px] sm:min-h-[430px];

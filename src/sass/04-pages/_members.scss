@@ -68,15 +68,8 @@
   }
 }
 
-// .member-learn-more {
-//   svg path {
-//     fill: #fff;
-//   }
-// }
-
 .member-org-item {
   @apply border border-n-10 p-4 h-[180px] sm:h-[220px] md:h-[280px] flex justify-center items-center transition-all duration-300  hover:border-n-30;
-  // @apply py-16 sm:py-24 lg:py-32 px-6;
   img {
     height: 70px;
     width: auto;
