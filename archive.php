@@ -58,7 +58,7 @@ ob_clean();
     <?php wp_body_open(); ?>
     <div class="wp-site-blocks">
         <header class="wp-block-template-part">
-            <?php echo $block_header_area; ?>
+            <?php echo $block_header_area; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output of block_header_area(). ?>
         </header>
 
         <div class="archive-page">
@@ -68,14 +68,14 @@ ob_clean();
                 if (file_exists($filepath)) {
                     include_once($filepath);
                 } else {
-                    echo $block_content;
+                    echo $block_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered block markup from do_blocks().
                 }
                 ?>
         </div>
 
 
         <footer class="wp-block-template-part">
-            <?php echo $block_footer_area ; ?>
+            <?php echo $block_footer_area; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output of block_footer_area(). ?>
         </footer>
     </div>
     <?php wp_footer(); ?>

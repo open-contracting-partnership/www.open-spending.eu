@@ -76,7 +76,7 @@ custom_breadcrumb_section($id, $posttype, $labels);
                 </div>
                 <div class="absolute bottom-10 left-8 member-quote-animation">
                     <div class="member-quote hidden opacity-0 font-medium text-lg text-n-0 mb-8 pr-8">
-                        <?php echo useSvg('quote'); ?>
+                        <?php echo useSvg('quote'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
                         <?php echo wp_kses_post($member_data['quotes']); ?>
                     </div>
                     <div class="font-bold text-heading-3 text-n-0"><?php echo esc_html($member_data['title']); ?></div>

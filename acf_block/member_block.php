@@ -47,7 +47,7 @@ $render_member_card = function () {
                 </div>
                 <a href="<?php echo esc_url($button_link); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
                     <?php echo esc_html($btn_text); ?>
-                    <?php echo useSvg('right-arrow'); ?>
+                    <?php echo useSvg('right-arrow'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
                 </a>
             </div>
             <?php

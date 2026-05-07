@@ -154,29 +154,22 @@ function breadcrumb_section($id)
 	<div class="breadcrumb bg-n-10">
 		<div class="breadcrumb-menu container">
 			<div class="breadcrumb-menu__item">
-				<a href="<?php echo home_url(); ?>">Home</a>
+				<a href="<?php echo esc_url(home_url()); ?>">Home</a>
 			</div>
 			<div class="breadcrumb-menu__item">
-				<?php
-				if (is_singular()) {
-				?>
-					<a href="<?php echo get_post_type_archive_link($posttype); ?>">
-						<?php echo  $labels->name; ?>
+				<?php if (is_singular()) { ?>
+					<a href="<?php echo esc_url(get_post_type_archive_link($posttype)); ?>">
+						<?php echo esc_html($labels->name); ?>
 					</a>
-				<?php
-				} else {
-					echo  $labels->name;
-				}
-				if (is_singular()) {
-					// echo useSvg('page-navigation-next')
-				?>
+				<?php } else {
+					echo esc_html($labels->name);
+				} ?>
 			</div>
+			<?php if (is_singular()) { ?>
 			<div class="breadcrumb-menu__item">
-			<?php
-					echo get_the_title();
-				}
-			?>
+				<?php echo esc_html(get_the_title()); ?>
 			</div>
+			<?php } ?>
 		</div>
 	</div>
 
@@ -194,22 +187,18 @@ function custom_breadcrumb_section($id, $posttype, $labels)
 	$add_custom_breadcrumb     = (function_exists('get_field') && $add_custom_breadcrumb = get_field('add_custom_breadcrumb', $posttype . '_options')) ? $add_custom_breadcrumb : '';
 
 	if ($display_breadcrumb && $default_breadcrumb) {
-		echo breadcrumb_section($id);
+		echo breadcrumb_section($id); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- breadcrumb_section() returns pre-escaped HTML.
 	}
 	if ($display_breadcrumb && !$default_breadcrumb && $add_custom_breadcrumb) {
 	?>
 		<div class="breadcrumb bg-n-10">
 			<div class="breadcrumb-menu container">
-				<?php
-				foreach ($add_custom_breadcrumb as $key => $value) {
-				?>
+				<?php foreach ($add_custom_breadcrumb as $value) { ?>
 					<div class="breadcrumb-menu__item">
-						<a href="<?php echo $value['link']; ?>"> <?php echo $value['item']; ?> </a>
+						<a href="<?php echo esc_url($value['link']); ?>"> <?php echo esc_html($value['item']); ?> </a>
 					</div>
-				<?php
-				}
-				?>
-				<div class="breadcrumb-menu__item"> <?php echo  $labels->name; ?> </div>
+				<?php } ?>
+				<div class="breadcrumb-menu__item"> <?php echo esc_html($labels->name); ?> </div>
 			</div>
 		</div>
 <?php

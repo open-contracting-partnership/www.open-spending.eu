@@ -41,7 +41,7 @@ $realted_campaign = get_field('realted_campaign')['realted_campaign'];
 
             </div>
             <div class="mt-8 sm:mt-0 sm:col-start-4 sm:col-span-9 lg:col-span-7 text-base sm:text-lg single-detail-content">
-                <?php echo apply_filters('the_content', $content); ?>
+                <?php the_content(); ?>
             </div>
         </div>
     </div>
@@ -66,7 +66,7 @@ $realted_campaign = get_field('realted_campaign')['realted_campaign'];
                                 <span class="text-lg font-bold !text-n-100"><?php echo esc_html($campaign_title); ?></span>
                                 <span class="flex gap-x-2.5 items-center learn-more-btn mt-4">
                                     Learn More
-                                    <?php echo useSvg('right-arrow'); ?>
+                                    <?php echo useSvg('right-arrow'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
                                 </span>
                             </div>
                         </a>

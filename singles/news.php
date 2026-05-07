@@ -40,7 +40,7 @@ $tags = get_the_tags();
 
             </div>
             <div class="mt-8 sm:mt-0 sm:col-start-4 sm:col-span-9 lg:col-span-7 text-base sm:text-lg single-detail-content">
-                <?php echo apply_filters('the_content', $content); ?>
+                <?php the_content(); ?>
             </div>
         </div>
     </div>

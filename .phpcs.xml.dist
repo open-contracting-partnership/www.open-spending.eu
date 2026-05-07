@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruleset name="OpenSpendingCoalition">
+    <description>Coding standards for the Open Spending Coalition theme. Focuses on security and PHP/WP compatibility; style rules are intentionally narrow so CI stays useful rather than noisy.</description>
+
+    <file>.</file>
+
+    <exclude-pattern>*/dist/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/acf_json/*</exclude-pattern>
+
+    <arg name="extensions" value="php"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+    <arg name="parallel" value="8"/>
+
+    <config name="testVersion" value="7.4-"/>
+    <config name="minimum_supported_wp_version" value="6.1"/>
+    <config name="text_domain" value="openspendingcoalition"/>
+
+    <!-- Catch unsafe output: list custom helpers that internally escape -->
+    <rule ref="WordPress.Security.EscapeOutput">
+        <properties>
+            <property name="customAutoEscapedFunctions" type="array">
+                <element value="useSvg"/>
+                <element value="breadcrumb_section"/>
+                <element value="custom_query_pagination"/>
+                <element value="main_query_pagination"/>
+            </property>
+        </properties>
+    </rule>
+    <rule ref="WordPress.Security.NonceVerification"/>
+    <rule ref="WordPress.Security.ValidatedSanitizedInput"/>
+    <rule ref="WordPress.Security.SafeRedirect"/>
+    <rule ref="WordPress.Security.PluginMenuSlug"/>
+
+    <!-- Catch deprecated/incorrect WP API usage -->
+    <rule ref="WordPress.WP.DeprecatedFunctions"/>
+    <rule ref="WordPress.WP.DeprecatedParameters"/>
+    <rule ref="WordPress.WP.DeprecatedClasses"/>
+    <rule ref="WordPress.WP.EnqueuedResources"/>
+    <rule ref="WordPress.WP.PostsPerPage"/>
+
+    <!-- Generic PHP gotchas -->
+    <rule ref="WordPress.PHP.NoSilencedErrors"/>
+
+    <!-- Cross-version PHP compatibility checks -->
+    <rule ref="PHPCompatibilityWP"/>
+</ruleset>

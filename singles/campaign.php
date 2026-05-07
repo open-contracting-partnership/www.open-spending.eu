@@ -24,7 +24,7 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
             <div class="sm:col-span-1 lg:col-span-3">
             </div>
             <div class="lg:col-start-4 sm:col-span-10 lg:col-span-7 text-lg news-detail-content">
-                <?php echo apply_filters('the_content', $content); ?>
+                <?php the_content(); ?>
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
                             <div class="relative flex  items-center justify-center h-full container">
                                 <iframe width="642px" height="361px" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                 <div tabindex="0" class="absolute p-3 text-xs text-white border border-white border-solid rounded-full cursor-pointer video-close top-4 right-4">
-                                    <?php echo useSvg('cross-icon'); ?>
+                                    <?php echo useSvg('cross-icon'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +106,7 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
                             <p class="mt-2 text-sm text-n-60 mb-4"> <?php echo esc_html($excerpt); ?></p>
                             <a href="<?php echo esc_url(get_the_permalink()); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
                                 Learn more
-                                <?php echo useSvg('right-arrow'); ?>
+                                <?php echo useSvg('right-arrow'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
                             </a>
                         </div>
                     </div>
@@ -158,7 +158,7 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
                             <p class="mt-2.5 text-sm text-n-60 mb-4"> <?php echo esc_html($excerpt); ?></p>
                             <a href="<?php echo esc_url(get_the_permalink()); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
                                 Learn More
-                                <?php echo useSvg('right-arrow'); ?>
+                                <?php echo useSvg('right-arrow'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
                             </a>
                         </div>
                     </div>

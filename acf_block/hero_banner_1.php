@@ -26,7 +26,7 @@ $posttype = get_post_type($id);
                     class="mt-11 py-2.5 px-4 md:py-5 md:px-8 border border-[#FFF200] rounded-lg flex gap-x-4 sm:gap-x-6 hero-btn max-w-fit items-center">
                     <p class="text-lg text-n-0 transition-all duration-[400ms]"><?php echo esc_html($button_text); ?>
                     </p>
-                    <?php echo useSvg('right-arrow'); ?>
+                    <?php echo useSvg('right-arrow'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
                 </div>
             </a>
         </div>
@@ -51,7 +51,7 @@ if (is_archive()) {
 if (is_search()) {
 ?>
 <div class="single-header text-n-0 pb-10">
-    <h1 class="font-bold"><?php echo 'Search results for: ' . esc_html($_GET['s'] ?? ''); ?></h1>
+    <h1 class="font-bold">Search results for: <?php echo esc_html(sanitize_text_field(wp_unslash($_GET['s'] ?? ''))); ?></h1>
 </div>
 <?php
 } else if ((is_single() || ($posttype == 'page')) && !is_front_page() && !is_admin()) {

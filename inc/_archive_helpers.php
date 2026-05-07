@@ -157,7 +157,7 @@ function render_filterable_archive($posttype)
                         <div class="mt-4">
                             <a href="<?php echo esc_url($permalink); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
                                 Learn More
-                                <?php echo useSvg('right-arrow'); ?>
+                                <?php echo useSvg('right-arrow'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
                             </a>
                         </div>
                     </div>
@@ -183,7 +183,7 @@ function render_filterable_archive($posttype)
                 }
                 $no_result_msg = $parts ? esc_html(implode(' and ', $parts)) : '';
             ?>
-            <h3 class="font-medium text-n-80">No data available for selected <?php echo $no_result_msg; ?></h3>
+            <h3 class="font-medium text-n-80">No data available for selected <?php echo $no_result_msg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pre-escaped above. ?></h3>
         </div>
         <?php
         }
@@ -244,7 +244,7 @@ function render_other_posts_grid($posttype, $exclude_id, $heading, $excerpt_leng
                         <p class="mt-2 text-sm text-n-60 mb-4"><?php echo esc_html($card_excerpt); ?></p>
                         <a href="<?php echo esc_url(get_the_permalink()); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
                             Learn more
-                            <?php echo useSvg('right-arrow'); ?>
+                            <?php echo useSvg('right-arrow'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
                         </a>
                     </div>
                 </div>
