@@ -162,17 +162,23 @@ jQuery(function ($) {
    */
   $(".campaign-vid-thumbnail").on("click", function () {
     var source = $(this).attr("data-src");
-    if (!/^https:\/\/(www\.)?youtube(-nocookie)?\.com\/embed\//.test(source)) {
+    var match = source && source.match(
+      /(?:youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([\w-]{11})/
+    );
+    if (!match) {
       return;
     }
+    var embedUrl = "https://www.youtube.com/embed/" + match[1];
+    var $modal = $(this).siblings(".video-page");
     $("body").css("overflow-y", "hidden");
-    $(".video-page").addClass("show");
-    $("iframe").attr("src", source);
+    $modal.addClass("show");
+    $modal.find("iframe").attr("src", embedUrl);
   });
   $(".video-close").on("click", function () {
+    var $modal = $(this).closest(".video-page");
     $("body").css("overflow-y", "auto");
-    $(".video-page").removeClass("show");
-    $("iframe").attr("src", $("iframe").attr("src"));
+    $modal.removeClass("show");
+    $modal.find("iframe").attr("src", "");
   });
 
   /**

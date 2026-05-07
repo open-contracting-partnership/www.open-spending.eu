@@ -40,9 +40,11 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
                     $youtube_embed_url = $video['youtube_embed_url'];
                     $thumbnail_image   = ($video['thumbnail_image']) ? $video['thumbnail_image'] : get_template_directory_uri() . '/dist/images/sample-image.jpg';
                     $video_title       = ($video['video_title']) ? $video['video_title'] : 'Poverty in Europe';
+                    $has_video         = (bool) $youtube_embed_url;
+                    $thumb_class       = $has_video ? 'campaign-vid-thumbnail' : 'campaign-vid-thumbnail--empty';
                 ?>
                     <div>
-                        <div class="pt-[60%] campaign-vid-thumbnail relative" data-src="<?php echo esc_url($youtube_embed_url); ?>">
+                        <div class="pt-[60%] <?php echo esc_attr($thumb_class); ?> relative"<?php if ($has_video) : ?> data-src="<?php echo esc_url($youtube_embed_url); ?>"<?php endif; ?>>
                             <img src="<?php echo esc_url($thumbnail_image); ?>" alt="<?php echo esc_attr($video_title); ?>" class="absolute top-0 h-full w-full object-cover rounded-xl">
 
                             <div class="video-title absolute left-5 bottom-4 z-20">
@@ -50,6 +52,7 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
                             </div>
                         </div>
 
+                        <?php if ($has_video) : ?>
                         <div class="fixed z-30 top-0 left-0 w-screen h-screen video-page">
                             <div class="relative flex  items-center justify-center h-full container">
                                 <iframe width="642px" height="361px" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -58,6 +61,7 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
                                 </div>
                             </div>
                         </div>
+                        <?php endif; ?>
                     </div>
                 <?php } ?>
             </div>
