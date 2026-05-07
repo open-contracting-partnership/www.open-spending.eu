@@ -29,6 +29,16 @@ body.post-type-archive-campaign {
   }
 }
 
+// Same gradient overlay as the playable thumbnail, no play icon and no
+// pointer cursor — used when the youtube_embed_url field is empty.
+.campaign-vid-thumbnail--empty {
+  &:after {
+    content: "";
+    background: linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 97.63%);
+    @apply absolute top-0 h-full w-full rounded-xl;
+  }
+}
+
 .video-page {
   background: rgb(0 0 0 / 50%);
   visibility: hidden;
