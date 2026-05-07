@@ -15,8 +15,6 @@ body.block-editor-iframe__body {
   }
   .hero_banner_1 {
     display: block;
-    // padding-top: 234px;
-    // padding-bottom: 324px;
   }
   .post-title-osc.wp-block-post-title {
     display: none;
@@ -24,26 +22,9 @@ body.block-editor-iframe__body {
   main {
     margin-top: 0 !important;
   }
-
-  // header {
-  //   position: relative;
-  // }
-  // .hero-image {
-  //   position: absolute;
-  //   height: 100%;
-  //   top: 0;
-  //   right: 0;
-  //   width: 100%;
-  // }
-  // .wp-container-6 {
-  //   position: relative;
-  //   z-index: 5;
-  //   @apply container;
-  // }
 }
 
 header {
-  // background-image: url(../../../dist/images/Hero.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

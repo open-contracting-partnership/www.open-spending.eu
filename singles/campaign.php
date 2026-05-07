@@ -2,7 +2,6 @@
 
 $id = get_the_ID();
 $posttype = get_post_type($id);
-$content = get_the_content();
 $feature_img = get_the_post_thumbnail_url();
 
 $campaign_videos = get_field('campaign')['campaign_videos'];

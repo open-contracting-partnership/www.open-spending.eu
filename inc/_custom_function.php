@@ -10,18 +10,7 @@ function excerpt($limit = 115)
 	return $excerpt;
 }
 
-// get limit value then retuen post post_title value of certain limit
-function post_title_limit($limit = 45)
-{
-	$post_title = get_the_title();
-	if ($post_title) {
-		$post_title = substr($post_title, 0,  $limit) . '...';
-	}
-	return $post_title;
-}
-
-
-// get post id and Taxonomy then return the string of all the taxonomy slug associated with post id 
+// get post id and Taxonomy then return the string of all the taxonomy slug associated with post id
 function taxoTermsSLug($id, $taxonomy_val)
 {
 	$termsArray = get_the_terms($id, $taxonomy_val);
@@ -34,19 +23,7 @@ function taxoTermsSLug($id, $taxonomy_val)
 	return $termsSLug;
 }
 
-function taxoTermsName($id, $taxonomy_val)
-{
-	$termsArray = get_the_terms($id, $taxonomy_val);
-	$termsName = "";
-	if ($termsArray) {
-		foreach ($termsArray as $term) {
-			$termsName .= $term->name . ' ';
-		}
-	}
-	return $termsName;
-}
-
-// Display svg icons  
+// Display svg icons
 
 if (!function_exists('useSvg')) {
 	function useSvg($filename = 'long-arrow-right')
@@ -205,21 +182,6 @@ function custom_breadcrumb_section($id, $posttype, $labels)
 	}
 }
 
-
-/**
- * =========================================================
- * Current URL
- * =========================================================
- */
-if (!function_exists('get_current_page_link')) {
-	function get_current_page_link()
-	{
-		global $wp;
-		$url = home_url($wp->request);
-
-		return $url;
-	}
-}
 
 // get all the taxo for post types
 function get_tax_post_type($posttype, $taxonomies)
