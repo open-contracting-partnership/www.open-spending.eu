@@ -161,9 +161,12 @@ jQuery(function ($) {
    * =================================================
    */
   $(".campaign-vid-thumbnail").on("click", function () {
+    var source = $(this).attr("data-src");
+    if (!/^https:\/\/(www\.)?youtube(-nocookie)?\.com\/embed\//.test(source)) {
+      return;
+    }
     $("body").css("overflow-y", "hidden");
     $(".video-page").addClass("show");
-    var source = $(this).attr("data-src");
     $("iframe").attr("src", source);
   });
   $(".video-close").on("click", function () {

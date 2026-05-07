@@ -11,3 +11,5 @@ require_once  dirname (__FILE__).'/_acf_register_block_type.php';
 
 require_once  dirname (__FILE__).'/_pre_get_posts.php';
 
+require_once  dirname (__FILE__).'/_archive_helpers.php';
+

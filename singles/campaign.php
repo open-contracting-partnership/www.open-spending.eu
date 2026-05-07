@@ -2,12 +2,9 @@
 
 $id = get_the_ID();
 $posttype = get_post_type($id);
-$permalink = get_the_permalink($id);
-$title = get_the_title();
 $content = get_the_content();
 $feature_img = get_the_post_thumbnail_url();
 
-$campaign_date = get_field('campaign')['date'];
 $campaign_videos = get_field('campaign')['campaign_videos'];
 
 ?>
@@ -16,10 +13,10 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
 
 <div class="container py-10 sm:pt-16 lg:pb-28">
 
-    <div class="<?php echo $posttype . '-' . $id ?> ">
+    <div class="<?php echo esc_attr($posttype . '-' . $id); ?> ">
         <?php if ($feature_img) { ?>
             <div class="pt-[45%] relative">
-                <img src="<?php echo $feature_img; ?>" alt="feature_img" class=" absolute top-0 h-full w-full object-cover rounded-xl">
+                <img src="<?php echo esc_url($feature_img); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class=" absolute top-0 h-full w-full object-cover rounded-xl">
             </div>
         <?php } ?>
 
@@ -27,7 +24,7 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
             <div class="sm:col-span-1 lg:col-span-3">
             </div>
             <div class="lg:col-start-4 sm:col-span-10 lg:col-span-7 text-lg news-detail-content">
-                <?php echo $content; ?>
+                <?php echo apply_filters('the_content', $content); ?>
             </div>
         </div>
     </div>
@@ -40,18 +37,17 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
             </div>
             <hr class="bg-n-100 h-1">
             <div class="py-8 sm:pt-9 sm:pb-12 grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                <?php
-                foreach ($campaign_videos as $video) {
+                <?php foreach ($campaign_videos as $video) {
                     $youtube_embed_url = $video['youtube_embed_url'];
-                    $thumbnail_image = ($video['thumbnail_image']) ? $video['thumbnail_image'] : get_template_directory_uri() . '/dist/images/sample-image.jpg';
-                    $video_title = ($video['video_title']) ? $video['video_title'] : 'Poverty in Europe';
+                    $thumbnail_image   = ($video['thumbnail_image']) ? $video['thumbnail_image'] : get_template_directory_uri() . '/dist/images/sample-image.jpg';
+                    $video_title       = ($video['video_title']) ? $video['video_title'] : 'Poverty in Europe';
                 ?>
                     <div>
-                        <div class="pt-[60%] campaign-vid-thumbnail relative" data-src="<?php echo $youtube_embed_url; ?>">
-                            <img src="<?php echo $thumbnail_image; ?> " class="absolute top-0 h-full w-full object-cover rounded-xl">
+                        <div class="pt-[60%] campaign-vid-thumbnail relative" data-src="<?php echo esc_url($youtube_embed_url); ?>">
+                            <img src="<?php echo esc_url($thumbnail_image); ?>" alt="<?php echo esc_attr($video_title); ?>" class="absolute top-0 h-full w-full object-cover rounded-xl">
 
                             <div class="video-title absolute left-5 bottom-4 z-20">
-                                <p class="font-bold text-n-0"><?php echo $video_title; ?></p>
+                                <p class="font-bold text-n-0"><?php echo esc_html($video_title); ?></p>
                             </div>
                         </div>
 
@@ -59,36 +55,30 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
                             <div class="relative flex  items-center justify-center h-full container">
                                 <iframe width="642px" height="361px" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                 <div tabindex="0" class="absolute p-3 text-xs text-white border border-white border-solid rounded-full cursor-pointer video-close top-4 right-4">
-                                    <?php echo useSvg('cross-icon') ?>
+                                    <?php echo useSvg('cross-icon'); ?>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                <?php
-                }
-                ?>
+                <?php } ?>
             </div>
         </div>
-    <?php
-    }
-    ?>
+    <?php } ?>
 
 
     <!-- Related news  -->
     <?php
     $args = array(
-        'post_type'             => 'news',
-        'posts_per_page'        => '3',
-        'post_status'           => array('publish'),
-        'meta_query'    => array(
+        'post_type'      => 'news',
+        'posts_per_page' => 3,
+        'post_status'    => array('publish'),
+        'meta_query'     => array(
             array(
-                'key'       => 'realted_campaign_realted_campaign',
-                'value'     => $id,
-                'compare'   => 'LIKE'
-            )
-        )
-
+                'key'     => 'realted_campaign_realted_campaign',
+                'value'   => $id,
+                'compare' => 'LIKE',
+            ),
+        ),
     );
     $current_id = $id;
     $the_query = new WP_Query($args);
@@ -102,39 +92,34 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
                     $the_query->the_post();
                     $news_id = get_the_ID();
                     $excerpt = excerpt(115);
-                    $post_title_limit = get_the_title();
                     $feature_img = (has_post_thumbnail()) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
                 ?>
-                    <div id="news_<?php echo $news_id; ?>" class="p-5 border border-n-30 rounded-3xl news-card-hover">
+                    <div id="news_<?php echo (int) $news_id; ?>" class="p-5 border border-n-30 rounded-3xl news-card-hover">
                         <div class="pt-[63.8%] relative">
-                            <a href="<?php echo get_the_permalink(); ?>">
-                                <img src="<?php echo $feature_img; ?>" alt="news-image" class=" absolute top-0 h-full w-full object-cover rounded-2xl ">
+                            <a href="<?php echo esc_url(get_the_permalink()); ?>">
+                                <img src="<?php echo esc_url($feature_img); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class=" absolute top-0 h-full w-full object-cover rounded-2xl ">
                             </a>
                         </div>
                         <div class="pt-6">
-                            <a href="<?php echo get_the_permalink(); ?>" class="text-heading-3 font-bold !text-n-100 card-title-hover leading-tight">
-                                <?php echo $post_title_limit; ?></a>
-                            <p class="mt-2 text-sm text-n-60 mb-4"> <?php echo $excerpt; ?></p>
-                            <a href="<?php echo get_the_permalink(); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
+                            <a href="<?php echo esc_url(get_the_permalink()); ?>" class="text-heading-3 font-bold !text-n-100 card-title-hover leading-tight">
+                                <?php echo esc_html(get_the_title()); ?></a>
+                            <p class="mt-2 text-sm text-n-60 mb-4"> <?php echo esc_html($excerpt); ?></p>
+                            <a href="<?php echo esc_url(get_the_permalink()); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
                                 Learn more
-                                <?php echo useSvg('right-arrow') ?>
+                                <?php echo useSvg('right-arrow'); ?>
                             </a>
                         </div>
                     </div>
-                <?php
-                }
-                ?>
+                <?php } ?>
             </div>
 
             <div class="flex justify-center mt-8">
-                <a href="<?php echo home_url(); ?>/news/?campaign_post=<?php echo $current_id; ?>" class="!text-n-100 font-bold py-2.5 px-4 border border-teal rounded-lg transition-all duration-300 hover:bg-teal hover:!text-n-0">
+                <a href="<?php echo esc_url(add_query_arg('campaign_post', $current_id, home_url('/news/'))); ?>" class="!text-n-100 font-bold py-2.5 px-4 border border-teal rounded-lg transition-all duration-300 hover:bg-teal hover:!text-n-0">
                     View all news
                 </a>
             </div>
         </div>
-    <?php
-    }
-    // Reset Post Data
+    <?php }
     wp_reset_postdata();
     ?>
 </div>
@@ -146,10 +131,10 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
         <h2 class="font-bold">Other Campaigns</h2>
         <?php
         $args = array(
-            'post_type'             => 'campaign',
-            'posts_per_page'        => '2',
-            'post_status'           => array('publish'),
-            'post__not_in' => array($id)
+            'post_type'      => 'campaign',
+            'posts_per_page' => 2,
+            'post_status'    => array('publish'),
+            'post__not_in'   => array($id),
         );
         $the_query = new WP_Query($args);
         if ($the_query->have_posts()) { ?>
@@ -157,34 +142,30 @@ $campaign_videos = get_field('campaign')['campaign_videos'];
                 <?php
                 while ($the_query->have_posts()) {
                     $the_query->the_post();
-                    $campaign_id = get_the_ID();
+                    $other_campaign_id = get_the_ID();
                     $excerpt = excerpt(115);
-                    $post_title_limit = get_the_title();
                     $feature_img = (has_post_thumbnail()) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
                 ?>
-                    <div id="campaign_<?php echo $campaign_id; ?>" class="card-subtle-hover bg-n-0 rounded-3xl">
+                    <div id="campaign_<?php echo (int) $other_campaign_id; ?>" class="card-subtle-hover bg-n-0 rounded-3xl">
                         <div class="pt-[65%] relative card-image-container">
-                            <a href="<?php echo get_the_permalink(); ?>">
-                                <img src="<?php echo $feature_img; ?>" alt="campaign-image" class=" absolute top-0 h-full w-full object-cover rounded-t-3xl">
+                            <a href="<?php echo esc_url(get_the_permalink()); ?>">
+                                <img src="<?php echo esc_url($feature_img); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class=" absolute top-0 h-full w-full object-cover rounded-t-3xl">
                             </a>
                         </div>
                         <div class="bg-n-0 px-8 sm:px-12 py-6 rounded-b-3xl">
-                            <a href="<?php echo get_the_permalink(); ?>" class="text-lg font-bold !text-n-100 card-title-hover">
-                                <?php echo $post_title_limit; ?></a>
-                            <p class="mt-2.5 text-sm text-n-60 mb-4"> <?php echo $excerpt; ?></p>
-                            <a href="<?php echo get_the_permalink(); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
+                            <a href="<?php echo esc_url(get_the_permalink()); ?>" class="text-lg font-bold !text-n-100 card-title-hover">
+                                <?php echo esc_html(get_the_title()); ?></a>
+                            <p class="mt-2.5 text-sm text-n-60 mb-4"> <?php echo esc_html($excerpt); ?></p>
+                            <a href="<?php echo esc_url(get_the_permalink()); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
                                 Learn More
-                                <?php echo useSvg('right-arrow') ?>
+                                <?php echo useSvg('right-arrow'); ?>
                             </a>
                         </div>
                     </div>
-                <?php
-                }
-                ?>
+                <?php } ?>
             </div>
-        <?php
-        }
-        // Reset Post Data
+        <?php }
         wp_reset_postdata();
         ?>
     </div>
+</div>
