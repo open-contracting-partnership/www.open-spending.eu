@@ -205,15 +205,6 @@ jQuery(function ($) {
 
   /**
    * =================================================
-   * place this placeholder ath bottom of the code
-   *
-   * @if no bugs this code will appear in console
-   * =================================================
-   */
-  console.log("App Loaded Successfully.");
-
-  /**
-   * =================================================
    * Who we are section animation
    * =================================================
    */

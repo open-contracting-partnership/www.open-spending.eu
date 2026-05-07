@@ -195,7 +195,7 @@ function cptui_register_my_cpts()
 		"show_in_menu" => true,
 		"show_in_nav_menus" => true,
 		"delete_with_user" => false,
-		"exclude_from_search" => false,
+		"exclude_from_search" => true,
 		"capability_type" => "post",
 		"map_meta_cap" => true,
 		"hierarchical" => true,
@@ -205,7 +205,6 @@ function cptui_register_my_cpts()
 		"menu_icon" => "dashicons-groups",
 		"supports" => ["title", "editor", "thumbnail"],
 		"show_in_graphql" => false,
-		'exclude_from_search' => true
 	];
 	register_post_type("member", $args);
 

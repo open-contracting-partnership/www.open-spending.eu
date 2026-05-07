@@ -1,11 +1,11 @@
 <?php
 
-// get limit value then retuen post excerpt value of certain limit
+// get limit value then return post excerpt value of certain limit
 function excerpt($limit = 115)
 {
 	$excerpt = get_the_excerpt();
 	if ($excerpt) {
-		$excerpt = substr($excerpt, 0,  $limit) . '...';
+		$excerpt = mb_substr($excerpt, 0, $limit) . '...';
 	}
 	return $excerpt;
 }
