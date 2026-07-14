@@ -4,7 +4,8 @@ $id = get_the_ID();
 $posttype = get_post_type($id);
 $feature_img = get_the_post_thumbnail_url();
 
-$campaign_videos = get_field('campaign')['campaign_videos'];
+$campaign = get_field('campaign');
+$campaign_videos = (is_array($campaign) && isset($campaign['campaign_videos'])) ? $campaign['campaign_videos'] : null;
 
 ?>
 

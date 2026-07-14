@@ -6,7 +6,8 @@ $feature_img = get_the_post_thumbnail_url();
 $published_date = get_the_date('d M, Y');
 $tags = get_the_tags();
 
-$realted_campaign = get_field('realted_campaign')['realted_campaign'];
+$realted_campaign = get_field('realted_campaign');
+$realted_campaign = (is_array($realted_campaign) && isset($realted_campaign['realted_campaign'])) ? $realted_campaign['realted_campaign'] : null;
 
 ?>
 

@@ -49,8 +49,8 @@ function main_query_pagination()
 	$leftIcon = useSvg('page-navigation-prev');
 
 	$paginate =  paginate_links(array(
-		'prev_text'     => sprintf($leftIcon),
-		'next_text'     => sprintf($rightIcon),
+		'prev_text'     => $leftIcon,
+		'next_text'     => $rightIcon,
 	));
 
 	$html_paginate = "";
@@ -84,8 +84,8 @@ function custom_query_pagination($query, $paged)
 		'end_size'     => 4,
 		'mid_size'     => 1,
 		'prev_next'    => true,
-		'prev_text'    => sprintf($leftIcon),
-		'next_text'    => sprintf($rightIcon),
+		'prev_text'    => $leftIcon,
+		'next_text'    => $rightIcon,
 		'add_args'     => false,
 		'add_fragment' => '',
 	));

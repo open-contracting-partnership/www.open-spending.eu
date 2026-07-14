@@ -3,8 +3,9 @@
 $heading                  = (function_exists('get_field') && $heading = get_field('heading')) ? $heading : '';
 $heading_body             = (function_exists('get_field') && $heading_body = get_field('heading_body')) ? $heading_body : '';
 $form_short_code          = (function_exists('get_field') && $form_short_code = get_field('form_short_code')) ? $form_short_code : '';
-$side_information_heading = (function_exists('get_field') && $side_information_heading = get_field('side_information')['heading']) ? $side_information_heading : '';
-$side_information_body    = (function_exists('get_field') && $side_information_body = get_field('side_information')['heading_body']) ? $side_information_body : '';
+$side_information         = (function_exists('get_field')) ? get_field('side_information') : null;
+$side_information_heading = is_array($side_information) ? ($side_information['heading'] ?? '') : '';
+$side_information_body    = is_array($side_information) ? ($side_information['heading_body'] ?? '') : '';
 
 $social_links = [
     [

@@ -9,8 +9,8 @@ function render_filterable_archive($posttype)
     $taxonomies = 'country';
     $terms      = get_tax_post_type($posttype, $taxonomies);
 
-    $get_campaign = isset($_GET['campaign_post']) ? absint($_GET['campaign_post']) : 0;
-    $get_country  = isset($_GET['taxonomy_country']) ? sanitize_title(wp_unslash($_GET['taxonomy_country'])) : '';
+    $get_campaign = isset($_GET['campaign_post']) ? absint($_GET['campaign_post']) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Public read-only archive filter, input sanitized.
+    $get_country  = isset($_GET['taxonomy_country']) ? sanitize_title(wp_unslash($_GET['taxonomy_country'])) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Public read-only archive filter, input sanitized.
 
     // Build the list of campaigns referenced by any post of this type
     $campaign_filter_data = [];

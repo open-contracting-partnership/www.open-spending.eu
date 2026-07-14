@@ -51,7 +51,7 @@ if (is_archive()) {
 if (is_search()) {
 ?>
 <div class="single-header text-n-0 pb-10">
-    <h1 class="font-bold">Search results for: <?php echo esc_html(sanitize_text_field(wp_unslash($_GET['s'] ?? ''))); ?></h1>
+    <h1 class="font-bold">Search results for: <?php echo esc_html(sanitize_text_field(wp_unslash($_GET['s'] ?? ''))); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Public read-only search query, input sanitized. ?></h1>
 </div>
 <?php
 } else if ((is_single() || ($posttype == 'page')) && !is_front_page() && !is_admin()) {

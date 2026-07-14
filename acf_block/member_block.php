@@ -17,7 +17,8 @@ $the_query = new WP_Query($args);
 
 $render_member_card = function () {
     $member_id = get_the_ID();
-    $logoprofile_photo = get_field('members', $member_id)['logoprofile_photo'];
+    $members = get_field('members', $member_id);
+    $logoprofile_photo = is_array($members) ? ($members['logoprofile_photo'] ?? '') : '';
     $photo_src = ($logoprofile_photo) ? $logoprofile_photo : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
     ?>
     <div id="member_<?php echo (int) $member_id; ?>" class="member-item mb-6">

@@ -26,8 +26,9 @@ $the_query = new WP_Query($args);
                     while ($the_query->have_posts()) {
                         $the_query->the_post();
                         $member_id = get_the_ID();
-                        $logoprofile_photo = get_field('members', $member_id)['logoprofile_photo'];
-                        $website = get_field('members', $member_id)['website'];
+                        $members = get_field('members', $member_id);
+                        $logoprofile_photo = is_array($members) ? ($members['logoprofile_photo'] ?? '') : '';
+                        $website = is_array($members) ? ($members['website'] ?? '') : '';
                         $logo_src = ($logoprofile_photo) ? $logoprofile_photo : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
                 ?>
                 <div>
