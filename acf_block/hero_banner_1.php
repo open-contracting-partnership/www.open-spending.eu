@@ -5,11 +5,25 @@ $paragraph   = (function_exists('get_field') && $paragraph = get_field('paragrap
 $button_text = (function_exists('get_field') && $button_text = get_field('button_text')) ? $button_text : 'Why Open Spending?';
 
 $button_url = home_url('/about-the-organization/');
+$image      = get_template_directory_uri() . '/dist/images/hero.png';
 
 $id       = get_the_ID();
 $posttype = get_post_type($id);
 
 ?>
+
+<?php if ($image) { ?>
+<style>
+header {
+    background-image: url(<?php echo esc_url($image); ?>);
+    background-attachment: fixed;
+}
+
+.block-editor-page .single-header h1 {
+    display: none;
+}
+</style>
+<?php } ?>
 
 <canvas id="heroCanvas"></canvas>
 <section class="hero_banner_1">

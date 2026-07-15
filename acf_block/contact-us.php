@@ -3,11 +3,17 @@
 $heading                  = (function_exists('get_field') && $heading = get_field('heading')) ? $heading : '';
 $heading_body             = (function_exists('get_field') && $heading_body = get_field('heading_body')) ? $heading_body : '';
 $form_short_code          = (function_exists('get_field') && $form_short_code = get_field('form_short_code')) ? $form_short_code : '';
-$side_information         = (function_exists('get_field')) ? get_field('side_information') : null;
-$side_information_heading = is_array($side_information) ? ($side_information['heading'] ?? '') : '';
-$side_information_body    = is_array($side_information) ? ($side_information['heading_body'] ?? '') : '';
+$side_information            = (function_exists('get_field')) ? get_field('side_information') : null;
+$side_information_heading    = is_array($side_information) ? ($side_information['heading'] ?? '') : '';
+$side_information_body       = is_array($side_information) ? ($side_information['heading_body'] ?? '') : '';
+$side_information_background  = get_template_directory_uri() . '/dist/images/sidebar-picture.png';
 
 $social_links = [
+    [
+        'icon'  => 'email',
+        'label' => 'coalition@open-spending.eu',
+        'url'   => 'mailto:coalition@open-spending.eu',
+    ],
     [
         'icon'  => 'twitter',
         'label' => 'Twitter',
@@ -31,7 +37,7 @@ $social_links = [
     <h2 class="font-bold"><?php echo wp_kses_post($heading); ?></h2>
     <p class="sm:mt-4 text-base sm:text-lg"><?php echo wp_kses_post($heading_body); ?></p>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 mt-6 sm:mt-9">
-        <div class="lg:col-span-5 px-8 py-10 sm:py-14 md:pt-24 sm:pl-14 md:pl-8 lg:pl-14 sm:pr-11 rounded-t-lg md:rounded-tr-none md:rounded-l-lg text-n-0 contact-us-background">
+        <div class="lg:col-span-5 px-8 py-10 sm:py-14 md:pt-24 sm:pl-14 md:pl-8 lg:pl-14 sm:pr-11 rounded-t-lg md:rounded-tr-none md:rounded-l-lg text-n-0 contact-us-background"<?php if ($side_information_background) { ?> style="background-image: url(<?php echo esc_url($side_information_background); ?>);"<?php } ?>>
             <h3 class="font-bold"><?php echo wp_kses_post($side_information_heading); ?></h3>
             <p class="text-base pt-1 sm:pt-4"><?php echo wp_kses_post($side_information_body); ?></p>
             <ul class="mt-8 sm:mt-12 contact-admin">
