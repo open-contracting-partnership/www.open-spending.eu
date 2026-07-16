@@ -19,7 +19,8 @@ if (have_posts()) {
         if (!is_array($member_fields)) {
             continue;
         }
-        $type_of_member    = $member_fields['type_of_member'] ?? '';
+        $member_terms      = get_the_terms($member_id, 'type_of_member');
+        $type_of_member    = (is_array($member_terms) && $member_terms) ? $member_terms[0]->name : '';
         $logoprofile_photo = $member_fields['logoprofile_photo'] ?? '';
         $address           = $member_fields['address'] ?? '';
         $email             = $member_fields['email'] ?? '';

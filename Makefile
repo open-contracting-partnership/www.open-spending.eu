@@ -172,6 +172,16 @@ wp-link: ## Symlink the WP theme dir to THIS checkout (current branch)
 build: ## Compile SCSS/JS into dist/ (Node 20 + pinned webpack, via Docker)
 	@bash "$(REPO)/dev/build.sh"
 
+.PHONY: migrate
+migrate: ## Run one-time data migrations (migrations/*.php) against the dev DB
+	@shopt -s nullglob; files=("$(REPO)"/migrations/*.php); \
+	[ $${#files[@]} -gt 0 ] || { echo "no migrations"; exit 0; }; \
+	for f in "$${files[@]}"; do \
+		echo ">> $$(basename "$$f")"; \
+		php -d display_errors=1 -d error_reporting=E_ALL \
+			-r "define('WP_USE_THEMES', false); require '$(WP_ROOT)/wp-load.php'; require '$$f';"; \
+	done
+
 # ---- Lifecycle -------------------------------------------------------------
 
 .PHONY: open

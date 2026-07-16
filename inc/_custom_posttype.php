@@ -233,6 +233,7 @@ function cptui_register_my_cpts()
 		"show_in_rest" => true,
 		"show_tagcloud" => true,
 		"rest_base" => "type_of_member",
+		"meta_box_cb" => "member_type_meta_box",
 		"rest_controller_class" => "WP_REST_Terms_Controller",
 		"rest_namespace" => "wp/v2",
 		"show_in_quick_edit" => true,
@@ -327,3 +328,34 @@ function cptui_register_my_cpts()
 	register_post_type("best_practices", $args);
 }
 add_action('init', 'cptui_register_my_cpts');
+
+/**
+ * Single-select (radio) metabox for the type_of_member taxonomy — a member is
+ * exactly one Person or Organization. Core saves the choice via `tax_input`.
+ */
+function member_type_meta_box($post)
+{
+	$taxonomy = 'type_of_member';
+	$terms    = get_terms(["taxonomy" => $taxonomy, "hide_empty" => false]);
+	if (is_wp_error($terms) || !$terms) {
+		echo '<p>' . esc_html__('No member types defined.', 'openspendingcoalition') . '</p>';
+		return;
+	}
+
+	$assigned = wp_get_object_terms($post->ID, $taxonomy, ["fields" => "ids"]);
+	$current  = (!is_wp_error($assigned) && $assigned) ? (int) $assigned[0] : 0;
+
+	// A leading empty value keeps the field present in POST so a member can be cleared.
+	echo '<input type="hidden" name="tax_input[' . esc_attr($taxonomy) . '][]" value="0" />';
+	echo '<ul class="category-tabs" style="margin:6px 0;">';
+	foreach ($terms as $term) {
+		printf(
+			'<li><label><input type="radio" name="tax_input[%1$s][]" value="%2$d" %3$s> %4$s</label></li>',
+			esc_attr($taxonomy),
+			(int) $term->term_id,
+			checked($current, (int) $term->term_id, false),
+			esc_html($term->name)
+		);
+	}
+	echo '</ul>';
+}

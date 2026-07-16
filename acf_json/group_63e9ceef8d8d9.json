@@ -24,42 +24,6 @@
             "acfe_group_modal_size": "large",
             "sub_fields": [
                 {
-                    "key": "field_63ff15de1ad67",
-                    "label": "Type of Member",
-                    "name": "type_of_member",
-                    "aria-label": "",
-                    "type": "acfe_taxonomy_terms",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "taxonomy": "",
-                    "allow_terms": [
-                        "all_type_of_member"
-                    ],
-                    "allow_level": "",
-                    "field_type": "select",
-                    "default_value": [],
-                    "return_format": "name",
-                    "ui": 0,
-                    "allow_null": 0,
-                    "multiple": 0,
-                    "save_terms": 1,
-                    "load_terms": 0,
-                    "choices": [],
-                    "ajax": 0,
-                    "placeholder": "",
-                    "search_placeholder": "",
-                    "layout": "",
-                    "toggle": 0,
-                    "allow_custom": 0,
-                    "other_choice": 0
-                },
-                {
                     "key": "field_63e9cf8701d32",
                     "label": "Logo\/Profile Photo",
                     "name": "logoprofile_photo",
