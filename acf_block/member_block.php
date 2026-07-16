@@ -2,7 +2,7 @@
 $heading     = (function_exists('get_field') && $heading = get_field('heading')) ? $heading : '';
 $paragraph   = (function_exists('get_field') && $paragraph = get_field('paragraph')) ? $paragraph : '';
 $btn_text    = (function_exists('get_field') && $btn_text = get_field('btn_text')) ? $btn_text : 'See more';
-$button_link = (function_exists('get_field') && $button_link = get_field('button_link')) ? $button_link : home_url('/member');
+$button_link = get_post_type_archive_link('member');
 
 $args = array(
     'post_type'      => 'member',
