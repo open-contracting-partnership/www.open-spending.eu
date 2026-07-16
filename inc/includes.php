@@ -15,3 +15,5 @@ require_once  dirname (__FILE__).'/_archive_helpers.php';
 
 require_once  dirname (__FILE__).'/_seo.php';
 
+require_once  dirname (__FILE__).'/_analytics.php';
+
