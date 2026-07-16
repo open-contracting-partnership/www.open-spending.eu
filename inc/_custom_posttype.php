@@ -161,7 +161,7 @@ function cptui_register_my_cpts()
 		"rewrite" => ["slug" => "campaign", "with_front" => true],
 		"query_var" => true,
 		"menu_icon" => "dashicons-megaphone",
-		"supports" => ["title", "editor", "thumbnail"],
+		"supports" => ["title", "editor", "thumbnail", "page-attributes"],
 		"show_in_graphql" => false,
 	];
 	register_post_type("campaign", $args);
