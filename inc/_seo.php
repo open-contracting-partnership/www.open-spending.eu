@@ -1,0 +1,242 @@
+<?php
+
+/**
+ * Lightweight, theme-native SEO — a drop-in alternative to the Rank Math plugin
+ * for what this site actually uses:
+ *
+ *   - <title>            -> WordPress core (add_theme_support('title-tag'))
+ *   - meta description   -> here (excerpt / tagline)
+ *   - robots / noindex   -> here (member singles, search, 404) via wp_robots
+ *   - canonical          -> core for singular; here for front page + archives
+ *   - Open Graph/Twitter -> here (featured image, with a site-wide fallback)
+ *   - JSON-LD schema     -> here (Organization + WebSite, front page only)
+ *   - XML sitemap        -> WordPress core (wp-sitemap.xml), tuned here
+ *
+ * It stays DORMANT while Rank Math (or Yoast) is active, so it can be committed
+ * and compared side-by-side before the plugin is removed.
+ */
+
+// Let the SEO plugin win if one is installed; otherwise this file takes over.
+if (defined('RANK_MATH_VERSION') || defined('WPSEO_VERSION')) {
+	return;
+}
+
+/**
+ * The site tagline is a full sentence — keep it out of the front-page <title>
+ * so it reads "Open Spending EU Coalition" rather than name + whole tagline.
+ */
+add_filter('document_title_parts', function ($parts) {
+	if (is_front_page()) {
+		unset($parts['tagline']);
+	}
+	return $parts;
+});
+
+/**
+ * Social profiles for schema `sameAs` (kept in sync with acf_block/contact-us.php).
+ */
+function theme_seo_social_profiles()
+{
+	return [
+		'https://twitter.com/EuSpending',
+		'https://linkedin.com/company/open-spending-eu-coalition/',
+		'https://youtube.com/openspendingeu',
+	];
+}
+
+/**
+ * A clean ~160-char meta description for the current request.
+ */
+function theme_seo_description()
+{
+	if (is_front_page()) {
+		$desc = get_bloginfo('description', 'display');
+	} elseif (is_singular()) {
+		$desc = get_the_excerpt();
+	} elseif (is_post_type_archive()) {
+		$obj  = get_queried_object();
+		$desc = ($obj && !empty($obj->description)) ? $obj->description : get_bloginfo('description', 'display');
+	} elseif (is_tax() || is_category() || is_tag()) {
+		$desc = term_description();
+	} else {
+		$desc = get_bloginfo('description', 'display');
+	}
+
+	$desc = trim(preg_replace('/\s+/', ' ', wp_strip_all_tags((string) $desc)));
+	if (!$desc) {
+		$desc = get_bloginfo('description', 'display');
+	}
+	if (mb_strlen($desc) > 160) {
+		$desc = rtrim(mb_substr($desc, 0, 157)) . '…';
+	}
+
+	return $desc;
+}
+
+/**
+ * The share image: the post's featured image, else a bundled site-wide fallback.
+ *
+ * @return array{url:string,w:int,h:int}
+ */
+function theme_seo_image()
+{
+	if (is_singular() && has_post_thumbnail()) {
+		$src = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
+		if ($src) {
+			return ['url' => $src[0], 'w' => (int) $src[1], 'h' => (int) $src[2]];
+		}
+	}
+
+	return [
+		'url' => get_template_directory_uri() . '/dist/images/hero.png',
+		'w'   => 1440,
+		'h'   => 903,
+	];
+}
+
+/**
+ * Canonical URL for the current request.
+ */
+function theme_seo_canonical()
+{
+	if (is_front_page()) {
+		return home_url('/');
+	}
+	if (is_singular()) {
+		return get_permalink();
+	}
+	if (is_post_type_archive()) {
+		return get_post_type_archive_link(get_post_type());
+	}
+	if (is_tax() || is_category() || is_tag()) {
+		$link = get_term_link(get_queried_object());
+		if (!is_wp_error($link)) {
+			return $link;
+		}
+	}
+
+	global $wp;
+	return home_url(user_trailingslashit($wp->request ?? ''));
+}
+
+/**
+ * noindex thin / non-content pages (member singles are handled this way instead
+ * of via publicly_queryable, which would break the /member/ archive).
+ */
+add_filter('wp_robots', function ($robots) {
+	if (is_singular('member') || is_search() || is_404()) {
+		$robots['noindex'] = true;
+	}
+	return $robots;
+});
+
+/**
+ * Meta description, canonical, Open Graph and Twitter Card tags.
+ */
+add_action('wp_head', function () {
+	$desc  = theme_seo_description();
+	$url   = theme_seo_canonical();
+	$img   = theme_seo_image();
+	$title = wp_get_document_title();
+	$type  = (is_singular() && !is_front_page()) ? 'article' : 'website';
+
+	echo "\n";
+	if ($desc) {
+		printf('<meta name="description" content="%s" />' . "\n", esc_attr($desc));
+	}
+
+	// Core already prints rel_canonical for singular views.
+	if (!is_singular() && $url) {
+		printf('<link rel="canonical" href="%s" />' . "\n", esc_url($url));
+	}
+
+	printf('<meta property="og:locale" content="%s" />' . "\n", esc_attr(get_locale()));
+	printf('<meta property="og:type" content="%s" />' . "\n", esc_attr($type));
+	printf('<meta property="og:title" content="%s" />' . "\n", esc_attr($title));
+	if ($desc) {
+		printf('<meta property="og:description" content="%s" />' . "\n", esc_attr($desc));
+	}
+	printf('<meta property="og:url" content="%s" />' . "\n", esc_url($url));
+	printf('<meta property="og:site_name" content="%s" />' . "\n", esc_attr(get_bloginfo('name')));
+	printf('<meta property="og:image" content="%s" />' . "\n", esc_url($img['url']));
+	printf('<meta property="og:image:width" content="%s" />' . "\n", esc_attr((string) $img['w']));
+	printf('<meta property="og:image:height" content="%s" />' . "\n", esc_attr((string) $img['h']));
+
+	if ('article' === $type) {
+		printf('<meta property="article:published_time" content="%s" />' . "\n", esc_attr(get_the_date('c')));
+		printf('<meta property="article:modified_time" content="%s" />' . "\n", esc_attr(get_the_modified_date('c')));
+	}
+
+	echo '<meta name="twitter:card" content="summary_large_image" />' . "\n";
+	printf('<meta name="twitter:title" content="%s" />' . "\n", esc_attr($title));
+	if ($desc) {
+		printf('<meta name="twitter:description" content="%s" />' . "\n", esc_attr($desc));
+	}
+	printf('<meta name="twitter:image" content="%s" />' . "\n", esc_url($img['url']));
+}, 2);
+
+/**
+ * Organization + WebSite JSON-LD (front page only) — enables the sitelinks
+ * search box and gives the org a knowledge-graph anchor.
+ */
+add_action('wp_head', function () {
+	if (!is_front_page()) {
+		return;
+	}
+
+	$site = home_url('/');
+	$name = get_bloginfo('name');
+
+	$organization = [
+		'@type'  => 'Organization',
+		'@id'    => $site . '#organization',
+		'name'   => $name,
+		'url'    => $site,
+		'sameAs' => theme_seo_social_profiles(),
+	];
+
+	$logo = wp_get_attachment_image_url((int) get_option('site_logo'), 'full');
+	if ($logo) {
+		$organization['logo'] = ['@type' => 'ImageObject', 'url' => $logo];
+	}
+
+	$website = [
+		'@type'           => 'WebSite',
+		'@id'             => $site . '#website',
+		'name'            => $name,
+		'url'             => $site,
+		'publisher'       => ['@id' => $site . '#organization'],
+		'potentialAction' => [
+			'@type'       => 'SearchAction',
+			'target'      => [
+				'@type'       => 'EntryPoint',
+				'urlTemplate' => $site . '?s={search_term_string}',
+			],
+			'query-input' => 'required name=search_term_string',
+		],
+	];
+
+	$graph = ['@context' => 'https://schema.org', '@graph' => [$organization, $website]];
+
+	echo "\n" . '<script type="application/ld+json">'
+		. wp_json_encode($graph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+		. '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_json_encode returns safe JSON.
+}, 3);
+
+/**
+ * Tune WordPress core's built-in sitemap (wp-sitemap.xml):
+ * drop the noindexed member CPT and the users sitemap.
+ */
+add_filter('wp_sitemaps_post_types', function ($post_types) {
+	unset($post_types['member']);
+	return $post_types;
+});
+
+add_filter('wp_sitemaps_taxonomies', function ($taxonomies) {
+	unset($taxonomies['type_of_member']); // terms only classify the noindexed member CPT
+	return $taxonomies;
+});
+
+add_filter('wp_sitemaps_add_provider', function ($provider, $name) {
+	return ('users' === $name) ? false : $provider;
+}, 10, 2);
