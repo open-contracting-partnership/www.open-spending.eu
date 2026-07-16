@@ -17,7 +17,6 @@
                 "id": ""
             },
             "default_value": "",
-            "acfe_textarea_code": 0,
             "maxlength": "",
             "rows": "",
             "placeholder": "",
@@ -38,7 +37,6 @@
                 "id": ""
             },
             "default_value": "",
-            "acfe_textarea_code": 0,
             "maxlength": "",
             "rows": "",
             "placeholder": "",
@@ -86,12 +84,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "acfe_display_title": "",
-    "acfe_autosync": [
-        "json"
-    ],
-    "acfe_form": 0,
-    "acfe_meta": "",
-    "acfe_note": "",
     "modified": 1676869273
 }

@@ -26,14 +26,44 @@
     "location": [
         [
             {
-                "param": "post_type_list",
+                "param": "options_page",
                 "operator": "==",
-                "value": "all"
-            },
+                "value": "news-archive-settings"
+            }
+        ],
+        [
             {
-                "param": "post_type_list",
-                "operator": "!=",
-                "value": "page"
+                "param": "options_page",
+                "operator": "==",
+                "value": "evidence-archive-settings"
+            }
+        ],
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "campaign-archive-settings"
+            }
+        ],
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "member-archive-settings"
+            }
+        ],
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "toolkit-archive-settings"
+            }
+        ],
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "best_practices-archive-settings"
             }
         ]
     ],
@@ -46,12 +76,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "acfe_display_title": "",
-    "acfe_autosync": [
-        "json"
-    ],
-    "acfe_form": 0,
-    "acfe_meta": "",
-    "acfe_note": "",
     "modified": 1678776143
 }

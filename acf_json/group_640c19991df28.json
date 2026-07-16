@@ -64,7 +64,6 @@
                 "class": "",
                 "id": ""
             },
-            "acfe_repeater_stylised_button": 0,
             "layout": "row",
             "pagination": 0,
             "min": 0,
@@ -133,9 +132,9 @@
         ],
         [
             {
-                "param": "post_type_list",
+                "param": "options_page",
                 "operator": "==",
-                "value": "member"
+                "value": "member-archive-settings"
             }
         ]
     ],
@@ -148,12 +147,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "acfe_display_title": "",
-    "acfe_autosync": [
-        "json"
-    ],
-    "acfe_form": 0,
-    "acfe_meta": "",
-    "acfe_note": "",
     "modified": 1678795466
 }

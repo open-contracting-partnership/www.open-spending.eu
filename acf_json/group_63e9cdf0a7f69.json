@@ -50,7 +50,6 @@
                         "class": "",
                         "id": ""
                     },
-                    "acfe_repeater_stylised_button": 0,
                     "layout": "block",
                     "pagination": 0,
                     "min": 0,
@@ -95,7 +94,6 @@
                                 "id": ""
                             },
                             "uploader": "",
-                            "acfe_thumbnail": 0,
                             "return_format": "url",
                             "min_width": "",
                             "min_height": "",
@@ -128,12 +126,7 @@
                         }
                     ]
                 }
-            ],
-            "acfe_seamless_style": 0,
-            "acfe_group_modal": 0,
-            "acfe_group_modal_close": 0,
-            "acfe_group_modal_button": "",
-            "acfe_group_modal_size": "large"
+            ]
         }
     ],
     "location": [
@@ -154,12 +147,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "acfe_display_title": "",
-    "acfe_autosync": [
-        "json"
-    ],
-    "acfe_form": 0,
-    "acfe_meta": "",
-    "acfe_note": "",
     "modified": 1678455772
 }

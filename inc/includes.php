@@ -17,3 +17,5 @@ require_once  dirname (__FILE__).'/_seo.php';
 
 require_once  dirname (__FILE__).'/_analytics.php';
 
+require_once  dirname (__FILE__).'/_acf_options.php';
+
