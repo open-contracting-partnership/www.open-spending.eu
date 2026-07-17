@@ -6,9 +6,13 @@ $args = array(
     'post_type'      => 'member',
     'posts_per_page' => -1,
     'post_status'    => array('publish'),
-    'meta_key'       => 'members_type_of_member',
-    'meta_value'     => '12',
-    // Organization tag_Id 12
+    'tax_query'      => array(
+        array(
+            'taxonomy' => 'type_of_member',
+            'field'    => 'slug',
+            'terms'    => 'organization', // Organizations (formerly members_type_of_member meta = 12)
+        ),
+    ),
 );
 
 $the_query = new WP_Query($args);
