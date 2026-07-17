@@ -34,3 +34,19 @@ function my_acf_json_load_point($paths)
 
     return $paths;
 }
+
+/**
+ * ================================================
+ * Production is read-only for field definitions.
+ * ================================================
+ *
+ * Field groups are version-controlled via Local JSON (acf_json/) and edited in
+ * dev, then committed. Hiding the ACF admin editor in production keeps the DB
+ * from drifting ahead of the committed JSON (ACF gives no signal when it does,
+ * and Local JSON wins at runtime, so a prod-only edit would be silently lost).
+ * Field *values* stay fully editable — this only hides the field-group editor.
+ */
+
+if (function_exists('wp_get_environment_type') && wp_get_environment_type() === 'production') {
+    add_filter('acf/settings/show_admin', '__return_false');
+}
