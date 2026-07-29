@@ -1,2 +1,2 @@
 <?php
-render_filterable_archive('evidence');
+render_filterable_archive( 'evidence' );

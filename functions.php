@@ -10,27 +10,27 @@
  */
 
 // theme set up
-if (!function_exists('theme_setup')) {
+if ( ! function_exists( 'theme_setup' ) ) {
 	function theme_setup()
 	{
 
 		// manage document title
-		add_theme_support('title-tag');
+		add_theme_support( 'title-tag' );
 
 		// Post Thumbnails on posts and pages.
-		add_theme_support('post-thumbnails');
+		add_theme_support( 'post-thumbnails' );
 
 		// Add support for Block Styles.
-		add_theme_support('wp-block-styles');
+		add_theme_support( 'wp-block-styles' );
 
 		// Add support for full and wide align images.
-		add_theme_support('align-wide');
+		add_theme_support( 'align-wide' );
 
 		// Add support for editor styles.
-		add_theme_support('editor-styles');
+		add_theme_support( 'editor-styles' );
 
 		// Add support for responsive embedded content.
-		add_theme_support('responsive-embeds');
+		add_theme_support( 'responsive-embeds' );
 
 		// allows the use of HTML5 markup for the 
 		// search forms, comment forms, comment lists, gallery, and caption
@@ -49,7 +49,7 @@ if (!function_exists('theme_setup')) {
 		);
 	}
 
-	add_action('after_setup_theme', 'theme_setup');
+	add_action( 'after_setup_theme', 'theme_setup' );
 }
 
 
@@ -70,21 +70,21 @@ function theme_scripts()
 		'fse-style',
 		get_stylesheet_directory_uri() . '/dist/css/app.css',
 		array(),
-		file_exists($css) ? hash_file('crc32b', $css) : null
+		file_exists( $css ) ? hash_file( 'crc32b', $css ) : null
 	);
 
 	wp_enqueue_script(
 		'main-script',
 		get_stylesheet_directory_uri() . '/dist/js/app.js',
 		array('jquery'),
-		file_exists($js) ? hash_file('crc32b', $js) : null,
+		file_exists( $js ) ? hash_file( 'crc32b', $js ) : null,
 		true
 	);
 
 	wp_enqueue_script(
 		'slick-slider',
 		get_stylesheet_directory_uri() . '/dist/js/slick.min.js',
-		['jquery'],
+		array('jquery'),
 		false,
 		true
 	);
@@ -92,12 +92,12 @@ function theme_scripts()
 	wp_enqueue_script(
 		'isotope-js',
 		get_stylesheet_directory_uri() . '/dist/js/isotope.pkgd.min.js',
-		['jquery'],
+		array('jquery'),
 		false,
 		true
 	);
 }
-add_action('wp_enqueue_scripts', 'theme_scripts');
+add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 
 /**
  * ===================================================
@@ -105,22 +105,22 @@ add_action('wp_enqueue_scripts', 'theme_scripts');
  * ===================================================
  */
 
-add_editor_style('dist/css/app.css');
+add_editor_style( 'dist/css/app.css' );
 
 add_action('init', function () {
 	// Same content-hash version as the main enqueue, so this shares one cached
 	// app.css URL instead of loading it a second time under a different ?ver.
 	$app_css = get_stylesheet_directory() . '/dist/css/app.css';
-	wp_register_style('awp-block-styles', get_stylesheet_directory_uri() . '/dist/css/app.css', false, file_exists($app_css) ? hash_file('crc32b', $app_css) : null);
-	register_block_style('core/heading', [
+	wp_register_style( 'awp-block-styles', get_stylesheet_directory_uri() . '/dist/css/app.css', false, file_exists( $app_css ) ? hash_file( 'crc32b', $app_css ) : null );
+	register_block_style('core/heading', array(
 		'name' => 'colored-bottom-border',
-		'label' => __('Colored bottom border', 'openspendingcoalition'),
+		'label' => __( 'Colored bottom border', 'openspendingcoalition' ),
 		'style_handle' => 'awp-block-styles'
-	]);
+	));
 });
 
 /**
  * include custom functions
  * 
  */
-require_once dirname(__FILE__) . '/inc/includes.php';
+require_once dirname( __FILE__ ) . '/inc/includes.php';

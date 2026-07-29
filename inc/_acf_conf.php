@@ -7,14 +7,14 @@
  * ================================================
  */
 
-add_filter('acf/settings/save_json', 'my_acf_json_save_point');
+add_filter( 'acf/settings/save_json', 'my_acf_json_save_point' );
 
 function my_acf_json_save_point($path)
 {
 
-    $path = get_stylesheet_directory() . '/acf_json';
+	$path = get_stylesheet_directory() . '/acf_json';
 
-    return $path;
+	return $path;
 }
 
 /**
@@ -23,16 +23,16 @@ function my_acf_json_save_point($path)
  * ================================================
  */
 
-add_filter('acf/settings/load_json', 'my_acf_json_load_point');
+add_filter( 'acf/settings/load_json', 'my_acf_json_load_point' );
 
 function my_acf_json_load_point($paths)
 {
 
-    unset($paths[0]);
+	unset( $paths[0] );
 
-    $paths[] = get_stylesheet_directory() . '/acf_json';
+	$paths[] = get_stylesheet_directory() . '/acf_json';
 
-    return $paths;
+	return $paths;
 }
 
 /**
@@ -47,6 +47,6 @@ function my_acf_json_load_point($paths)
  * Field *values* stay fully editable — this only hides the field-group editor.
  */
 
-if (function_exists('wp_get_environment_type') && wp_get_environment_type() === 'production') {
-    add_filter('acf/settings/show_admin', '__return_false');
+if ( function_exists( 'wp_get_environment_type' ) && wp_get_environment_type() === 'production' ) {
+	add_filter( 'acf/settings/show_admin', '__return_false' );
 }

@@ -1,2 +1,2 @@
 <?php
-render_filterable_archive('best_practices');
+render_filterable_archive( 'best_practices' );

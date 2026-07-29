@@ -17,8 +17,8 @@
  * so it reads "Open Spending EU Coalition" rather than name + whole tagline.
  */
 add_filter('document_title_parts', function ($parts) {
-	if (is_front_page()) {
-		unset($parts['tagline']);
+	if ( is_front_page() ) {
+		unset( $parts['tagline'] );
 	}
 	return $parts;
 });
@@ -28,10 +28,10 @@ add_filter('document_title_parts', function ($parts) {
  */
 function theme_seo_social_profiles()
 {
-	return [
+	return array(
 		'https://twitter.com/EuSpending',
 		'https://linkedin.com/company/open-spending-eu-coalition/',
-	];
+	);
 }
 
 /**
@@ -39,25 +39,25 @@ function theme_seo_social_profiles()
  */
 function theme_seo_description()
 {
-	if (is_front_page()) {
-		$desc = get_bloginfo('description', 'display');
-	} elseif (is_singular()) {
+	if ( is_front_page() ) {
+		$desc = get_bloginfo( 'description', 'display' );
+	} elseif ( is_singular() ) {
 		$desc = get_the_excerpt();
-	} elseif (is_post_type_archive()) {
+	} elseif ( is_post_type_archive() ) {
 		$obj  = get_queried_object();
-		$desc = ($obj && !empty($obj->description)) ? $obj->description : get_bloginfo('description', 'display');
-	} elseif (is_tax() || is_category() || is_tag()) {
+		$desc = ($obj && ! empty( $obj->description )) ? $obj->description : get_bloginfo( 'description', 'display' );
+	} elseif ( is_tax() || is_category() || is_tag() ) {
 		$desc = term_description();
 	} else {
-		$desc = get_bloginfo('description', 'display');
+		$desc = get_bloginfo( 'description', 'display' );
 	}
 
-	$desc = trim(preg_replace('/\s+/', ' ', wp_strip_all_tags((string) $desc)));
-	if (!$desc) {
-		$desc = get_bloginfo('description', 'display');
+	$desc = trim( preg_replace( '/\s+/', ' ', wp_strip_all_tags( (string) $desc ) ) );
+	if ( ! $desc ) {
+		$desc = get_bloginfo( 'description', 'display' );
 	}
-	if (mb_strlen($desc) > 160) {
-		$desc = rtrim(mb_substr($desc, 0, 157)) . '…';
+	if ( mb_strlen( $desc ) > 160 ) {
+		$desc = rtrim( mb_substr( $desc, 0, 157 ) ) . '…';
 	}
 
 	return $desc;
@@ -70,18 +70,18 @@ function theme_seo_description()
  */
 function theme_seo_image()
 {
-	if (is_singular() && has_post_thumbnail()) {
-		$src = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
-		if ($src) {
-			return ['url' => $src[0], 'w' => (int) $src[1], 'h' => (int) $src[2]];
+	if ( is_singular() && has_post_thumbnail() ) {
+		$src = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
+		if ( $src ) {
+			return array('url' => $src[0], 'w' => (int) $src[1], 'h' => (int) $src[2]);
 		}
 	}
 
-	return [
+	return array(
 		'url' => get_template_directory_uri() . '/dist/images/hero.png',
 		'w'   => 1440,
 		'h'   => 903,
-	];
+	);
 }
 
 /**
@@ -89,24 +89,24 @@ function theme_seo_image()
  */
 function theme_seo_canonical()
 {
-	if (is_front_page()) {
-		return home_url('/');
+	if ( is_front_page() ) {
+		return home_url( '/' );
 	}
-	if (is_singular()) {
+	if ( is_singular() ) {
 		return get_permalink();
 	}
-	if (is_post_type_archive()) {
-		return get_post_type_archive_link(get_post_type());
+	if ( is_post_type_archive() ) {
+		return get_post_type_archive_link( get_post_type() );
 	}
-	if (is_tax() || is_category() || is_tag()) {
-		$link = get_term_link(get_queried_object());
-		if (!is_wp_error($link)) {
+	if ( is_tax() || is_category() || is_tag() ) {
+		$link = get_term_link( get_queried_object() );
+		if ( ! is_wp_error( $link ) ) {
 			return $link;
 		}
 	}
 
 	global $wp;
-	return home_url(user_trailingslashit($wp->request ?? ''));
+	return home_url( user_trailingslashit( $wp->request ?? '' ) );
 }
 
 /**
@@ -114,7 +114,7 @@ function theme_seo_canonical()
  * of by making the post type non-public, which would break the /member/ archive).
  */
 add_filter('wp_robots', function ($robots) {
-	if (is_singular('member') || is_search() || is_404() || is_tag()) {
+	if ( is_singular( 'member' ) || is_search() || is_404() || is_tag() ) {
 		$robots['noindex'] = true;
 	}
 	return $robots;
@@ -128,41 +128,41 @@ add_action('wp_head', function () {
 	$url   = theme_seo_canonical();
 	$img   = theme_seo_image();
 	$title = wp_get_document_title();
-	$type  = (is_singular() && !is_front_page()) ? 'article' : 'website';
+	$type  = (is_singular() && ! is_front_page()) ? 'article' : 'website';
 
 	echo "\n";
-	if ($desc) {
-		printf('<meta name="description" content="%s" />' . "\n", esc_attr($desc));
+	if ( $desc ) {
+		printf( '<meta name="description" content="%s" />' . "\n", esc_attr( $desc ) );
 	}
 
 	// Core already prints rel_canonical for singular views.
-	if (!is_singular() && $url) {
-		printf('<link rel="canonical" href="%s" />' . "\n", esc_url($url));
+	if ( ! is_singular() && $url ) {
+		printf( '<link rel="canonical" href="%s" />' . "\n", esc_url( $url ) );
 	}
 
-	printf('<meta property="og:locale" content="%s" />' . "\n", esc_attr(get_locale()));
-	printf('<meta property="og:type" content="%s" />' . "\n", esc_attr($type));
-	printf('<meta property="og:title" content="%s" />' . "\n", esc_attr($title));
-	if ($desc) {
-		printf('<meta property="og:description" content="%s" />' . "\n", esc_attr($desc));
+	printf( '<meta property="og:locale" content="%s" />' . "\n", esc_attr( get_locale() ) );
+	printf( '<meta property="og:type" content="%s" />' . "\n", esc_attr( $type ) );
+	printf( '<meta property="og:title" content="%s" />' . "\n", esc_attr( $title ) );
+	if ( $desc ) {
+		printf( '<meta property="og:description" content="%s" />' . "\n", esc_attr( $desc ) );
 	}
-	printf('<meta property="og:url" content="%s" />' . "\n", esc_url($url));
-	printf('<meta property="og:site_name" content="%s" />' . "\n", esc_attr(get_bloginfo('name')));
-	printf('<meta property="og:image" content="%s" />' . "\n", esc_url($img['url']));
-	printf('<meta property="og:image:width" content="%s" />' . "\n", esc_attr((string) $img['w']));
-	printf('<meta property="og:image:height" content="%s" />' . "\n", esc_attr((string) $img['h']));
+	printf( '<meta property="og:url" content="%s" />' . "\n", esc_url( $url ) );
+	printf( '<meta property="og:site_name" content="%s" />' . "\n", esc_attr( get_bloginfo( 'name' ) ) );
+	printf( '<meta property="og:image" content="%s" />' . "\n", esc_url( $img['url'] ) );
+	printf( '<meta property="og:image:width" content="%s" />' . "\n", esc_attr( (string) $img['w'] ) );
+	printf( '<meta property="og:image:height" content="%s" />' . "\n", esc_attr( (string) $img['h'] ) );
 
-	if ('article' === $type) {
-		printf('<meta property="article:published_time" content="%s" />' . "\n", esc_attr(get_the_date('c')));
-		printf('<meta property="article:modified_time" content="%s" />' . "\n", esc_attr(get_the_modified_date('c')));
+	if ( 'article' === $type ) {
+		printf( '<meta property="article:published_time" content="%s" />' . "\n", esc_attr( get_the_date( 'c' ) ) );
+		printf( '<meta property="article:modified_time" content="%s" />' . "\n", esc_attr( get_the_modified_date( 'c' ) ) );
 	}
 
 	echo '<meta name="twitter:card" content="summary_large_image" />' . "\n";
-	printf('<meta name="twitter:title" content="%s" />' . "\n", esc_attr($title));
-	if ($desc) {
-		printf('<meta name="twitter:description" content="%s" />' . "\n", esc_attr($desc));
+	printf( '<meta name="twitter:title" content="%s" />' . "\n", esc_attr( $title ) );
+	if ( $desc ) {
+		printf( '<meta name="twitter:description" content="%s" />' . "\n", esc_attr( $desc ) );
 	}
-	printf('<meta name="twitter:image" content="%s" />' . "\n", esc_url($img['url']));
+	printf( '<meta name="twitter:image" content="%s" />' . "\n", esc_url( $img['url'] ) );
 }, 2);
 
 /**
@@ -170,46 +170,46 @@ add_action('wp_head', function () {
  * search box and gives the org a knowledge-graph anchor.
  */
 add_action('wp_head', function () {
-	if (!is_front_page()) {
+	if ( ! is_front_page() ) {
 		return;
 	}
 
-	$site = home_url('/');
-	$name = get_bloginfo('name');
+	$site = home_url( '/' );
+	$name = get_bloginfo( 'name' );
 
-	$organization = [
+	$organization = array(
 		'@type'  => 'Organization',
 		'@id'    => $site . '#organization',
 		'name'   => $name,
 		'url'    => $site,
 		'sameAs' => theme_seo_social_profiles(),
-	];
+	);
 
-	$logo = wp_get_attachment_image_url((int) get_option('site_logo'), 'full');
-	if ($logo) {
-		$organization['logo'] = ['@type' => 'ImageObject', 'url' => $logo];
+	$logo = wp_get_attachment_image_url( (int) get_option( 'site_logo' ), 'full' );
+	if ( $logo ) {
+		$organization['logo'] = array('@type' => 'ImageObject', 'url' => $logo);
 	}
 
-	$website = [
+	$website = array(
 		'@type'           => 'WebSite',
 		'@id'             => $site . '#website',
 		'name'            => $name,
 		'url'             => $site,
-		'publisher'       => ['@id' => $site . '#organization'],
-		'potentialAction' => [
+		'publisher'       => array('@id' => $site . '#organization'),
+		'potentialAction' => array(
 			'@type'       => 'SearchAction',
-			'target'      => [
+			'target'      => array(
 				'@type'       => 'EntryPoint',
 				'urlTemplate' => $site . '?s={search_term_string}',
-			],
+			),
 			'query-input' => 'required name=search_term_string',
-		],
-	];
+		),
+	);
 
-	$graph = ['@context' => 'https://schema.org', '@graph' => [$organization, $website]];
+	$graph = array('@context' => 'https://schema.org', '@graph' => array($organization, $website));
 
 	echo "\n" . '<script type="application/ld+json">'
-		. wp_json_encode($graph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+		. wp_json_encode( $graph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE )
 		. '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_json_encode returns safe JSON.
 }, 3);
 
@@ -220,12 +220,12 @@ add_action('wp_head', function () {
  * provider below).
  */
 add_filter('wp_sitemaps_post_types', function ($post_types) {
-	unset($post_types['member']);
+	unset( $post_types['member'] );
 	return $post_types;
 });
 
 add_filter('wp_sitemaps_taxonomies', function ($taxonomies) {
-	unset($taxonomies['post_tag']); // core public taxonomy
+	unset( $taxonomies['post_tag'] ); // core public taxonomy
 	return $taxonomies;
 });
 
@@ -241,7 +241,7 @@ add_filter('wp_sitemaps_add_provider', function ($provider, $name) {
  * provider. The noindexed member archive is skipped.
  */
 add_action('init', function () {
-	if (! function_exists('wp_register_sitemap_provider') || ! class_exists('WP_Sitemaps_Provider')) {
+	if ( ! function_exists( 'wp_register_sitemap_provider' ) || ! class_exists( 'WP_Sitemaps_Provider' ) ) {
 		return;
 	}
 
@@ -254,11 +254,11 @@ add_action('init', function () {
 
 		public function get_url_list($page_num, $object_subtype = '') {
 			$urls       = array();
-			$post_types = get_post_types(array('public' => true, 'has_archive' => true), 'names');
-			unset($post_types['member']); // noindexed post type, excluded from the sitemap
-			foreach ($post_types as $post_type) {
-				$link = get_post_type_archive_link($post_type);
-				if ($link) {
+			$post_types = get_post_types( array('public' => true, 'has_archive' => true), 'names' );
+			unset( $post_types['member'] ); // noindexed post type, excluded from the sitemap
+			foreach ( $post_types as $post_type ) {
+				$link = get_post_type_archive_link( $post_type );
+				if ( $link ) {
 					$urls[] = array('loc' => $link);
 				}
 			}
@@ -271,5 +271,5 @@ add_action('init', function () {
 	};
 	// phpcs:enable PHPCompatibility.FunctionDeclarations.NewClosure.ThisFoundOutsideClass
 
-	wp_register_sitemap_provider('archives', $provider);
+	wp_register_sitemap_provider( 'archives', $provider );
 });

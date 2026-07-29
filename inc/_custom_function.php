@@ -4,8 +4,8 @@
 function excerpt($limit = 115)
 {
 	$excerpt = get_the_excerpt();
-	if ($excerpt) {
-		$excerpt = mb_substr($excerpt, 0, $limit) . '...';
+	if ( $excerpt ) {
+		$excerpt = mb_substr( $excerpt, 0, $limit ) . '...';
 	}
 	return $excerpt;
 }
@@ -13,10 +13,10 @@ function excerpt($limit = 115)
 // get post id and Taxonomy then return the string of all the taxonomy slug associated with post id
 function taxoTermsSLug($id, $taxonomy_val)
 {
-	$termsArray = get_the_terms($id, $taxonomy_val);
-	$termsSLug = "";
-	if ($termsArray) {
-		foreach ($termsArray as $term) {
+	$termsArray = get_the_terms( $id, $taxonomy_val );
+	$termsSLug = '';
+	if ( $termsArray ) {
+		foreach ( $termsArray as $term ) {
 			$termsSLug .= $term->slug . ' ';
 		}
 	}
@@ -25,12 +25,12 @@ function taxoTermsSLug($id, $taxonomy_val)
 
 // Display svg icons
 
-if (!function_exists('useSvg')) {
+if ( ! function_exists( 'useSvg' ) ) {
 	function useSvg($filename = 'long-arrow-right')
 	{
 		$icon = get_stylesheet_directory() . '/dist/images/icons/' . $filename . '.svg';
 
-		$svg_icon_content = @file_get_contents($icon);
+		$svg_icon_content = @file_get_contents( $icon );
 
 		return $svg_icon_content;
 	}
@@ -45,22 +45,22 @@ function main_query_pagination()
 
 	$big = 999999999;
 
-	$rightIcon = useSvg('page-navigation-next');
-	$leftIcon = useSvg('page-navigation-prev');
+	$rightIcon = useSvg( 'page-navigation-next' );
+	$leftIcon = useSvg( 'page-navigation-prev' );
 
-	$paginate =  paginate_links(array(
+	$paginate = paginate_links(array(
 		'prev_text'     => $leftIcon,
 		'next_text'     => $rightIcon,
 	));
 
-	$html_paginate = "";
+	$html_paginate = '';
 
-	if ($paginate) {
+	if ( $paginate ) {
 		$html_paginate .= '<div class="navigation pagination" role="navigation">';
-		$html_paginate .=  '<div class="nav-links">';
-		$html_paginate .=  $paginate;
-		$html_paginate .=  '</div>';
-		$html_paginate .=  '</div>';
+		$html_paginate .= '<div class="nav-links">';
+		$html_paginate .= $paginate;
+		$html_paginate .= '</div>';
+		$html_paginate .= '</div>';
 	}
 	return $html_paginate;
 }
@@ -71,11 +71,11 @@ function custom_query_pagination($query, $paged)
 	global $wp_query, $svgIcon;
 
 	$big = 999999999;
-	$rightIcon = useSvg('page-navigation-next');
-	$leftIcon = useSvg('page-navigation-prev');
+	$rightIcon = useSvg( 'page-navigation-next' );
+	$leftIcon = useSvg( 'page-navigation-prev' );
 
 	$paginate = paginate_links(array(
-		'base'         => str_replace($big, '%#%', html_entity_decode(get_pagenum_link($big))),
+		'base'         => str_replace( $big, '%#%', html_entity_decode( get_pagenum_link( $big ) ) ),
 		'total'        => $query->max_num_pages,
 		'current'      => $paged,
 		'format'       => '?paged=%#%',
@@ -90,14 +90,14 @@ function custom_query_pagination($query, $paged)
 		'add_fragment' => '',
 	));
 
-	$html_paginate = "";
+	$html_paginate = '';
 
-	if ($paginate) {
+	if ( $paginate ) {
 		$html_paginate .= '<div class="navigation pagination" role="navigation">';
-		$html_paginate .=  '<div class="nav-links">';
-		$html_paginate .=  $paginate;
-		$html_paginate .=  '</div>';
-		$html_paginate .=  '</div>';
+		$html_paginate .= '<div class="nav-links">';
+		$html_paginate .= $paginate;
+		$html_paginate .= '</div>';
+		$html_paginate .= '</div>';
 	}
 
 	return $html_paginate;
@@ -105,10 +105,10 @@ function custom_query_pagination($query, $paged)
 
 function paged()
 {
-	if (get_query_var('paged')) {
-		$paged = get_query_var('paged');
-	} elseif (get_query_var('page')) {
-		$paged = get_query_var('page');
+	if ( get_query_var( 'paged' ) ) {
+		$paged = get_query_var( 'paged' );
+	} elseif ( get_query_var( 'page' ) ) {
+		$paged = get_query_var( 'page' );
 	} else {
 		$paged = 1;
 	}
@@ -123,28 +123,28 @@ function paged()
 
 function breadcrumb_section($id)
 {
-	$posttype = get_post_type($id);
-	$post_object = get_post_type_object($posttype);
+	$posttype = get_post_type( $id );
+	$post_object = get_post_type_object( $posttype );
 	$labels = $post_object->labels;
 	ob_start();
 ?>
 	<div class="breadcrumb bg-n-10">
 		<div class="breadcrumb-menu container">
 			<div class="breadcrumb-menu__item">
-				<a href="<?php echo esc_url(home_url()); ?>">Home</a>
+				<a href="<?php echo esc_url( home_url() ); ?>">Home</a>
 			</div>
 			<div class="breadcrumb-menu__item">
-				<?php if (is_singular()) { ?>
-					<a href="<?php echo esc_url(get_post_type_archive_link($posttype)); ?>">
-						<?php echo esc_html($labels->name); ?>
+				<?php if ( is_singular() ) { ?>
+					<a href="<?php echo esc_url( get_post_type_archive_link( $posttype ) ); ?>">
+						<?php echo esc_html( $labels->name ); ?>
 					</a>
 				<?php } else {
-					echo esc_html($labels->name);
+					echo esc_html( $labels->name );
 				} ?>
 			</div>
-			<?php if (is_singular()) { ?>
+			<?php if ( is_singular() ) { ?>
 			<div class="breadcrumb-menu__item">
-				<?php echo esc_html(get_the_title()); ?>
+				<?php echo esc_html( get_the_title() ); ?>
 			</div>
 			<?php } ?>
 		</div>
@@ -165,22 +165,22 @@ function get_tax_post_type($posttype, $taxonomies)
 		'posts_per_page'        => '-1',
 		'post_status'           => array('publish'),
 	);
-	$the_query = new WP_Query($args_campaign);
-	$tax_post_type_array = [];
-	$tax_post_type = [];
+	$the_query = new WP_Query( $args_campaign );
+	$tax_post_type_array = array();
+	$tax_post_type = array();
 	$i = 0;
-	if ($the_query->have_posts()) {
-		while ($the_query->have_posts()) {
+	if ( $the_query->have_posts() ) {
+		while ( $the_query->have_posts() ) {
 			$the_query->the_post();
 			$id = get_the_ID();
-			$termsArray = get_the_terms($id, $taxonomies);
-			if ($termsArray) {
-				foreach ($termsArray as $term) {
-					if (!in_array($term->slug, $tax_post_type_array)) {
-						array_push($tax_post_type_array, $term->slug);
+			$termsArray = get_the_terms( $id, $taxonomies );
+			if ( $termsArray ) {
+				foreach ( $termsArray as $term ) {
+					if ( ! in_array( $term->slug, $tax_post_type_array ) ) {
+						array_push( $tax_post_type_array, $term->slug );
 						$tax_post_type[$i]['slug'] = $term->slug;
 						$tax_post_type[$i]['name'] = $term->name;
-						$i=$i+1;
+						$i = $i + 1;
 					}
 				}
 			}

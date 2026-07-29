@@ -1,2 +1,2 @@
 <?php
-render_filterable_archive('toolkit');
+render_filterable_archive( 'toolkit' );

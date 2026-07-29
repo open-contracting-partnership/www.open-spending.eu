@@ -1,2 +1,2 @@
 <?php
-render_filterable_archive('news');
+render_filterable_archive( 'news' );
