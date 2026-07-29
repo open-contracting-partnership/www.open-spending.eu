@@ -1,12 +1,12 @@
-.contact-links {
-  p {
-    @apply sm:mb-2 text-base leading-tight;
-    a {
-      @apply text-n-0 transition-all duration-300;
-      &:hover {
-        @apply text-n-30;
-      }
-    }
+// Social links sit inside <a>, so they inherit the theme link colour (#1D6FA3)
+// instead of the panel's white text -- too low-contrast against the sidebar
+// image. Force them white to match the heading/body; the icons are currentColor,
+// so they follow. (The label markup is a .contact-links span inside .contact-admin.)
+.contact-admin a {
+  @apply text-n-0 transition-all duration-300;
+
+  &:hover {
+    @apply text-n-30;
   }
 }
 
