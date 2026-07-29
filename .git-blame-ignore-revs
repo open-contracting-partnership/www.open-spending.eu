@@ -1,0 +1,6 @@
+# Revisions to skip in `git blame` (bulk reformats — no authorship signal).
+# GitHub honours this file automatically. Locally, run once:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# style: Reformat theme to the WordPress coding standard
+6b119bd35e4b2be66d5ad859cbbaf411a44b1035
