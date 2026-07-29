@@ -61,18 +61,22 @@ if (!function_exists('theme_setup')) {
 // theme's scripts and styles for frontend
 function theme_scripts()
 {
+	// Version the built assets by file mtime so a rebuild cache-busts automatically.
+	$css = get_stylesheet_directory() . '/dist/css/app.css';
+	$js  = get_stylesheet_directory() . '/dist/js/app.js';
+
 	wp_enqueue_style(
 		'fse-style',
 		get_stylesheet_directory_uri() . '/dist/css/app.css',
 		array(),
-		wp_get_theme()->get('Version')
+		file_exists($css) ? filemtime($css) : null
 	);
 
 	wp_enqueue_script(
 		'main-script',
 		get_stylesheet_directory_uri() . '/dist/js/app.js',
 		array('jquery'),
-		'_THEME_VERSION',
+		file_exists($js) ? filemtime($js) : null,
 		true
 	);
 
@@ -103,7 +107,10 @@ add_action('wp_enqueue_scripts', 'theme_scripts');
 add_editor_style('dist/css/app.css');
 
 add_action('init', function () {
-	wp_register_style('awp-block-styles', get_stylesheet_directory_uri() . '/dist/css/app.css', false);
+	// Same filemtime version as the main enqueue, so this shares one cached
+	// app.css URL instead of loading it a second time under a different ?ver.
+	$app_css = get_stylesheet_directory() . '/dist/css/app.css';
+	wp_register_style('awp-block-styles', get_stylesheet_directory_uri() . '/dist/css/app.css', false, file_exists($app_css) ? filemtime($app_css) : null);
 	register_block_style('core/heading', [
 		'name' => 'colored-bottom-border',
 		'label' => __('Colored bottom border', 'openspendingcoalition'),
