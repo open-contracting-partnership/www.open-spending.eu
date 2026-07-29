@@ -12,7 +12,7 @@ $args = array(
         array(
             'taxonomy' => 'type_of_member',
             'field'    => 'slug',
-            'terms'    => 'person', // Experts (formerly members_type_of_member meta = 13)
+            'terms'    => 'person', // Experts
         ),
     ),
 );

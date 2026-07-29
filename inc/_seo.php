@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Lightweight, theme-native SEO — a drop-in alternative to the Rank Math plugin
- * for what this site actually uses:
+ * Lightweight, theme-native SEO:
  *
  *   - <title>            -> WordPress core (add_theme_support('title-tag'))
  *   - meta description   -> here (excerpt / tagline)
@@ -237,9 +236,8 @@ add_filter('wp_sitemaps_add_provider', function ($provider, $name) {
  * Add CPT archive landing pages (e.g. /news/, /campaign/) to the sitemap.
  *
  * Core's post-type sitemaps list individual posts but never the archive index
- * pages, which are real, indexable landing pages (and were present in the prior
- * Rank Math sitemap). Expose them via a small custom provider. The noindexed
- * member archive is skipped.
+ * pages, which are real, indexable landing pages. Expose them via a small custom
+ * provider. The noindexed member archive is skipped.
  */
 add_action('init', function () {
 	if (! function_exists('wp_register_sitemap_provider') || ! class_exists('WP_Sitemaps_Provider')) {

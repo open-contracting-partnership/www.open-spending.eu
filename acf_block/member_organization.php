@@ -10,7 +10,7 @@ $args = array(
         array(
             'taxonomy' => 'type_of_member',
             'field'    => 'slug',
-            'terms'    => 'organization', // Organizations (formerly members_type_of_member meta = 12)
+            'terms'    => 'organization', // Organizations
         ),
     ),
 );

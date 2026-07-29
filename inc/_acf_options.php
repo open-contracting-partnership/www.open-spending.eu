@@ -4,11 +4,9 @@
  * Native ACF Pro options pages for per-CPT archive settings (the archive
  * sub-heading, plus the archive breadcrumb for members).
  *
- * Replaces ACF Extended's "Post Type Archive" feature. The stored values live
- * under `{posttype}_options` (e.g. news_options_sub_heading), which is the
- * `post_id` used here — so existing values resolve unchanged and the theme's
- * get_field('sub_heading', "{$posttype}_options") reads keep working. This
- * removes the last thing the site needed ACF Extended for.
+ * Values are stored in wp_options under `{posttype}_options` (e.g.
+ * news_options_sub_heading), which is the `post_id` used here, so the theme's
+ * get_field('sub_heading', "{$posttype}_options") reads resolve against them.
  */
 
 add_action('acf/init', function () {
