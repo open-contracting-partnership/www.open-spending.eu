@@ -224,8 +224,9 @@ add_action('wp_head', function () {
 }, 3);
 
 /**
- * Tune WordPress core's built-in sitemap (wp-sitemap.xml):
- * drop the noindexed member CPT and the users sitemap.
+ * Tune WordPress core's built-in sitemap (wp-sitemap.xml): drop the noindexed
+ * member CPT and the users sitemap, and add the CPT archive landing pages that
+ * core omits (see provider below).
  */
 add_filter('wp_sitemaps_post_types', function ($post_types) {
 	unset($post_types['member']);
@@ -240,3 +241,43 @@ add_filter('wp_sitemaps_taxonomies', function ($taxonomies) {
 add_filter('wp_sitemaps_add_provider', function ($provider, $name) {
 	return ('users' === $name) ? false : $provider;
 }, 10, 2);
+
+/**
+ * Add CPT archive landing pages (e.g. /news/, /campaign/) to the sitemap.
+ *
+ * Core's post-type sitemaps list individual posts but never the archive index
+ * pages, which are real, indexable landing pages (and were present in the prior
+ * Rank Math sitemap). Expose them via a small custom provider. The noindexed
+ * member archive is skipped.
+ */
+add_action('init', function () {
+	if (! function_exists('wp_register_sitemap_provider') || ! class_exists('WP_Sitemaps_Provider')) {
+		return;
+	}
+
+	$provider = new class extends WP_Sitemaps_Provider {
+		public function __construct() {
+			$this->name        = 'archives';
+			$this->object_type = 'archive';
+		}
+
+		public function get_url_list($page_num, $object_subtype = '') {
+			$urls       = array();
+			$post_types = get_post_types(array('public' => true, 'has_archive' => true), 'names');
+			unset($post_types['member']); // noindexed CPT, excluded from the sitemap
+			foreach ($post_types as $post_type) {
+				$link = get_post_type_archive_link($post_type);
+				if ($link) {
+					$urls[] = array('loc' => $link);
+				}
+			}
+			return $urls;
+		}
+
+		public function get_max_num_pages($object_subtype = '') {
+			return 1;
+		}
+	};
+
+	wp_register_sitemap_provider('archives', $provider);
+});
