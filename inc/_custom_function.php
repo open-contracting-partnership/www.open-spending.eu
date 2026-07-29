@@ -157,32 +157,6 @@ function breadcrumb_section($id)
 	return $outupt_breadcrumb_section;
 }
 
-function custom_breadcrumb_section($id, $posttype, $labels)
-{
-	$display_breadcrumb     = (function_exists('get_field') && $display_breadcrumb = get_field('display_breadcrumb', $posttype . '_options')) ? $display_breadcrumb : '0';
-	$default_breadcrumb     = (function_exists('get_field') && $default_breadcrumb = get_field('default_breadcrumb', $posttype . '_options')) ? $default_breadcrumb : '0';
-	$add_custom_breadcrumb     = (function_exists('get_field') && $add_custom_breadcrumb = get_field('add_custom_breadcrumb', $posttype . '_options')) ? $add_custom_breadcrumb : '';
-
-	if ($display_breadcrumb && $default_breadcrumb) {
-		echo breadcrumb_section($id); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- breadcrumb_section() returns pre-escaped HTML.
-	}
-	if ($display_breadcrumb && !$default_breadcrumb && $add_custom_breadcrumb) {
-	?>
-		<div class="breadcrumb bg-n-10">
-			<div class="breadcrumb-menu container">
-				<?php foreach ($add_custom_breadcrumb as $value) { ?>
-					<div class="breadcrumb-menu__item">
-						<a href="<?php echo esc_url($value['link']); ?>"> <?php echo esc_html($value['item']); ?> </a>
-					</div>
-				<?php } ?>
-				<div class="breadcrumb-menu__item"> <?php echo esc_html($labels->name); ?> </div>
-			</div>
-		</div>
-<?php
-	}
-}
-
-
 // get all the taxo for post types
 function get_tax_post_type($posttype, $taxonomies)
 {
