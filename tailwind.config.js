@@ -5,6 +5,7 @@ module.exports = {
     "./src/sass/**/*.scss",
     "./acf_block/*.php",
     "./archives/*.php",
+    "./inc/*.php",
     "./patterns/*.php",
     "./singles/*.php",
     "./parts/*.html",
