@@ -1,3 +1,5 @@
+import "./hero-animation.js";
+
 jQuery(function ($) {
   /**
    * =================================================
@@ -141,7 +143,7 @@ jQuery(function ($) {
   if ($("body").hasClass("home")) {
     var membersHeight = $(".member-data")[0].scrollHeight;
     $(".member-data").attr("data-height", membersHeight);
-    root = document.documentElement;
+    var root = document.documentElement;
     setTimeout(function () {
       root.style.setProperty("--member-height", membersHeight + "px");
     }, 500);

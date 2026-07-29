@@ -12,7 +12,7 @@ make help      # all targets
 
 - **Docker** — runs MySQL 8.0 (matches production's collation).
 - **Host PHP 8.x** with `mysqli`, `gd`, `mbstring` — runs the site via `php -S`.
-  (`make build` additionally uses Docker + Node 20; no host Node needed.)
+- **Node** (latest LTS) and **pnpm** — only for `make build`.
 - Two production backup artifacts, placed in the repo root (git-ignored):
   - the files tarball — `*_public_html_backup_*.tar`
   - the DB dump — `*_coalition_wp*.sql`
@@ -30,7 +30,6 @@ make help      # all targets
 | `php -S` won't serve symlinked assets → CSS/JS 301'd | `dev/router.php` |
 | OPcache serving stale includes across a theme swap | `make serve` (OPcache off) |
 | CPT archives 404/redirect until rewrite rules regenerate | `make flush` |
-| Node 26 + floating webpack break Laravel Mix | `make build` (Node 20 + pinned/deduped webpack) |
 
 ## Common tasks
 
@@ -49,6 +48,23 @@ Switch branches with plain `git checkout` — the theme is a symlink to this
 checkout, so the running server reflects the new branch immediately (run
 `make flush` if you change CPT registration).
 
-> Note: `dist/` is committed and matches production, so `make build` is only
-> needed when you change `src/`. The build is pinned to webpack 5.74 (Mix 6
-> compatible) because the project ships no lockfile.
+## Asset build
+
+`make build` compiles `src/` into `dist/`. It wraps the two commands that do
+the work, which you can also run directly:
+
+```bash
+pnpm install --frozen-lockfile --ignore-scripts
+NODE_ENV=production node build.js
+```
+
+`build.js` bundles `src/sass/app.scss` and `src/js/app.js` into `dist/` with
+esbuild, running Tailwind and autoprefixer over the SCSS via PostCSS. Icons
+under 1 kB are inlined as data URIs; larger ones keep a content-hashed query
+string. Without `NODE_ENV=production` the output is unminified with
+sourcemaps, so **always build with it before committing `dist/`**.
+
+`node build.js --watch` rebuilds on change.
+
+> Note: `dist/` is committed and matches production, so rebuild and commit it
+> whenever you change `src/`.

@@ -37,7 +37,7 @@ select#news-country-filter {
   -webkit-appearance: none;
   -moz-appearance: none;
   background: transparent;
-  background-image: url(../../../dist/images/icons/select-dropdown.svg);
+  background-image: url(icons/select-dropdown.svg);
   background-repeat: no-repeat;
   background-position-x: 95%;
   background-position-y: 50%;
@@ -61,12 +61,12 @@ select#news-country-filter {
     color: var(--n-90) !important;
   }
   &:after {
-    content: url(../../../dist/images/icons/twitter.svg);
+    content: url(icons/twitter.svg);
     margin-left: 8px;
   }
   &:hover:after {
     display: inline !important;
-    content: url(../../../dist/images/icons/twitter-active.svg);
+    content: url(icons/twitter-active.svg);
   }
 }
 
@@ -108,7 +108,7 @@ select#country-filter {
   -webkit-appearance: none;
   -moz-appearance: none;
   background: transparent;
-  background-image: url("../../../dist/images/icons/select-icon.svg");
+  background-image: url("icons/select-icon.svg");
   background-repeat: no-repeat;
   background-size: 12px 6px;
   background-position-x: 95%;
@@ -120,6 +120,6 @@ select#country-filter {
   }
 
   &:hover {
-    background-image: url("../../../dist/images/icons/select-icon-hover.svg");
+    background-image: url("icons/select-icon-hover.svg");
   }
 }

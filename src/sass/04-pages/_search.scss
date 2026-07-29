@@ -8,7 +8,7 @@
 
       &::before {
         content: "";
-        background-image: url("../../../dist/images/icons/search-icon-black.svg");
+        background-image: url("icons/search-icon-black.svg");
         background-size: 16px 16px;
         @apply absolute h-4 w-4 top-1/2 left-4 -translate-y-1/2;
       }

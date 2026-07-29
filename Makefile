@@ -10,7 +10,7 @@
 #    * php -S router that serves symlinked assets (CSS/JS!)      -> dev/router.php
 #    * OPcache OFF (else stale includes across a theme swap)      -> serve
 #    * rewrite rules regenerated per theme                       -> flush
-#    * asset build on Node 20 w/ pinned webpack                  -> build
+#    * asset build (esbuild + dart-sass + Tailwind)              -> build
 #
 #  Quick start:   make up          (then open http://localhost:8090)
 #  Prereqs:       Docker, and host PHP 8.x with mysqli/gd/mbstring (for `serve`).
@@ -29,7 +29,6 @@ DB_PORT      ?= 3307
 DB_NAME      ?= coalition_wp
 DB_CONTAINER ?= coalition-mysql
 MYSQL_IMAGE  ?= mysql:8.0
-NODE_IMAGE   ?= node:20-bullseye
 
 REPO         := $(CURDIR)
 WORKDIR      ?= $(HOME)/.cache/coalition-devserver
@@ -169,8 +168,10 @@ wp-link: ## Symlink the WP theme dir to THIS checkout (current branch)
 # ---- Assets ----------------------------------------------------------------
 
 .PHONY: build
-build: ## Compile SCSS/JS into dist/ (Node 20 + pinned webpack, via Docker)
-	@bash "$(REPO)/dev/build.sh"
+build: ## Compile SCSS/JS into dist/ (esbuild; needs Node + pnpm)
+	@command -v pnpm >/dev/null || { echo "pnpm not found — see https://pnpm.io/installation"; exit 1; }
+	@pnpm install --frozen-lockfile --ignore-scripts
+	@NODE_ENV=production node "$(REPO)/build.js"
 
 .PHONY: migrate
 migrate: ## Run one-time data migrations (migrations/*.php) against the dev DB

@@ -1,10 +1,5 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "entry": ["webpack.mix.js", "src/js/*.js", "src/sass/app.scss"],
-  "project": ["*.js", "src/**/*.{js,scss}"],
-  "ignoreDependencies": [
-    // Required by mix.sass() but referenced as webpack loader strings inside laravel-mix, which knip can't see.
-    "sass-loader",
-    "resolve-url-loader"
-  ]
+  "entry": ["build.js", "src/js/app.js", "src/sass/app.scss"],
+  "project": ["src/**"]
 }

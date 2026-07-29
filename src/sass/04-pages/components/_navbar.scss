@@ -10,7 +10,7 @@
 
     &::before {
       content: "";
-      background-image: url("../../../../dist/images/icons/search-icon.svg");
+      background-image: url("icons/search-icon.svg");
       background-size: 16px 16px;
       @apply absolute h-4 w-4 top-1/2 left-4 -translate-y-1/2;
     }
@@ -37,7 +37,7 @@ input[type="search"]::-webkit-search-cancel-button {
   appearance: none;
   height: 16px;
   width: 16px;
-  background-image: url("../../../../dist/images/icons/cross-icon.svg");
+  background-image: url("icons/cross-icon.svg");
   background-size: 16px 16px;
 }
 
@@ -110,7 +110,7 @@ body:not(.home, .archive, .block-editor-iframe__body) {
       @apply text-teal transition-all duration-300  hover:text-n-80;
       &:after {
         content: "";
-        background: url(../../../../dist/images/icons/chevron-right.svg);
+        background: url(icons/chevron-right.svg);
         @apply w-2 h-3 absolute top-1 -right-4;
       }
     }
@@ -242,7 +242,7 @@ nav {
 
           &:after {
             // content: "";
-            background: url(../../../../dist/images/icons/dropdown.svg)
+            background: url(icons/dropdown.svg)
               no-repeat;
             @apply w-2 h-2 absolute top-2.5 right-4;
           }
