@@ -5,7 +5,7 @@
  * Usage:
  *   php patch-wp-config.php <wp-config-path> <db-host> <db-user> <db-pass> <site-url>
  *
- * - Points the DB constants at the local (Docker) MySQL.
+ * - Points the DB constants at the local MySQL.
  * - Forces WP_HOME / WP_SITEURL to the local URL so WordPress never redirects
  *   to the production domain (these are defined before the originals, and take
  *   precedence over the siteurl/home options in the database).
