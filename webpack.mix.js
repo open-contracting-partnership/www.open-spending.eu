@@ -15,7 +15,6 @@ if (mix.inProduction()) {
         },
       },
     },
-    // postCss: [require('autoprefixer')],
     cssNano: {
       discardComments: { removeAll: true },
     },
@@ -25,15 +24,6 @@ if (mix.inProduction()) {
 }
 
 mix.webpackConfig({
-  module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        loader: "import-glob-loader",
-      },
-    ],
-  },
-
   watchOptions: {
     ignored: /node_modules/,
   },
