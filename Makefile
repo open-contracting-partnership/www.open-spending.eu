@@ -71,14 +71,13 @@ wp: ## extract WordPress files, patch wp-config, symlink this theme
 	@for f in wp-content/advanced-cache.php wp-content/mu-plugins/opencontracting_auto_update_plugin.php; do \
 		[ -f "$(WP)/$$f" ] && mv -f "$(WP)/$$f" "$(WP)/$$f.disabled" || true; \
 	done
-	@cp "$(REPO)/dev/router.php" "$(WP)/router.php"
 	@rm -rf "$(WP)/wp-content/themes/$(THEME)" && ln -s "$(REPO)" "$(WP)/wp-content/themes/$(THEME)"
 	@echo ">> WordPress ready, theme -> this checkout"
 
 serve: ## start the PHP dev server (foreground, OPcache off; Ctrl-C to stop)
-	@test -f "$(WP)/router.php" || { echo "run 'make setup' first"; exit 1; }
+	@test -f "$(WP)/wp-load.php" || { echo "run 'make setup' first"; exit 1; }
 	@echo ">> $(URL)  (Ctrl-C to stop)"
-	@WP_ENVIRONMENT_TYPE=local php -d opcache.enable=0 -S localhost:$(PORT) -t "$(WP)" "$(WP)/router.php"
+	@WP_ENVIRONMENT_TYPE=local php -d opcache.enable=0 -S localhost:$(PORT) -t "$(WP)"
 
 build: ## compile SCSS/JS into dist/ (esbuild)
 	@pnpm install --frozen-lockfile --ignore-scripts
