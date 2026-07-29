@@ -8,7 +8,7 @@ $tags = get_the_tags();
 
 ?>
 
-<?php echo breadcrumb_section($id); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- pre-escaped HTML ?>
+<?php echo breadcrumb_section($id); ?>
 
 <div class="container py-10 sm:pt-16 lg:pb-20">
 

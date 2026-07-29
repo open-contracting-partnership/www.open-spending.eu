@@ -8,6 +8,8 @@
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/acf_json/*</exclude-pattern>
+    <!-- Local-only dev tooling: runs before WordPress loads, so WP sanitizers do not apply. -->
+    <exclude-pattern>*/dev/*</exclude-pattern>
 
     <arg name="extensions" value="php"/>
     <arg name="colors"/>
@@ -18,11 +20,13 @@
     <config name="minimum_supported_wp_version" value="6.1"/>
     <config name="text_domain" value="openspendingcoalition"/>
 
-    <!-- Catch unsafe output: list custom helpers that internally escape -->
+    <!-- Catch unsafe output. These helpers return pre-escaped/trusted markup, so
+         their return value is treated as already-escaped. (useSvg is escaped per
+         call-site with an inline ignore instead: this sniff does not honour it in
+         customAutoEscapedFunctions.) -->
     <rule ref="WordPress.Security.EscapeOutput">
         <properties>
             <property name="customAutoEscapedFunctions" type="array">
-                <element value="useSvg"/>
                 <element value="breadcrumb_section"/>
                 <element value="custom_query_pagination"/>
                 <element value="main_query_pagination"/>
@@ -41,8 +45,10 @@
     <rule ref="WordPress.WP.EnqueuedResources"/>
     <rule ref="WordPress.WP.PostsPerPage"/>
 
-    <!-- Generic PHP gotchas -->
+    <!-- Generic PHP / correctness gotchas -->
     <rule ref="WordPress.PHP.NoSilencedErrors"/>
+    <rule ref="Generic.CodeAnalysis.AssignmentInCondition"/>
+    <rule ref="WordPress.WP.I18n"/>
 
     <!-- Cross-version PHP compatibility checks -->
     <rule ref="PHPCompatibilityWP"/>

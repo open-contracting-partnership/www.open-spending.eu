@@ -245,6 +245,7 @@ add_action('init', function () {
 		return;
 	}
 
+	// phpcs:disable PHPCompatibility.FunctionDeclarations.NewClosure.ThisFoundOutsideClass -- false positive: $this is valid inside this anonymous class.
 	$provider = new class extends WP_Sitemaps_Provider {
 		public function __construct() {
 			$this->name        = 'archives';
@@ -268,6 +269,7 @@ add_action('init', function () {
 			return 1;
 		}
 	};
+	// phpcs:enable PHPCompatibility.FunctionDeclarations.NewClosure.ThisFoundOutsideClass
 
 	wp_register_sitemap_provider('archives', $provider);
 });

@@ -59,7 +59,7 @@ $default_breadcrumb    = (function_exists('get_field') && $default_breadcrumb = 
 $add_custom_breadcrumb = (function_exists('get_field') && $add_custom_breadcrumb = get_field('add_custom_breadcrumb', $posttype . '_options')) ? $add_custom_breadcrumb : '';
 
 if ($display_breadcrumb && $default_breadcrumb) {
-    echo breadcrumb_section($id); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- breadcrumb_section() returns pre-escaped HTML.
+    echo breadcrumb_section($id);
 }
 if ($display_breadcrumb && !$default_breadcrumb && $add_custom_breadcrumb) {
 ?>
