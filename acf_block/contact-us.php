@@ -24,11 +24,6 @@ $social_links = [
         'label' => 'LinkedIn',
         'url'   => 'https://linkedin.com/company/open-spending-eu-coalition/',
     ],
-    [
-        'icon'  => 'youtube',
-        'label' => 'YouTube',
-        'url'   => 'https://youtube.com/openspendingeu',
-    ],
 ];
 
 ?>

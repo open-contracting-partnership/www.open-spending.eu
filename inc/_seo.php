@@ -40,7 +40,6 @@ function theme_seo_social_profiles()
 	return [
 		'https://twitter.com/EuSpending',
 		'https://linkedin.com/company/open-spending-eu-coalition/',
-		'https://youtube.com/openspendingeu',
 	];
 }
 
