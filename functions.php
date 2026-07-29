@@ -106,7 +106,7 @@ add_action('init', function () {
 	wp_register_style('awp-block-styles', get_stylesheet_directory_uri() . '/dist/css/app.css', false);
 	register_block_style('core/heading', [
 		'name' => 'colored-bottom-border',
-		'label' => __('Colored bottom border', 'txtdomain'),
+		'label' => __('Colored bottom border', 'openspendingcoalition'),
 		'style_handle' => 'awp-block-styles'
 	]);
 });

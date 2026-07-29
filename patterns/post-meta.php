@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Post Meta
- * Slug: twentytwentythree/post-meta
+ * Slug: www-open-spending-eu/post-meta
  * Categories: query
  * Keywords: post meta
  * Block Types: core/template-part/post-meta
@@ -25,7 +25,7 @@
 			<div class="wp-block-group">
 				<!-- wp:paragraph -->
 				<p>
-					<?php echo esc_html_x( 'Posted', 'Verb to explain the publication status of a post', 'twentytwentythree' ); ?>
+					<?php echo esc_html_x( 'Posted', 'Verb to explain the publication status of a post', 'openspendingcoalition' ); ?>
 				</p>
 				<!-- /wp:paragraph -->
 
@@ -33,7 +33,7 @@
 
 				<!-- wp:paragraph -->
 				<p>
-					<?php echo esc_html_x( 'in', 'Preposition to show the relationship between the post and its categories', 'twentytwentythree' ); ?>
+					<?php echo esc_html_x( 'in', 'Preposition to show the relationship between the post and its categories', 'openspendingcoalition' ); ?>
 				</p>
 				<!-- /wp:paragraph -->
 
@@ -45,7 +45,7 @@
 			<div class="wp-block-group">
 				<!-- wp:paragraph -->
 				<p>
-					<?php echo esc_html_x( 'by', 'Preposition to show the relationship between the post and its author', 'twentytwentythree' ); ?>
+					<?php echo esc_html_x( 'by', 'Preposition to show the relationship between the post and its author', 'openspendingcoalition' ); ?>
 				</p>
 				<!-- /wp:paragraph -->
 
@@ -61,7 +61,7 @@
 			<div class="wp-block-group">
 				<!-- wp:paragraph -->
 				<p>
-					<?php echo esc_html_x( 'Tags:', 'Label for a list of post tags', 'twentytwentythree' ); ?>
+					<?php echo esc_html_x( 'Tags:', 'Label for a list of post tags', 'openspendingcoalition' ); ?>
 				</p>
 				<!-- /wp:paragraph -->
 

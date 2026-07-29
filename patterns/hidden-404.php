@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Hidden 404
- * Slug: twentytwentythree/hidden-404
+ * Slug: www-open-spending-eu/hidden-404
  * Inserter: no
  */
 

@@ -1,8 +1,8 @@
 {
   "name": "www.open-spending.eu",
   "version": "1.0.0",
-  "description": "=== Twenty Twenty-Three ===\r Contributors: wordpressdotorg\r Requires at least: 6.1\r Tested up to: 6.1\r Requires PHP: 5.6\r Stable tag: 1.0\r License: GPLv2 or later\r License URI: http://www.gnu.org/licenses/gpl-2.0.html",
-  "main": "index.js",
+  "description": "Asset build (SCSS/JS) for the Open Spending Coalition WordPress theme",
+  "private": true,
   "scripts": {
     "preinstall": "npx only-allow yarn",
     "dev": "npm run development",
@@ -13,9 +13,7 @@
     "prod": "npm run production",
     "production": "mix --production"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "GPL-2.0-or-later",
   "devDependencies": {
     "autoprefixer": "^10.4.13",
     "laravel-mix": "^6.0.49",
