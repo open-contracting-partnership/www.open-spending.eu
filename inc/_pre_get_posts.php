@@ -25,7 +25,7 @@ add_action('pre_get_posts', 'filter_main_query', 11);
 
 /**
  * Order campaigns by their manual menu_order on the front end. The order is
- * stored in wp_posts.menu_order (a core column); the campaign CPT gets
+ * stored in wp_posts.menu_order (a core column); the campaign post type gets
  * `page-attributes` support so editors keep the "Order" field to change it.
  * Applies to every front-end campaign query (the archive and the home page's
  * Campaigns section).

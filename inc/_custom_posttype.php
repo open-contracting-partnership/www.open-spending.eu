@@ -330,7 +330,8 @@ add_action('init', 'cptui_register_my_cpts');
 
 /**
  * Single-select (radio) metabox for the type_of_member taxonomy — a member is
- * exactly one Person or Organization. Core saves the choice via `tax_input`.
+ * exactly one Person or Organization. Core saves the chosen term automatically
+ * from the tax_input[] radio fields rendered below.
  */
 function member_type_meta_box($post)
 {
