@@ -1,12 +1,15 @@
 <?php
 
 /**
- * Native ACF Pro options pages for per-CPT archive settings (the archive
- * sub-heading, plus the archive breadcrumb for members).
+ * Adds a small "Archive Settings" screen to the WordPress admin for each content
+ * type — News, Evidence, Campaigns, Members, Tools, Best Practices. An editor
+ * uses it to set the sub-heading shown on that type's listing (archive) page —
+ * and, for Members, a custom breadcrumb — without anyone touching code.
  *
- * Values are stored in wp_options under `{posttype}_options` (e.g.
- * news_options_sub_heading), which is the `post_id` used here, so the theme's
- * get_field('sub_heading', "{$posttype}_options") reads resolve against them.
+ * How it links to the templates: these screens are an ACF Pro feature called
+ * "options pages". Each one saves its fields against the id "{type}_options"
+ * (e.g. "news_options"), and the archive templates read the values back with the
+ * matching get_field('sub_heading', "{type}_options").
  */
 
 add_action('acf/init', function () {
