@@ -11,15 +11,7 @@
  *   - Open Graph/Twitter -> here (featured image, with a site-wide fallback)
  *   - JSON-LD schema     -> here (Organization + WebSite, front page only)
  *   - XML sitemap        -> WordPress core (wp-sitemap.xml), tuned here
- *
- * It stays DORMANT while Rank Math (or Yoast) is active, so it can be committed
- * and compared side-by-side before the plugin is removed.
  */
-
-// Let the SEO plugin win if one is installed; otherwise this file takes over.
-if (defined('RANK_MATH_VERSION') || defined('WPSEO_VERSION')) {
-	return;
-}
 
 /**
  * The site tagline is a full sentence — keep it out of the front-page <title>
