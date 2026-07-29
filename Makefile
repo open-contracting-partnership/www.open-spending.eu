@@ -26,8 +26,11 @@ DUMP   ?= $(shell ls -t $(REPO)/*coalition_wp*.sql 2>/dev/null | head -1)
 SOCKET := $(or $(shell mysql -uroot -N -sse "SELECT @@socket" 2>/dev/null),/tmp/mysql.sock)
 MYSQL  := mysql -uroot
 
-# Keep only these plugins active locally (drops the page-cache/security/analytics ones).
-KEEP := ["acf-extended/acf-extended.php","advanced-custom-fields-pro/acf.php","fluentform/fluentform.php","safe-svg/safe-svg.php","seo-by-rank-math/rank-math.php","simple-custom-post-order/simple-custom-post-order.php"]
+# Keep only these plugins active locally. The dump is a pre-migration production
+# snapshot, so this also drops the plugins this theme replaced (Rank Math SEO,
+# ACF Extended, Simple Custom Post Order) plus the page-cache/security/SMTP ones,
+# leaving the site running the way this branch expects.
+KEEP := ["advanced-custom-fields-pro/acf.php","fluentform/fluentform.php","safe-svg/safe-svg.php"]
 
 .PHONY: help up setup db wp serve build flush clean
 
@@ -59,7 +62,12 @@ wp: ## extract WordPress files, patch wp-config, symlink this theme
 		echo ">> extracting $$(basename "$(TAR)")"; mkdir -p "$(WORKDIR)"; \
 		tar -xf "$(TAR)" -C "$(WORKDIR)" --strip-components=2; \
 	fi
-	@php "$(REPO)/dev/patch-wp-config.php" "$(WP)/wp-config.php" "localhost:$(SOCKET)" root "" "$(URL)"
+	@sed -i.bak -E \
+		-e "s#define\( *'DB_HOST'[^;]*;#define('DB_HOST', 'localhost:$(SOCKET)');#" \
+		-e "s#define\( *'DB_USER'[^;]*;#define('DB_USER', 'root');#" \
+		-e "s#define\( *'DB_PASSWORD'[^;]*;#define('DB_PASSWORD', '');#" \
+		-e "s#define\( *'WP_CACHE'[^;]*;#define('WP_CACHE', false);#" \
+		"$(WP)/wp-config.php" && rm -f "$(WP)/wp-config.php.bak"
 	@for f in wp-content/advanced-cache.php wp-content/mu-plugins/opencontracting_auto_update_plugin.php; do \
 		[ -f "$(WP)/$$f" ] && mv -f "$(WP)/$$f" "$(WP)/$$f.disabled" || true; \
 	done
@@ -70,7 +78,7 @@ wp: ## extract WordPress files, patch wp-config, symlink this theme
 serve: ## start the PHP dev server (foreground, OPcache off; Ctrl-C to stop)
 	@test -f "$(WP)/router.php" || { echo "run 'make setup' first"; exit 1; }
 	@echo ">> $(URL)  (Ctrl-C to stop)"
-	@php -d opcache.enable=0 -S localhost:$(PORT) -t "$(WP)" "$(WP)/router.php"
+	@WP_ENVIRONMENT_TYPE=local php -d opcache.enable=0 -S localhost:$(PORT) -t "$(WP)" "$(WP)/router.php"
 
 build: ## compile SCSS/JS into dist/ (esbuild)
 	@pnpm install --frozen-lockfile --ignore-scripts
