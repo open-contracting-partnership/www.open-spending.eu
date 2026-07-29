@@ -122,8 +122,8 @@ db-load: ## Import the SQL dump (skips if already loaded; FORCE=1 to reimport)
 .PHONY: db-config
 db-config: ## Point site URL at localhost and disable cache/security plugins
 	@$(MYSQL) $(DB_NAME) -e "UPDATE wp_options SET option_value='$(BASE_URL)' WHERE option_name IN ('siteurl','home');"
-	@SER=$$(php -r 'echo serialize(json_decode($$argv[1], true));' '$(PLUGINS_KEEP)'); \
-	printf "UPDATE wp_options SET option_value='%s' WHERE option_name='active_plugins';" "$$SER" | $(MYSQL) $(DB_NAME)
+	@SERIALIZED=$$(php -r 'echo serialize(json_decode($$argv[1], true));' '$(PLUGINS_KEEP)'); \
+	printf "UPDATE wp_options SET option_value='%s' WHERE option_name='active_plugins';" "$$SERIALIZED" | $(MYSQL) $(DB_NAME)
 	@echo ">> DB configured (url=$(BASE_URL); heavy plugins disabled)"
 
 .PHONY: db-shell
