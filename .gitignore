@@ -1,12 +1,4 @@
+composer.lock
 /vendor/
 /node_modules/
-composer.lock
-.DS_Store
-
-# Local dev server (see Makefile / dev/) — production backups are sensitive,
-# never commit them.
-/*.tar
-/*.sql
-
-# Emitted by a non-production `node build.js`; only the minified dist/ is committed.
 /dist/**/*.map
