@@ -124,7 +124,7 @@ function theme_seo_canonical()
  * of via publicly_queryable, which would break the /member/ archive).
  */
 add_filter('wp_robots', function ($robots) {
-	if (is_singular('member') || is_search() || is_404()) {
+	if (is_singular('member') || is_search() || is_404() || is_tag()) {
 		$robots['noindex'] = true;
 	}
 	return $robots;
@@ -224,9 +224,9 @@ add_action('wp_head', function () {
 }, 3);
 
 /**
- * Tune WordPress core's built-in sitemap (wp-sitemap.xml): drop the noindexed
- * member CPT and the users sitemap, and add the CPT archive landing pages that
- * core omits (see provider below).
+ * Tune WordPress core's built-in sitemap (wp-sitemap.xml):
+ * drop the noindexed member CPT, the users sitemap, and thin taxonomy archives,
+ * and add the CPT archive landing pages that core omits (see provider below).
  */
 add_filter('wp_sitemaps_post_types', function ($post_types) {
 	unset($post_types['member']);
@@ -234,7 +234,7 @@ add_filter('wp_sitemaps_post_types', function ($post_types) {
 });
 
 add_filter('wp_sitemaps_taxonomies', function ($taxonomies) {
-	unset($taxonomies['type_of_member']); // terms only classify the noindexed member CPT
+	unset($taxonomies['post_tag']); // core public taxonomy
 	return $taxonomies;
 });
 
