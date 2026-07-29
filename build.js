@@ -30,7 +30,6 @@ const options = {
     sassPlugin({
       // The stylesheets predate the @use migration.
       silenceDeprecations: ["import"],
-      quietDeps: true,
       async transform(source) {
         const { css } = await postcss([
           tailwindcss("tailwind.config.cjs"),
