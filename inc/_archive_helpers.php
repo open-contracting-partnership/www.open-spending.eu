@@ -149,7 +149,7 @@ function render_filterable_archive( $posttype ) {
 						$card_classes .= 'campaign-' . (int) $cid . ' ';
 					}
 				}
-				$card_classes .= taxoTermsSLug( $card_id, $taxonomies );
+				$card_classes .= taxonomy_term_slugs( $card_id, $taxonomies );
 				?>
 			<div class="<?php echo esc_attr( $card_classes ); ?> archive-accordion-items p-5 border border-n-40 rounded-3xl"
 				data-id="<?php echo (int) $card_id; ?>">
@@ -170,7 +170,7 @@ function render_filterable_archive( $posttype ) {
 						<div class="mt-4">
 							<a href="<?php echo esc_url( $permalink ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
 								Learn More
-								<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+								<?php echo inline_svg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
 							</a>
 						</div>
 					</div>
@@ -262,7 +262,7 @@ function render_other_posts_grid( $posttype, $exclude_id, $heading, $excerpt_len
 						<p class="mt-2 text-sm text-n-60 mb-4"><?php echo esc_html( $card_excerpt ); ?></p>
 						<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
 							Learn more
-							<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+							<?php echo inline_svg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
 						</a>
 					</div>
 				</div>

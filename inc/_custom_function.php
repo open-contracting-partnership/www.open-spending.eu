@@ -52,7 +52,7 @@ function excerpt( $limit = 115 ) {
  * @param string $taxonomy_val Taxonomy name.
  * @return string Space-separated slugs, with a trailing space; '' if none.
  */
-function taxoTermsSLug( $id, $taxonomy_val ) {
+function taxonomy_term_slugs( $id, $taxonomy_val ) {
 	$terms_array = get_the_terms( $id, $taxonomy_val );
 	$terms_slug  = '';
 	if ( $terms_array ) {
@@ -63,7 +63,7 @@ function taxoTermsSLug( $id, $taxonomy_val ) {
 	return $terms_slug;
 }
 
-if ( ! function_exists( 'useSvg' ) ) {
+if ( ! function_exists( 'inline_svg' ) ) {
 	/**
 	 * Inline the contents of one of the theme's bundled SVG icons.
 	 *
@@ -74,7 +74,7 @@ if ( ! function_exists( 'useSvg' ) ) {
 	 *                         dist/images/icons.
 	 * @return string The SVG markup, or '' when there is no such readable file.
 	 */
-	function useSvg( $filename = 'long-arrow-right' ) {
+	function inline_svg( $filename = 'long-arrow-right' ) {
 		$icon = get_stylesheet_directory() . '/dist/images/icons/' . $filename . '.svg';
 
 		// A missing icon should render as nothing, not a warning. Checked
@@ -101,8 +101,8 @@ function main_query_pagination() {
 
 	$big = 999999999;
 
-	$right_icon = useSvg( 'page-navigation-next' );
-	$left_icon  = useSvg( 'page-navigation-prev' );
+	$right_icon = inline_svg( 'page-navigation-next' );
+	$left_icon  = inline_svg( 'page-navigation-prev' );
 
 	$paginate = paginate_links(array(
 		'prev_text' => $left_icon,
@@ -133,8 +133,8 @@ function custom_query_pagination( $query, $paged ) {
 	global $wp_query;
 
 	$big        = 999999999;
-	$right_icon = useSvg( 'page-navigation-next' );
-	$left_icon  = useSvg( 'page-navigation-prev' );
+	$right_icon = inline_svg( 'page-navigation-next' );
+	$left_icon  = inline_svg( 'page-navigation-prev' );
 
 	$paginate = paginate_links(array(
 		'base'         => str_replace( $big, '%#%', html_entity_decode( get_pagenum_link( $big ) ) ),

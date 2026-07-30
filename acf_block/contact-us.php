@@ -51,7 +51,7 @@ $social_links = array(
 				<li class="flex gap-x-1.5 sm:gap-x-2.5 mt-4 sm:mt-6 icon-hover max-w-fit">
 					<a href="<?php echo esc_url( $social_link['url'] ); ?>" target="_blank" rel="noopener noreferrer" class="flex gap-x-1.5 sm:gap-x-2.5 items-center">
 						<span class="flex justify-center items-center h-4 w-4 sm:h-6 sm:w-6 transition-all cursor-pointer duration-300">
-							<?php echo useSvg( $social_link['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+							<?php echo inline_svg( $social_link['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
 						</span>
 						<span class="contact-links"><?php echo esc_html( $social_link['label'] ); ?></span>
 					</a>

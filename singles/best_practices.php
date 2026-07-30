@@ -72,7 +72,7 @@ $realted_campaign = ( is_array( $realted_campaign ) && isset( $realted_campaign[
 								<span class="text-lg font-bold !text-n-100"><?php echo esc_html( $campaign_title ); ?></span>
 								<span class="flex gap-x-2.5 items-center learn-more-btn mt-4">
 									Learn More
-									<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+									<?php echo inline_svg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
 								</span>
 							</div>
 						</a>

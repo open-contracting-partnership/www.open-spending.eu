@@ -56,7 +56,6 @@
              ============================================================== -->
 
         <!-- Naming and filenames. -->
-        <exclude name="WordPress.NamingConventions.ValidFunctionName"/>
         <exclude name="WordPress.Files.FileName"/>
     </rule>
 
@@ -69,13 +68,13 @@
            custom_query_pagination()   literal divs; the only injected values are
                                        prev_text/next_text, our own bundled SVGs.
 
-         useSvg() is deliberately *not* listed here even though it would work —
+         inline_svg() is deliberately *not* listed here even though it would work —
          note that entries must be lowercase, as the sniff lowercases function
-         names before matching, so a camelCase "useSvg" silently never matches
+         names before matching, so a camelCase "inline_svg" silently never matches
          and "usesvg" is what takes effect. It stays annotated per call-site
          instead: it returns raw file bytes for a path built by concatenating its
          argument, so listing it globally would also wave through a future
-         useSvg( $untrusted ). The inline ignores keep each call site justified. -->
+         inline_svg( $untrusted ). The inline ignores keep each call site justified. -->
     <rule ref="WordPress.Security.EscapeOutput">
         <properties>
             <property name="customAutoEscapedFunctions" type="array">

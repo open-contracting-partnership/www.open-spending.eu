@@ -48,7 +48,7 @@ header {
 					class="mt-11 py-2.5 px-4 md:py-5 md:px-8 border border-[#FFF200] rounded-lg flex gap-x-4 sm:gap-x-6 hero-btn max-w-fit items-center">
 					<p class="text-lg text-n-0 transition-all duration-[400ms]"><?php echo esc_html( $button_text ); ?>
 					</p>
-					<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+					<?php echo inline_svg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
 				</div>
 			</a>
 		</div>

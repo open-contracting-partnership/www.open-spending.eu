@@ -60,7 +60,7 @@ $the_query = new WP_Query( $args );
 					<p class="mt-2 text-sm text-n-60 mb-4"><?php echo esc_html( $excerpt ); ?></p>
 					<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
 					<?php echo esc_html( $btn_text ); ?>
-					<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+					<?php echo inline_svg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
 					</a>
 				</div>
 			</div>

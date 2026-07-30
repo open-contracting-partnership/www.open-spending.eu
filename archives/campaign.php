@@ -37,7 +37,7 @@ if ( have_posts() ) {
 				<p class="mt-2.5 text-sm text-n-60 mb-4"> <?php echo esc_html( $excerpt ); ?></p>
 				<a href="<?php echo esc_url( $permalink ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
 					Learn More
-					<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+					<?php echo inline_svg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
 				</a>
 			</div>
 		</div>
