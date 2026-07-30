@@ -8,6 +8,9 @@
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/acf_json/*</exclude-pattern>
+    <!-- Agent scratch space; .claude/worktrees holds checkouts of other branches,
+         which would otherwise be linted as if they were part of this one. -->
+    <exclude-pattern>*/.claude/*</exclude-pattern>
 
     <arg name="extensions" value="php"/>
     <arg name="colors"/>
