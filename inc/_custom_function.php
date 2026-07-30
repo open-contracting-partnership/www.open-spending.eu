@@ -3,7 +3,7 @@
 // get limit value then return post excerpt value of certain limit
 function excerpt($limit = 115)
 {
-	$excerpt = get_the_excerpt();
+	$excerpt = html_entity_decode( wp_strip_all_tags( get_the_excerpt() ), ENT_QUOTES, 'UTF-8' );
 	if ( $excerpt ) {
 		$excerpt = mb_substr( $excerpt, 0, $limit ) . '...';
 	}
