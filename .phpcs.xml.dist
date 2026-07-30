@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
-<ruleset name="OpenSpendingCoalition">
-    <description>Coding standards for the Open Spending Coalition theme: the WordPress standard, minus the exclusions below.</description>
-    <!-- Use this command to find all ignores:
-         rg -oIN 'phpcs:ignore (\S+)' -r '$1' | sort | uniq -c | sort -rn -->
-
+<!-- Use this command to find all ignores:
+     rg -oIN 'phpcs:ignore (\S+)' -r '$1' | sort | uniq -c | sort -rn -->
+<ruleset>
     <file>.</file>
 
     <exclude-pattern>*/.claude/*</exclude-pattern>
@@ -14,11 +12,10 @@
 
     <arg name="extensions" value="php"/>
     <arg name="colors"/>
-    <arg value="sp"/>
+    <arg value="s"/>
     <arg name="parallel" value="8"/>
 
     <config name="testVersion" value="8.1-"/>
-    <config name="minimum_supported_wp_version" value="6.1"/>
     <config name="text_domain" value="openspendingcoalition"/>
 
     <rule ref="WordPress">
