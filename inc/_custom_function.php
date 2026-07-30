@@ -176,7 +176,7 @@ function get_tax_post_type($posttype, $taxonomies)
 			$termsArray = get_the_terms( $id, $taxonomies );
 			if ( $termsArray ) {
 				foreach ( $termsArray as $term ) {
-					if ( ! in_array( $term->slug, $tax_post_type_array ) ) {
+					if ( ! in_array( $term->slug, $tax_post_type_array, true ) ) {
 						array_push( $tax_post_type_array, $term->slug );
 						$tax_post_type[$i]['slug'] = $term->slug;
 						$tax_post_type[$i]['name'] = $term->name;

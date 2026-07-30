@@ -45,6 +45,7 @@
 
     <!-- Generic PHP / correctness gotchas -->
     <rule ref="WordPress.PHP.NoSilencedErrors"/>
+    <rule ref="WordPress.PHP.StrictInArray"/>
     <rule ref="Generic.CodeAnalysis.AssignmentInCondition"/>
     <rule ref="WordPress.WP.I18n"/>
 
