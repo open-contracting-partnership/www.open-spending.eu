@@ -10,6 +10,6 @@
     "lineWidth": 119
   },
   "files": {
-    "includes": ["**", "!acf_json", "!dist"]
+    "includes": ["**", "!acf_json", "!dist", "!composer.lock"]
   }
 }
