@@ -1,4 +1,10 @@
 <?php
+/**
+ * Member organizations block: the organization members' logos.
+ *
+ * @package OpenSpendingCoalition
+ */
+
 $heading   = theme_field( 'heading' );
 $paragraph = theme_field( 'paragraph' );
 

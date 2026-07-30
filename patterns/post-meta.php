@@ -5,7 +5,10 @@
  * Categories: query
  * Keywords: post meta
  * Block Types: core/template-part/post-meta
+ *
+ * @package OpenSpendingCoalition
  */
+
 ?>
 <!-- wp:spacer {"height":"0"} -->
 <div style="height:0" aria-hidden="true" class="wp-block-spacer"></div>

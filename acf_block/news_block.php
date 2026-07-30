@@ -1,4 +1,10 @@
 <?php
+/**
+ * News block: a heading and a grid of the most recent news posts.
+ *
+ * @package OpenSpendingCoalition
+ */
+
 $heading        = theme_field( 'heading' );
 $paragraph      = theme_field( 'paragraph' );
 $btn_text       = theme_field( 'btn_text', false, 'Learn more' );

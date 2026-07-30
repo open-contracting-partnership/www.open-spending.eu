@@ -1,4 +1,9 @@
 <?php
+/**
+ * Single news post, with its tags and an "in other news" grid.
+ *
+ * @package OpenSpendingCoalition
+ */
 
 $current_id     = get_the_ID();
 $posttype       = get_post_type( $current_id );

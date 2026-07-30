@@ -3,6 +3,8 @@
  * Title: Hidden 404
  * Slug: www-open-spending-eu/hidden-404
  * Inserter: no
+ *
+ * @package OpenSpendingCoalition
  */
 
 ?>

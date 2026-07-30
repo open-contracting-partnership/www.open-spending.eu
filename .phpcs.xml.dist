@@ -56,7 +56,6 @@
              ============================================================== -->
 
         <!-- Documentation. -->
-        <exclude name="Squiz.Commenting.FileComment"/>
         <exclude name="Squiz.Commenting.InlineComment"/>
         <exclude name="Generic.Commenting.DocComment"/>
 
@@ -91,6 +90,15 @@
                 <element value="main_query_pagination"/>
             </property>
         </properties>
+    </rule>
+
+    <!-- inc/includes.php contains nothing but require_once lines, and this sniff
+         has T_REQUIRE_ONCE in its "the comment belongs to the next statement, not
+         the file" list (FileCommentSniff.php:113). So it reports the file comment
+         as missing however the docblock is written. The file does have one; the
+         sniff structurally cannot see it. -->
+    <rule ref="Squiz.Commenting.FileComment.Missing">
+        <exclude-pattern>inc/includes.php</exclude-pattern>
     </rule>
 
     <!-- Cross-version PHP compatibility checks -->

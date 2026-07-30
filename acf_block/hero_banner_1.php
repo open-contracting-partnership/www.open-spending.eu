@@ -1,4 +1,12 @@
 <?php
+/**
+ * Hero Banner block, and the page/archive/search header.
+ *
+ * Renders the front-page hero from its ACF fields, and on other views the heading
+ * band: archive title plus sub-heading, search summary, or single title.
+ *
+ * @package OpenSpendingCoalition
+ */
 
 $heading     = theme_field( 'heading' );
 $paragraph   = theme_field( 'paragraph' );

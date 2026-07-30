@@ -1,4 +1,10 @@
 <?php
+/**
+ * Campaigns block: a heading and the campaign cards, in editor-set order.
+ *
+ * @package OpenSpendingCoalition
+ */
+
 $block_id    = '' . $block['id'];
 $heading     = theme_field( 'heading', false, 'Campaigns' );
 $paragraph   = theme_field( 'paragraph' );

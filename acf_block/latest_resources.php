@@ -1,4 +1,10 @@
 <?php
+/**
+ * Latest resources block: one card per resource type, each showing its newest post.
+ *
+ * @package OpenSpendingCoalition
+ */
+
 $heading   = theme_field( 'heading' );
 $paragraph = theme_field( 'paragraph' );
 

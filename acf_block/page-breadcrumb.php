@@ -1,4 +1,10 @@
 <?php
+/**
+ * Breadcrumb block for pages, honouring the per-page ACF breadcrumb settings.
+ *
+ * @package OpenSpendingCoalition
+ */
+
 $current_id = get_the_ID();
 $posttype   = get_post_type( $current_id );
 

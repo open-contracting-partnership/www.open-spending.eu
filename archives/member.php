@@ -1,4 +1,9 @@
 <?php
+/**
+ * Archive listing for members: experts and organizations, as two tabs.
+ *
+ * @package OpenSpendingCoalition
+ */
 
 $current_id               = get_the_ID();
 $posttype                 = get_post_type( $current_id );

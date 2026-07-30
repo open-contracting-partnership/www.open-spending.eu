@@ -1,4 +1,9 @@
 <?php
+/**
+ * Contact block: the contact form, alongside the address and social links.
+ *
+ * @package OpenSpendingCoalition
+ */
 
 $heading                     = theme_field( 'heading' );
 $heading_body                = theme_field( 'heading_body' );

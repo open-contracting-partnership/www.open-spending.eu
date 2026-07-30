@@ -1,4 +1,10 @@
 <?php
+/**
+ * Members block: the expert members, dealt into two offset columns.
+ *
+ * @package OpenSpendingCoalition
+ */
+
 $heading     = theme_field( 'heading' );
 $paragraph   = theme_field( 'paragraph' );
 $btn_text    = theme_field( 'btn_text', false, 'See more' );

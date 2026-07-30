@@ -1,4 +1,9 @@
 <?php
+/**
+ * Single evidence entry, with its tags and a related-evidence grid.
+ *
+ * @package OpenSpendingCoalition
+ */
 
 $current_id     = get_the_ID();
 $posttype       = get_post_type( $current_id );

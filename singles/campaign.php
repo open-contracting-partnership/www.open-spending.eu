@@ -1,4 +1,9 @@
 <?php
+/**
+ * Single campaign, with its related news and other campaigns.
+ *
+ * @package OpenSpendingCoalition
+ */
 
 $current_id  = get_the_ID();
 $posttype    = get_post_type( $current_id );
