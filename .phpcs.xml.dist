@@ -50,12 +50,25 @@
         <exclude name="PEAR.Functions.FunctionCallSignature.Indent"/>
         <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
 
-        <!-- ==============================================================
-             Not yet adopted. Backlog — see CODING_STANDARD_PLAN.md. Each is
-             being worked through one rule per commit; this list should empty.
-             ============================================================== -->
+        <!-- Hyphenated-lowercase filenames. Three reasons, in descending order of
+             how much they matter:
 
-        <!-- Naming and filenames. -->
+             1. archives/best_practices.php and singles/best_practices.php are
+                located by post-type slug — archive.php and single.php build
+                `__DIR__ . '/archives/' . get_post_type() . '.php'`, and the CPT's
+                slug is best_practices. Renaming them doesn't error, it silently
+                falls through to the generic block layout: the archive keeps
+                returning 200 while its filter grid disappears. Verified by doing
+                it. The underscore is required by the code, not a style choice.
+
+             2. For inc/_*.php the sniff's own suggestion is '-custom-posttype.php'
+                — a leading hyphen. The leading underscore is a deliberate
+                convention marking these as modules loaded by includes.php.
+
+             3. acf_block/*.php filenames match the ACF block names they render
+                (hero_banner_1, news_block), which are the values registered in
+                _acf_register_block_type.php. Those are renameable, but filename
+                == block name is worth more than the convention. -->
         <exclude name="WordPress.Files.FileName"/>
     </rule>
 
