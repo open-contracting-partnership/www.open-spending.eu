@@ -5,15 +5,6 @@
  * Inserter: no
  */
 
-if ( ! function_exists( 'useSvg' ) ) {
-	function useSvg( $filename = 'long-arrow-right' ) {
-		$icon = get_stylesheet_directory() . '/dist/images/icons/' . $filename . '.svg';
-
-		$svg_icon_content = @file_get_contents( $icon );
-
-		return $svg_icon_content;
-	}
-}
 ?>
 <!-- wp:spacer {"height":"var(--wp--preset--spacing--30)"} -->
 <div style="height:var(--wp--preset--spacing--30)" aria-hidden="true" class="wp-block-spacer"></div>
