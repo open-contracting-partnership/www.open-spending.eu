@@ -2,7 +2,7 @@
 $heading   = (function_exists( 'get_field' ) && $heading = get_field( 'heading' )) ? $heading : '';
 $paragraph = (function_exists( 'get_field' ) && $paragraph = get_field( 'paragraph' )) ? $paragraph : '';
 
-$view_all_resources_url   = home_url( '/resources' );
+$view_all_resources_url   = home_url( '/resources/' );
 $view_all_resources_label = 'View all resources';
 
 $resource_cards = array(

@@ -42,7 +42,7 @@ function render_filterable_archive($posttype)
 	<div class="container">
 		<div class="flex flex-wrap gap-x-6">
 			<form method="GET" role="search" class="campaign-filter md:flex gap-x-8"
-				action="<?php echo esc_url( home_url( '/' . $posttype ) ); ?>" id="filter-form">
+				action="<?php echo esc_url( get_post_type_archive_link( $posttype ) ); ?>" id="filter-form">
 				<?php if ( $campaign_filter_data ) { ?>
 				<div class="mt-8">
 					<p class="text-n-60">Filter <?php echo esc_html( $posttype_label ); ?> by campaign: </p>
