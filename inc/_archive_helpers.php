@@ -194,10 +194,10 @@ function render_filterable_archive($posttype)
 	<script>
 	jQuery(function($) {
 		$('.filter-input').click(function() {
-			$('form').submit();
+			$('#filter-form').submit();
 		});
 		$("#country-filter").change(function() {
-			$('form').submit();
+			$('#filter-form').submit();
 		});
 	});
 	</script>
