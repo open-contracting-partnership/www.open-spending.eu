@@ -1,4 +1,4 @@
-jQuery(function ($) {
+jQuery(($) => {
   var canvas = document.getElementById("heroCanvas"),
     ctx = canvas.getContext("2d");
 
@@ -87,7 +87,7 @@ jQuery(function ($) {
     }
   }
 
-  canvas.addEventListener("mousemove", function (e) {
+  canvas.addEventListener("mousemove", (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
   });

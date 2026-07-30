@@ -1,6 +1,6 @@
 import "./hero-animation.js";
 
-jQuery(function ($) {
+jQuery(($) => {
   /**
    * =================================================
    * Homepage member animation
@@ -28,7 +28,7 @@ jQuery(function ($) {
    * =================================================
    */
 
-  $(document).mouseup(function (e) {
+  $(document).mouseup((e) => {
     var container = $(".has-inline-text");
     var tweetPopup = $(".highlight-and-share-wrapper");
 
@@ -128,7 +128,7 @@ jQuery(function ($) {
    * Responsive nabvar hide on click outside
    * =================================================
    */
-  $(document).mouseup(function (e) {
+  $(document).mouseup((e) => {
     var container = $(".wp-block-navigation__responsive-container");
     if (!container.is(e.target) && container.has(e.target).length === 0) {
       $(".wp-block-navigation__responsive-container-close").trigger("click");
@@ -144,7 +144,7 @@ jQuery(function ($) {
     var membersHeight = $(".member-data")[0].scrollHeight;
     $(".member-data").attr("data-height", membersHeight);
     var root = document.documentElement;
-    setTimeout(function () {
+    setTimeout(() => {
       root.style.setProperty("--member-height", membersHeight + "px");
     }, 500);
   }
