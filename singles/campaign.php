@@ -68,7 +68,7 @@ $campaign_videos = ( is_array( $campaign ) && isset( $campaign['campaign_videos'
 							<div class="relative flex  items-center justify-center h-full container">
 								<iframe width="642px" height="361px" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 								<div tabindex="0" class="absolute p-3 text-xs text-white border border-white border-solid rounded-full cursor-pointer video-close top-4 right-4">
-									<?php echo inline_svg( 'cross-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+									<?php echo inline_svg( 'cross-icon' ); ?>
 								</div>
 							</div>
 						</div>
@@ -121,7 +121,7 @@ $campaign_videos = ( is_array( $campaign ) && isset( $campaign['campaign_videos'
 							<p class="mt-2 text-sm text-n-60 mb-4"> <?php echo esc_html( $excerpt ); ?></p>
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
 								Learn more
-								<?php echo inline_svg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+								<?php echo inline_svg( 'right-arrow' ); ?>
 							</a>
 						</div>
 					</div>
@@ -175,7 +175,7 @@ $campaign_videos = ( is_array( $campaign ) && isset( $campaign['campaign_videos'
 							<p class="mt-2.5 text-sm text-n-60 mb-4"> <?php echo esc_html( $excerpt ); ?></p>
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
 								Learn More
-								<?php echo inline_svg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+								<?php echo inline_svg( 'right-arrow' ); ?>
 							</a>
 						</div>
 					</div>

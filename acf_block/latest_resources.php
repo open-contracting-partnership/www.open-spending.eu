@@ -69,7 +69,7 @@ $resource_cards = array(
 					</div>
 					<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
 						Learn more
-						<?php echo inline_svg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+						<?php echo inline_svg( 'right-arrow' ); ?>
 					</a>
 						<?php
 					}

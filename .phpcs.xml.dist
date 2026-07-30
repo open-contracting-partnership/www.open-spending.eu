@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <ruleset name="OpenSpendingCoalition">
     <description>Coding standards for the Open Spending Coalition theme: the WordPress standard, minus the exclusions below.</description>
+    <!-- Use this command to find all ignores:
+         rg -oIN 'phpcs:ignore (\S+)' -r '$1' | sort | uniq -c | sort -rn -->
 
     <file>.</file>
 
@@ -46,6 +48,7 @@
             <property name="customAutoEscapedFunctions" type="array">
                 <element value="breadcrumb_section"/>
                 <element value="custom_query_pagination"/>
+                <element value="inline_svg"/>
                 <element value="main_query_pagination"/>
             </property>
         </properties>

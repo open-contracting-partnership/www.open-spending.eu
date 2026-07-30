@@ -67,14 +67,23 @@ if ( ! function_exists( 'inline_svg' ) ) {
 	/**
 	 * Inline the contents of one of the theme's bundled SVG icons.
 	 *
-	 * Returned markup is not escaped — it is raw file content, so callers are
-	 * responsible for only passing icon names they control.
+	 * The return value is raw file content, and is registered in
+	 * customAutoEscapedFunctions so call sites don't each need an escaping
+	 * ignore. That's only sound because $filename is restricted to a bare name
+	 * below: whatever a caller passes, this can only ever return an .svg file
+	 * shipped inside dist/images/icons.
 	 *
 	 * @param string $filename Icon name, without the .svg extension, as found in
 	 *                         dist/images/icons.
-	 * @return string The SVG markup, or '' when there is no such readable file.
+	 * @return string The SVG markup, or '' if the name is invalid or unreadable.
 	 */
 	function inline_svg( $filename = 'long-arrow-right' ) {
+		// Bare names only. Rejects separators and dots, so no argument can walk
+		// out of the icons directory or name a file of another type.
+		if ( ! preg_match( '/^[A-Za-z0-9-]+$/', $filename ) ) {
+			return '';
+		}
+
 		$icon = get_stylesheet_directory() . '/dist/images/icons/' . $filename . '.svg';
 
 		// A missing icon should render as nothing, not a warning. Checked
