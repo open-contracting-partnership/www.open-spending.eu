@@ -28,23 +28,27 @@
              array( 'slug' => 'news', 'with_front' => true ). -->
         <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound"/>
 
-        <!-- Multi-line call formatting doesn't converge on templates that break a
-             call's arguments up with inline markup. Single-line spacing stays on. -->
-        <exclude name="PEAR.Functions.FunctionCallSignature.OpeningIndent"/>
+        <!-- These three fight `add_action( 'hook', function () { … } );` — a call
+             whose arguments fit the first line, but which spans several because the
+             last one is a closure. The rule wants every argument on its own line
+             with the paren below. The other three sub-rules stay on. -->
         <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
         <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.ContentBeforeCloseBracket"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.Indent"/>
         <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
+    </rule>
 
-        <!-- These filenames are referenced by code, not just convention.
-             archive.php and single.php locate their partials as
-             '/archives/' . get_post_type() . '.php', so
-             archives/best_practices.php has to keep its underscore — renaming it
-             silently drops through to the generic layout rather than erroring.
-             acf_block/*.php likewise match the ACF block names they render, and
-             inc/_*.php marks the modules includes.php loads. -->
-        <exclude name="WordPress.Files.FileName"/>
+    <!-- Filenames in these four places are derived from code, not chosen:
+         archive.php and single.php locate partials as
+         '/archives/' . get_post_type() . '.php', so archives/best_practices.php
+         has to keep its underscore — renaming it drops through to the generic
+         layout silently rather than erroring. acf_block/*.php match the ACF block
+         names they render, and inc/_*.php marks the modules includes.php loads.
+         Everywhere else the convention applies as normal. -->
+    <rule ref="WordPress.Files.FileName">
+        <exclude-pattern>inc/_*.php</exclude-pattern>
+        <exclude-pattern>acf_block/*</exclude-pattern>
+        <exclude-pattern>archives/*</exclude-pattern>
+        <exclude-pattern>singles/*</exclude-pattern>
     </rule>
 
     <!-- These three assemble their markup from escaped parts only, so callers
@@ -61,8 +65,8 @@
     </rule>
 
     <!-- includes.php is nothing but require_once lines, and the sniff treats a
-         docblock followed by a require as the require's, so it can't see the file
-         comment that is there. -->
+         docblock followed by a require as the require's docblock, so it can't see
+         the file comment that is there. -->
     <rule ref="Squiz.Commenting.FileComment.Missing">
         <exclude-pattern>inc/includes.php</exclude-pattern>
     </rule>
