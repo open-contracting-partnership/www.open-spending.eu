@@ -29,12 +29,10 @@
         <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound"/>
     </rule>
 
-    <!-- Filenames in these three places are derived from code, not chosen:
-         archive.php and single.php locate partials as
-         '/archives/' . get_post_type() . '.php', so archives/best_practices.php
-         has to keep its underscore — renaming it drops through to the generic
-         layout silently rather than erroring. acf_block/*.php match the ACF block
-         names they render. Everywhere else the convention applies as normal. -->
+    <!-- These filenames come from code, not choice. archive.php and single.php load
+         partials by post-type slug, so archives/best_practices.php keeps its
+         underscore; renaming it fails silently, falling back to the generic layout.
+         acf_block/*.php match the ACF block names they render. -->
     <rule ref="WordPress.Files.FileName">
         <exclude-pattern>acf_block/*</exclude-pattern>
         <exclude-pattern>archives/*</exclude-pattern>
@@ -53,8 +51,8 @@
         </properties>
     </rule>
 
-    <!-- includes.php has a file comment, but the sniff treats a docblock followed
-         by a require as the require's docblock, so it can't see it. -->
+    <!-- includes.php has a file comment, but the sniff treats it as the require's
+         docblock, so it can't see the file comment. -->
     <rule ref="Squiz.Commenting.FileComment.Missing">
         <exclude-pattern>inc/includes.php</exclude-pattern>
     </rule>
