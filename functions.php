@@ -57,25 +57,35 @@ if ( ! function_exists( 'theme_setup' ) ) {
  *
  * @since 1.0.0
  */
+/**
+ * Content hash for a bundled asset, for use as its enqueue version.
+ *
+ * A rebuild cache-busts, while the URL stays identical across deploys and
+ * servers when the bytes are unchanged.
+ *
+ * @param string $path Path relative to the theme directory, e.g. '/dist/js/app.js'.
+ * @return string|null The hash, or null when the file is missing.
+ */
+function theme_asset_version( $path ) {
+	$file = get_stylesheet_directory() . $path;
+
+	return file_exists( $file ) ? hash_file( 'crc32b', $file ) : null;
+}
+
 // theme's scripts and styles for frontend
 function theme_scripts() {
-	// Version the built assets by a content hash so a rebuild cache-busts, while
-	// the URL stays identical across deploys/servers when the bytes are unchanged.
-	$css = get_stylesheet_directory() . '/dist/css/app.css';
-	$js  = get_stylesheet_directory() . '/dist/js/app.js';
-
 	wp_enqueue_style(
 		'fse-style',
 		get_stylesheet_directory_uri() . '/dist/css/app.css',
 		array(),
-		file_exists( $css ) ? hash_file( 'crc32b', $css ) : null
+		theme_asset_version( '/dist/css/app.css' )
 	);
 
 	wp_enqueue_script(
 		'main-script',
 		get_stylesheet_directory_uri() . '/dist/js/app.js',
 		array( 'jquery' ),
-		file_exists( $js ) ? hash_file( 'crc32b', $js ) : null,
+		theme_asset_version( '/dist/js/app.js' ),
 		true
 	);
 
@@ -83,7 +93,7 @@ function theme_scripts() {
 		'slick-slider',
 		get_stylesheet_directory_uri() . '/dist/js/slick.min.js',
 		array( 'jquery' ),
-		false,
+		theme_asset_version( '/dist/js/slick.min.js' ),
 		true
 	);
 
@@ -91,7 +101,7 @@ function theme_scripts() {
 		'isotope-js',
 		get_stylesheet_directory_uri() . '/dist/js/isotope.pkgd.min.js',
 		array( 'jquery' ),
-		false,
+		theme_asset_version( '/dist/js/isotope.pkgd.min.js' ),
 		true
 	);
 }
