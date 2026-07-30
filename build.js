@@ -30,10 +30,9 @@ const options = {
     sassPlugin({
       silenceDeprecations: ["import"],
       async transform(source) {
-        const { css } = await postcss([
-          tailwindcss("tailwind.config.cjs"),
-          autoprefixer,
-        ]).process(source, { from: undefined });
+        const { css } = await postcss([tailwindcss("tailwind.config.cjs"), autoprefixer]).process(source, {
+          from: undefined,
+        });
         return css;
       },
     }),
