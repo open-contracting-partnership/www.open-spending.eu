@@ -57,6 +57,7 @@ if ( ! function_exists( 'useSvg' ) ) {
 			return '';
 		}
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Reads a bundled theme asset off local disk. WP_Filesystem is the abstraction for writable paths, isn't loaded on the front end, and can prompt for credentials; it would be both slower and wrong here.
 		return file_get_contents( $icon );
 	}
 }
