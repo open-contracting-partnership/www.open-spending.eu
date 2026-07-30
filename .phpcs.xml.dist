@@ -37,15 +37,13 @@
         <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
     </rule>
 
-    <!-- Filenames in these four places are derived from code, not chosen:
+    <!-- Filenames in these three places are derived from code, not chosen:
          archive.php and single.php locate partials as
          '/archives/' . get_post_type() . '.php', so archives/best_practices.php
          has to keep its underscore — renaming it drops through to the generic
          layout silently rather than erroring. acf_block/*.php match the ACF block
-         names they render, and inc/_*.php marks the modules includes.php loads.
-         Everywhere else the convention applies as normal. -->
+         names they render. Everywhere else the convention applies as normal. -->
     <rule ref="WordPress.Files.FileName">
-        <exclude-pattern>inc/_*.php</exclude-pattern>
         <exclude-pattern>acf_block/*</exclude-pattern>
         <exclude-pattern>archives/*</exclude-pattern>
         <exclude-pattern>singles/*</exclude-pattern>

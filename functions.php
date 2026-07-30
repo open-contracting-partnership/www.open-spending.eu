@@ -14,7 +14,7 @@ if ( ! function_exists( 'theme_setup' ) ) {
 	 */
 	function theme_setup() {
 
-		// Let WordPress render <title>; _seo.php filters its parts.
+		// Let WordPress render <title>; seo.php filters its parts.
 		add_theme_support( 'title-tag' );
 
 		// Post Thumbnails on posts and pages.

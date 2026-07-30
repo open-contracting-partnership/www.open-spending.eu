@@ -1,9 +1,9 @@
 <?php
 /**
- * Shared archive renderers.
+ * Shared renderers for grids of posts.
  *
- * The filterable archive grid used by the news, evidence, toolkit and
- * best-practices listings, and the related-posts grid below their singles.
+ * The filtered, paginated listing used by the news, evidence, toolkit and
+ * best-practices archives, and the related-posts strip below their singles.
  *
  * @package OpenSpendingCoalition
  */
