@@ -1,21 +1,21 @@
-jQuery(($) => {
-  var canvas = document.getElementById("heroCanvas"),
-    ctx = canvas.getContext("2d");
+jQuery(() => {
+  const canvas = document.getElementById("heroCanvas");
+  const ctx = canvas.getContext("2d");
 
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  var stars = [], // Array that contains the stars
-    FPS = 45, // Frames per second
-    x = Math.floor(canvas.width / 36), // Number of stars relative to the screen size
-    mouse = {
-      x: 0,
-      y: 0,
-    };
+  const stars = []; // Array that contains the stars
+  const FPS = 45; // Frames per second
+  const starCount = Math.floor(canvas.width / 36); // Number of stars relative to the screen size
+  const mouse = {
+    x: 0,
+    y: 0,
+  };
 
   // Push stars to array
 
-  for (var i = 0; i < x; i++) {
+  for (let i = 0; i < starCount; i++) {
     stars.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -32,8 +32,8 @@ jQuery(($) => {
 
     ctx.globalCompositeOperation = "lighter";
 
-    for (var i = 0, x = stars.length; i < x; i++) {
-      var s = stars[i];
+    for (let i = 0, len = stars.length; i < len; i++) {
+      const s = stars[i];
 
       ctx.fillStyle = "#fff";
       ctx.beginPath();
@@ -44,12 +44,12 @@ jQuery(($) => {
     }
 
     ctx.beginPath();
-    for (var i = 0, x = stars.length; i < x; i++) {
-      var starI = stars[i];
+    for (let i = 0, len = stars.length; i < len; i++) {
+      const starI = stars[i];
       ctx.moveTo(starI.x, starI.y);
       if (distance(mouse, starI) < 150) ctx.lineTo(mouse.x, mouse.y);
-      for (var j = 0, x = stars.length; j < x; j++) {
-        var starII = stars[j];
+      for (let j = 0, innerLen = stars.length; j < innerLen; j++) {
+        const starII = stars[j];
         if (distance(starI, starII) < 150) {
           ctx.lineTo(starII.x, starII.y);
         }
@@ -61,13 +61,10 @@ jQuery(($) => {
   }
 
   function distance(point1, point2) {
-    var xs = 0;
-    var ys = 0;
-
-    xs = point2.x - point1.x;
+    let xs = point2.x - point1.x;
     xs = xs * xs;
 
-    ys = point2.y - point1.y;
+    let ys = point2.y - point1.y;
     ys = ys * ys;
 
     return Math.sqrt(xs + ys);
@@ -76,8 +73,8 @@ jQuery(($) => {
   // Update star locations
 
   function update() {
-    for (var i = 0, x = stars.length; i < x; i++) {
-      var s = stars[i];
+    for (let i = 0, len = stars.length; i < len; i++) {
+      const s = stars[i];
 
       s.x += s.vx / FPS;
       s.y += s.vy / FPS;

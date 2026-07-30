@@ -36,7 +36,7 @@ jQuery(($) => {
     if (!container.is(e.target) && container.has(e.target).length === 0) {
       if (!tweetPopup.is(e.target) && tweetPopup.has(e.target).length === 0) {
         $(".highlight-and-share-wrapper").hide();
-        if ($(".highlight-and-share-wrapper").length == 2) {
+        if ($(".highlight-and-share-wrapper").length === 2) {
           container.trigger("click");
         }
       }
@@ -104,13 +104,13 @@ jQuery(($) => {
    */
   $(".campaign-vid-thumbnail").on("click", function () {
     var source = $(this).attr("data-src");
-    var match =
-      source &&
-      source.match(/(?:youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
+    var match = source?.match(
+      /(?:youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([\w-]{11})/,
+    );
     if (!match) {
       return;
     }
-    var embedUrl = "https://www.youtube.com/embed/" + match[1];
+    var embedUrl = `https://www.youtube.com/embed/${match[1]}`;
     var $modal = $(this).siblings(".video-page");
     $("body").css("overflow-y", "hidden");
     $modal.addClass("show");
@@ -141,11 +141,11 @@ jQuery(($) => {
    * =================================================
    */
   if ($("body").hasClass("home")) {
-    var membersHeight = $(".member-data")[0].scrollHeight;
+    const membersHeight = $(".member-data")[0].scrollHeight;
     $(".member-data").attr("data-height", membersHeight);
-    var root = document.documentElement;
+    const root = document.documentElement;
     setTimeout(() => {
-      root.style.setProperty("--member-height", membersHeight + "px");
+      root.style.setProperty("--member-height", `${membersHeight}px`);
     }, 500);
   }
 });
