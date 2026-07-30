@@ -15,7 +15,7 @@
     <arg value="sp"/>
     <arg name="parallel" value="8"/>
 
-    <config name="testVersion" value="7.4-"/>
+    <config name="testVersion" value="8.1-"/>
     <config name="minimum_supported_wp_version" value="6.1"/>
     <config name="text_domain" value="openspendingcoalition"/>
 
@@ -37,8 +37,9 @@
         <exclude name="PEAR.Functions.FunctionCallSignature.Indent"/>
         <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
 
-        <!-- Filenames are load-bearing. archive.php and single.php locate their
-             partials as '/archives/' . get_post_type() . '.php', so
+        <!-- These filenames are referenced by code, not just convention.
+             archive.php and single.php locate their partials as
+             '/archives/' . get_post_type() . '.php', so
              archives/best_practices.php has to keep its underscore — renaming it
              silently drops through to the generic layout rather than erroring.
              acf_block/*.php likewise match the ACF block names they render, and
