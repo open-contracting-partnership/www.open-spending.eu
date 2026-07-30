@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Main-query adjustments: per-archive page sizes, and campaign ordering.
+ *
+ * @package OpenSpendingCoalition
+ */
 
 /**
  * Set posts_per_page per archive type: members are unpaginated (the archive

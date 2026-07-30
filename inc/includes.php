@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Load the theme's PHP modules.
+ *
+ * Order matters: post types and helper functions must exist before the ACF block
+ * registrations and query filters that reference them.
+ *
+ * @package OpenSpendingCoalition
+ */
 
 require_once __DIR__ . '/_acf_conf.php';
 

@@ -1,7 +1,14 @@
 <?php
-/*
-Template Name: Archive Default
-*/
+/**
+ * Archive template.
+ *
+ * Renders the block header and footer around a per-post-type partial from
+ * archives/, falling back to a core block query layout when there isn't one.
+ *
+ * Template Name: Archive Default
+ *
+ * @package OpenSpendingCoalition
+ */
 
 $block_content = do_blocks('
     <!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}}},"layout":{"type":"constrained"}} -->

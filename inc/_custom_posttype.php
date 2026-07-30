@@ -1,4 +1,12 @@
 <?php
+/**
+ * Custom post types, and the member-type metabox.
+ *
+ * Registers news, member, campaign, evidence, toolkit and best_practices, plus a
+ * single-select metabox for the type_of_member taxonomy.
+ *
+ * @package OpenSpendingCoalition
+ */
 
 /**
  * Register the theme's custom post types: news, member, campaign, evidence,

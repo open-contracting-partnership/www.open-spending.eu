@@ -1,11 +1,12 @@
 <?php
-
 /**
  * Fathom Analytics
  *
  * You can override the domain and site ID in wp-config.php:
  *   define('FATHOM_DOMAIN', 'fathom.example.org');
  *   define('FATHOM_SITE_ID', 'LNRZMMVR');
+ *
+ * @package OpenSpendingCoalition
  */
 
 add_action('wp_head', function () {

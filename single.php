@@ -1,7 +1,14 @@
 <?php
-/*
-Template Name: Single Default
-*/
+/**
+ * Single template.
+ *
+ * Renders the block header and footer around a per-post-type partial from
+ * singles/, falling back to a core block layout when there isn't one.
+ *
+ * Template Name: Single Default
+ *
+ * @package OpenSpendingCoalition
+ */
 
 $block_content = do_blocks('
     <!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->

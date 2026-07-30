@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * ACF block registrations.
+ *
+ * Each block's render template lives in acf_block/.
+ *
+ * @package OpenSpendingCoalition
+ */
 
 if ( function_exists( 'acf_register_block_type' ) ) :
 

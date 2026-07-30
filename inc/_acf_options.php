@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Adds a small "Archive Settings" screen to the WordPress admin for each content
  * type — News, Evidence, Campaigns, Members, Tools, Best Practices. An editor
@@ -10,6 +9,8 @@
  * "options pages". Each one saves its fields against the id "{type}_options"
  * (e.g. "news_options"), and the archive templates read the values back with the
  * matching get_field('sub_heading', "{type}_options").
+ *
+ * @package OpenSpendingCoalition
  */
 
 add_action('acf/init', function () {

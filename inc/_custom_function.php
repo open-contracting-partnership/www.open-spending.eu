@@ -1,4 +1,11 @@
 <?php
+/**
+ * Template helpers shared across the theme.
+ *
+ * Excerpts, taxonomy slug lists, inline SVG icons, pagination and breadcrumbs.
+ *
+ * @package OpenSpendingCoalition
+ */
 
 /**
  * Read an ACF field, falling back when ACF is unavailable or the value is empty.

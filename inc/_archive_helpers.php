@@ -1,4 +1,12 @@
 <?php
+/**
+ * Shared archive renderers.
+ *
+ * The filterable archive grid used by the news, evidence, toolkit and
+ * best-practices listings, and the related-posts grid below their singles.
+ *
+ * @package OpenSpendingCoalition
+ */
 
 /**
  * Render a filterable post-type archive (campaign + country filters, paginated grid).

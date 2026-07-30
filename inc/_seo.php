@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Lightweight, theme-native SEO:
  *
@@ -10,6 +9,8 @@
  *   - Open Graph/Twitter -> here (featured image, with a site-wide fallback)
  *   - JSON-LD schema     -> here (Organization + WebSite, front page only)
  *   - XML sitemap        -> WordPress core (wp-sitemap.xml), tuned here
+ *
+ * @package OpenSpendingCoalition
  */
 
 /**
