@@ -78,14 +78,12 @@ $resource_cards = array(
 				</div>
 				<?php } ?>
 			</div>
-			<?php if ( $view_all_resources_url ) { ?>
 			<div class="flex justify-center mt-8">
 				<a href="<?php echo esc_url( $view_all_resources_url ); ?>"
 					class="!text-n-100 font-bold py-2.5 px-4 border border-teal rounded-lg transition-all duration-300 hover:bg-teal hover:!text-n-0 more-resources-btn">
 					<?php echo esc_html( $view_all_resources_label ); ?>
 				</a>
 			</div>
-			<?php } ?>
 		</div>
 	</div>
 </section>

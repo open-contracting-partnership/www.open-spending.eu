@@ -1,7 +1,3 @@
-// .wp-block-cover.footer {
-//   padding: 0px;
-// }
-
 .footer {
   &:after {
     content: "";
@@ -50,9 +46,6 @@
   .wp-social-link-twitter:hover svg path {
     fill: #00acee;
   }
-  .wp-social-link-youtube:hover svg path {
-    fill: #e62117;
-  }
 }
 
 .footer {
@@ -80,11 +73,6 @@
   background-size: 0 1px;
   border-bottom-width: 0;
   transition: background-size 0.5s ease-in-out;
-}
-
-.link-underline-teal {
-  background-image: linear-gradient(transparent, transparent),
-    linear-gradient(rgba(29, 111, 163, 1), rgba(29, 111, 163, 1));
 }
 
 .link-underline:hover {

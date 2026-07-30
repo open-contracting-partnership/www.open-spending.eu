@@ -11,7 +11,6 @@ $post_object              = get_post_type_object( $posttype );
 $labels                   = $post_object->labels;
 $person_member_data       = array();
 $organization_member_data = array();
-$taxonomies               = 'type_of_member';
 
 if ( have_posts() ) {
 	$i = 0;
@@ -98,7 +97,7 @@ if ( $display_breadcrumb && ! $default_breadcrumb && $add_custom_breadcrumb ) {
 				<div class="pt-[120%] relative members-list-image">
 					<?php render_acf_image( $member_data['logoprofile_photo'], array( 'alt' => $member_data['title'], 'class' => 'absolute top-0 h-full w-full object-cover rounded-3xl' ) ); ?>
 				</div>
-				<div class="absolute bottom-10 left-8 member-quote-animation">
+				<div class="absolute bottom-10 left-8">
 					<div class="member-quote hidden opacity-0 font-medium text-lg text-n-0 mb-8 pr-8">
 						<?php echo inline_svg( 'quote' ); ?>
 						<?php echo wp_kses_post( $member_data['quotes'] ); ?>

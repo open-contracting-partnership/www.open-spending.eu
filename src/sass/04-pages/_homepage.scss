@@ -1,7 +1,3 @@
-:root {
-  --member-height: 0;
-}
-
 .campaigns_block,
 .who_we_are_block,
 .latest_resources {
@@ -50,15 +46,6 @@
   }
   img {
     @apply hover:scale-[1.03];
-  }
-}
-
-@keyframes bottomtop {
-  0% {
-    transform: translateY(calc(100vh - var(--member-height)));
-  }
-  100% {
-    transform: translateY(0%);
   }
 }
 

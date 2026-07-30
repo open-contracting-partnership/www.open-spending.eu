@@ -24,27 +24,6 @@ jQuery(($) => {
 
   /**
    * =================================================
-   * Twitter sharable link hide on click on body
-   * =================================================
-   */
-
-  $(document).mouseup((e) => {
-    var container = $(".has-inline-text");
-    var tweetPopup = $(".highlight-and-share-wrapper");
-
-    // if the target of the click isn't the container nor a descendant of the container
-    if (!container.is(e.target) && container.has(e.target).length === 0) {
-      if (!tweetPopup.is(e.target) && tweetPopup.has(e.target).length === 0) {
-        $(".highlight-and-share-wrapper").hide();
-        if ($(".highlight-and-share-wrapper").length === 2) {
-          container.trigger("click");
-        }
-      }
-    }
-  });
-
-  /**
-   * =================================================
    * Who we are section slider
    * =================================================
    */
@@ -134,18 +113,4 @@ jQuery(($) => {
       $(".wp-block-navigation__responsive-container-close").trigger("click");
     }
   });
-
-  /**
-   * =================================================
-   * Who we are section animation
-   * =================================================
-   */
-  if ($("body").hasClass("home")) {
-    const membersHeight = $(".member-data")[0].scrollHeight;
-    $(".member-data").attr("data-height", membersHeight);
-    const root = document.documentElement;
-    setTimeout(() => {
-      root.style.setProperty("--member-height", `${membersHeight}px`);
-    }, 500);
-  }
 });

@@ -69,13 +69,6 @@ body.post-type-archive {
   }
 }
 
-//Single
-// body.single,
-// body.error404,
-// body.page-id-519,
-// body.page-id-361,
-// body.page-id-373
-
 body:not(.home) {
   header {
     @include mq("sm", min) {
@@ -194,12 +187,6 @@ nav {
       box-shadow: 0 0 0 10000px rgba(0, 0, 0, 0.7);
     }
 
-    // li.has-child {
-    //   .wp-block-navigation__submenu-container {
-    //     display: none !important;
-    //   }
-    // }
-
     .wp-block-navigation__responsive-container {
       background: var(--n-10) !important;
     }
@@ -236,24 +223,6 @@ nav {
         }
       }
 
-      li.has-child {
-        & > a {
-          position: relative;
-
-          &:after {
-            // content: "";
-            background: url(icons/dropdown.svg)
-              no-repeat;
-            @apply w-2 h-2 absolute top-2.5 right-4;
-          }
-
-          .wp-block-navigation__submenu-container {
-            li a:after {
-              @apply h-0 w-0;
-            }
-          }
-        }
-      }
     }
   }
 }

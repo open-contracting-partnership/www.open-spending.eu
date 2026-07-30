@@ -43,25 +43,6 @@ function excerpt( $limit = 115 ) {
 }
 
 /**
- * A post's term slugs for one taxonomy, space-separated for use in a class
- * attribute (the archive filters match on these).
- *
- * @param int    $id           Post ID.
- * @param string $taxonomy_val Taxonomy name.
- * @return string Space-separated slugs, with a trailing space; '' if none.
- */
-function taxonomy_term_slugs( $id, $taxonomy_val ) {
-	$terms_array = get_the_terms( $id, $taxonomy_val );
-	$terms_slug  = '';
-	if ( $terms_array ) {
-		foreach ( $terms_array as $term ) {
-			$terms_slug .= $term->slug . ' ';
-		}
-	}
-	return $terms_slug;
-}
-
-/**
  * Build the shared attribute array (class/alt/loading/fetchpriority/sizes) used by
  * the responsive image helpers below.
  *
@@ -197,10 +178,6 @@ if ( ! function_exists( 'inline_svg' ) ) {
  */
 function main_query_pagination() {
 
-	global $wp_query;
-
-	$big = 999999999;
-
 	$right_icon = inline_svg( 'page-navigation-next' );
 	$left_icon  = inline_svg( 'page-navigation-prev' );
 
@@ -231,8 +208,6 @@ function main_query_pagination() {
  * @return string Pagination markup, already escaped, or '' on a single page.
  */
 function custom_query_pagination( $query, $paged ) {
-
-	global $wp_query;
 
 	$big        = 999999999;
 	$right_icon = inline_svg( 'page-navigation-next' );
