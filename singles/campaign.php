@@ -46,7 +46,7 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 				?>
 					<div>
 						<div class="pt-[60%] <?php echo esc_attr( $thumb_class ); ?> relative"<?php if ( $has_video ) : ?> data-src="<?php echo esc_url( $youtube_embed_url ); ?>"<?php endif; ?>>
-							<img src="<?php echo esc_url( $thumbnail_image ); ?>" alt="<?php echo esc_attr( $video_title ); ?>" class="absolute top-0 h-full w-full object-cover rounded-xl">
+							<img loading="lazy" src="<?php echo esc_url( $thumbnail_image ); ?>" alt="<?php echo esc_attr( $video_title ); ?>" class="absolute top-0 h-full w-full object-cover rounded-xl">
 
 							<div class="video-title absolute left-5 bottom-4 z-20">
 								<p class="font-bold text-n-0"><?php echo esc_html( $video_title ); ?></p>
@@ -101,7 +101,7 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 					<div id="news_<?php echo (int) $news_id; ?>" class="p-5 border border-n-30 rounded-3xl news-card-hover">
 						<div class="pt-[63.8%] relative">
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>">
-								<img src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class=" absolute top-0 h-full w-full object-cover rounded-2xl ">
+								<img loading="lazy" src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class=" absolute top-0 h-full w-full object-cover rounded-2xl ">
 							</a>
 						</div>
 						<div class="pt-6">
@@ -153,7 +153,7 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 					<div id="campaign_<?php echo (int) $other_campaign_id; ?>" class="card-subtle-hover bg-n-0 rounded-3xl">
 						<div class="pt-[65%] relative card-image-container">
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>">
-								<img src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class=" absolute top-0 h-full w-full object-cover rounded-t-3xl">
+								<img loading="lazy" src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class=" absolute top-0 h-full w-full object-cover rounded-t-3xl">
 							</a>
 						</div>
 						<div class="bg-n-0 px-8 sm:px-12 py-6 rounded-b-3xl">

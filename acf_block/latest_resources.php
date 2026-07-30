@@ -44,7 +44,7 @@ $resource_cards = array(
 				?>
 				<div class="bg-n-0 px-8 py-6 rounded-3xl resources-card">
 					<div class="flex gap-x-2.5 items-center">
-						<img src="<?php echo esc_url( get_template_directory_uri() . '/dist/images/icons/' . $card['icon'] ); ?>"
+						<img loading="lazy" src="<?php echo esc_url( get_template_directory_uri() . '/dist/images/icons/' . $card['icon'] ); ?>"
 							alt="icon" class="p-5 rounded-2xl resources-image">
 						<div class="text-n-70"><?php echo esc_html( $card['label'] ); ?></div>
 					</div>

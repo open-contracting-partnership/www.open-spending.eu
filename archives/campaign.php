@@ -21,7 +21,7 @@ if ( have_posts() ) {
 		<div data-id="<?php echo (int) $card_id; ?>" class="card-subtle-hover bg-n-0 rounded-3xl">
 			<a href="<?php echo esc_url( $permalink ); ?>">
 				<div class="pt-[100%] relative card-image-container">
-					<img src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( $title ); ?>"
+					<img loading="lazy" src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( $title ); ?>"
 						class="absolute top-0 h-full w-full object-cover rounded-t-3xl">
 				</div>
 			</a>

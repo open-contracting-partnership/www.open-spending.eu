@@ -36,7 +36,7 @@ $the_query = new WP_Query( $args );
 					<div id="campaign_<?php echo (int) $campaign_id; ?>" class="campaign-each bg-n-0 rounded-3xl card-subtle-hover">
 						<div class="pt-[100%] relative card-image-container">
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>">
-								<img src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class=" absolute top-0 h-full w-full object-cover rounded-t-3xl">
+								<img loading="lazy" src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class=" absolute top-0 h-full w-full object-cover rounded-t-3xl">
 							</a>
 						</div>
 						<div class="info bg-n-0 px-8 py-6 rounded-b-3xl">

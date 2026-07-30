@@ -60,7 +60,7 @@ $realted_campaign = (is_array( $realted_campaign ) && isset( $realted_campaign['
 					<div class="campaign">
 						<a href="<?php echo esc_url( $campaign_permalink ); ?>">
 							<div class="pt-[65%] relative">
-								<img src="<?php echo esc_url( $campaign_feature_img ); ?>" alt="<?php echo esc_attr( $campaign_title ); ?>" class=" absolute top-0 h-full w-full object-cover rounded-t-3xl">
+								<img loading="lazy" src="<?php echo esc_url( $campaign_feature_img ); ?>" alt="<?php echo esc_attr( $campaign_title ); ?>" class=" absolute top-0 h-full w-full object-cover rounded-t-3xl">
 							</div>
 							<div class="bg-n-0 px-8 sm:px-12 py-6 rounded-b-3xl">
 								<span class="text-lg font-bold !text-n-100"><?php echo esc_html( $campaign_title ); ?></span>

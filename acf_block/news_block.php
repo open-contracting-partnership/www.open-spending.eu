@@ -42,7 +42,7 @@ $the_query = new WP_Query( $args );
 			<div id="news_<?php echo (int) $id; ?>" class="p-5 border border-n-30 rounded-3xl news-card-hover">
 				<div class="pt-[63.8%] relative">
 					<a href="<?php echo esc_url( get_the_permalink() ); ?>">
-						<img src="<?php echo esc_url( $feature_img ); ?>" alt="news-image"
+						<img loading="lazy" src="<?php echo esc_url( $feature_img ); ?>" alt="news-image"
 							class=" absolute top-0 h-full w-full object-cover rounded-2xl ">
 					</a>
 				</div>
