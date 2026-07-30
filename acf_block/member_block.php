@@ -65,7 +65,7 @@ $render_member_card = function () {
 						$i = 0;
 						while ( $the_query->have_posts() ) {
 							$the_query->the_post();
-							if ( $i % 2 == 0 ) {
+							if ( $i % 2 === 0 ) {
 								$render_member_card();
 							}
 							++$i;
@@ -77,7 +77,7 @@ $render_member_card = function () {
 						$i = 0;
 						while ( $the_query->have_posts() ) {
 							$the_query->the_post();
-							if ( $i % 2 != 0 ) {
+							if ( $i % 2 !== 0 ) {
 								$render_member_card();
 							}
 							++$i;

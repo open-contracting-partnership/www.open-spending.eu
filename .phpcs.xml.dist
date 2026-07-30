@@ -55,10 +55,6 @@
              being worked through one rule per commit; this list should empty.
              ============================================================== -->
 
-        <!-- Auto-fixable, but `==` -> `===` is not behaviour-preserving, so
-             each occurrence needs reading rather than a phpcbf run. -->
-        <exclude name="Universal.Operators.StrictComparisons"/>
-
         <!-- Documentation. -->
         <exclude name="Squiz.Commenting.FileComment"/>
         <exclude name="Squiz.Commenting.FunctionComment"/>

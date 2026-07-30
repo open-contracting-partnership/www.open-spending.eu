@@ -68,7 +68,7 @@ if ( is_search() ) {
 	<h1 class="font-bold">Search results for: <?php echo esc_html( sanitize_text_field( wp_unslash( $_GET['s'] ?? '' ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Public read-only search query, input sanitized. ?></h1>
 </div>
 	<?php
-} elseif ( ( is_single() || ( $posttype == 'page' ) ) && ! is_front_page() && ! is_admin() ) {
+} elseif ( ( is_single() || ( $posttype === 'page' ) ) && ! is_front_page() && ! is_admin() ) {
 	?>
 <div class="single-header text-n-0 pb-10">
 	<h1 class="font-bold"><?php echo esc_html( get_the_title() ); ?></h1>

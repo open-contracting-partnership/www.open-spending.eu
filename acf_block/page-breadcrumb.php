@@ -2,7 +2,7 @@
 $current_id = get_the_ID();
 $posttype   = get_post_type( $current_id );
 
-if ( $current_id && ( $posttype == 'page' ) ) {
+if ( $current_id && ( $posttype === 'page' ) ) {
 
 	$display_breadcrumb    = theme_field( 'display_breadcrumb', $current_id );
 	$default_breadcrumb    = theme_field( 'default_breadcrumb', $current_id );

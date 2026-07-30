@@ -26,7 +26,7 @@ if ( have_posts() ) {
 		$email             = $member_fields['email'] ?? '';
 		$photo_src         = $logoprofile_photo ? $logoprofile_photo : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
 
-		if ( $type_of_member == 'Person' ) {
+		if ( $type_of_member === 'Person' ) {
 			$person_member_data[ $i ] = array(
 				'id'                => $member_id,
 				'title'             => $post_title,
@@ -37,7 +37,7 @@ if ( have_posts() ) {
 				'email'             => $email,
 				'quotes'            => $member_fields['quotes'] ?? '',
 			);
-		} elseif ( $type_of_member == 'Organization' ) {
+		} elseif ( $type_of_member === 'Organization' ) {
 			$organization_member_data[ $i ] = array(
 				'id'                => $member_id,
 				'title'             => $post_title,
