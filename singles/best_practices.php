@@ -11,8 +11,8 @@ $feature_img    = get_the_post_thumbnail_url();
 $published_date = get_the_date( 'd M, Y' );
 $tags           = get_the_tags();
 
-$realted_campaign = get_field( 'realted_campaign' );
-$realted_campaign = ( is_array( $realted_campaign ) && isset( $realted_campaign['realted_campaign'] ) ) ? $realted_campaign['realted_campaign'] : null;
+$related_campaign = get_field( 'realted_campaign' );
+$related_campaign = ( is_array( $related_campaign ) && isset( $related_campaign['realted_campaign'] ) ) ? $related_campaign['realted_campaign'] : null;
 
 ?>
 
@@ -53,12 +53,12 @@ $realted_campaign = ( is_array( $realted_campaign ) && isset( $realted_campaign[
 </div>
 
 <div class="bg-n-10">
-	<?php if ( $realted_campaign ) { ?>
+	<?php if ( $related_campaign ) { ?>
 		<div class="realted_campaign container py-10 sm:py-14 lg:pt-24 lg:pb-32">
 			<h2 class="font-bold">Related Campaigns</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8">
 				<?php
-				foreach ( $realted_campaign as $campaign_id ) {
+				foreach ( $related_campaign as $campaign_id ) {
 					$campaign_title     = get_the_title( $campaign_id );
 					$campaign_permalink = get_the_permalink( $campaign_id );
 					?>
