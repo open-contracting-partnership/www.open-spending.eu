@@ -37,8 +37,7 @@ $the_query = new WP_Query( $args );
 				?>
 				<div>
 					<a href="<?php echo esc_url( $website ); ?>" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center">
-						<img loading="lazy" src="<?php echo esc_url( $logo_src ); ?>"
-							alt="<?php echo esc_attr( get_the_title() ); ?>" class="max-h-14 transition-all duration-300 ">
+						<?php render_acf_image( $logo_src, array( 'alt' => get_the_title(), 'class' => 'max-h-14 w-auto transition-all duration-300', 'size' => 'medium' ) ); ?>
 					</a>
 				</div>
 				<?php

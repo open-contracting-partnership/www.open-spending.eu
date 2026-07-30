@@ -36,14 +36,11 @@ $the_query = new WP_Query( $args );
 					$the_query->the_post();
 					$id = get_the_ID();
 					$excerpt = excerpt( 100 );
-					$feature_img = (has_post_thumbnail()) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
-
 				?>
 			<div id="news_<?php echo (int) $id; ?>" class="p-5 border border-n-30 rounded-3xl news-card-hover">
 				<div class="pt-[63.8%] relative">
 					<a href="<?php echo esc_url( get_the_permalink() ); ?>">
-						<img loading="lazy" src="<?php echo esc_url( $feature_img ); ?>" alt="news-image"
-							class=" absolute top-0 h-full w-full object-cover rounded-2xl ">
+						<?php render_feature_image( array( 'alt' => 'news-image', 'class' => 'absolute top-0 h-full w-full object-cover rounded-2xl' ) ); ?>
 					</a>
 				</div>
 				<div class="pt-6">

@@ -15,8 +15,7 @@ $tags = get_the_tags();
 	<div class="<?php echo esc_attr( $posttype . '-' . $id ); ?> ">
 		<?php if ( $feature_img ) { ?>
 		<div class="pt-[45%] relative">
-			<img src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>"
-				class=" absolute top-0 h-full w-full object-cover rounded-xl">
+			<?php render_feature_image( array( 'lazy' => false, 'priority' => true, 'sizes' => '(max-width: 1200px) 100vw, 1200px', 'class' => 'absolute top-0 h-full w-full object-cover rounded-xl' ) ); ?>
 		</div>
 		<?php } ?>
 		<div class="pt-8 sm:pt-14 lg:pt-20 grid gap-x-4 grid-cols-1 sm:grid-cols-12">

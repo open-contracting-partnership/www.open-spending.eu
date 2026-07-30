@@ -27,9 +27,7 @@ $render_member_card = function () {
 	?>
 	<div id="member_<?php echo (int) $member_id; ?>" class="member-item mb-6">
 		<div class="pt-[124%] relative overflow-hidden rounded-3xl homepage-member-container">
-			<img loading="lazy" src="<?php echo esc_url( $photo_src ); ?>"
-				alt="<?php echo esc_attr( get_the_title() ); ?>"
-				class=" absolute top-0 h-full w-full object-cover rounded-2xl transition-all duration-300 ">
+			<?php render_acf_image( $photo_src, array( 'alt' => get_the_title(), 'class' => 'absolute top-0 h-full w-full object-cover rounded-2xl transition-all duration-300' ) ); ?>
 		</div>
 		<h4 class="mt-2 lg:mt-4 font-bold text-n-100">
 			<?php echo esc_html( get_the_title() ); ?>

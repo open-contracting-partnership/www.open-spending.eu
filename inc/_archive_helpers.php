@@ -126,7 +126,6 @@ function render_filterable_archive($posttype)
 				$the_query->the_post();
 				$card_id     = get_the_ID();
 				$permalink   = get_the_permalink( $card_id );
-				$feature_img = (has_post_thumbnail()) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
 				$excerpt     = excerpt( 115 );
 				$title       = get_the_title();
 				$related     = get_field( 'realted_campaign' );
@@ -145,8 +144,7 @@ function render_filterable_archive($posttype)
 					<div>
 						<a href="<?php echo esc_url( $permalink ); ?>">
 							<div class="pt-[63%] relative">
-								<img loading="lazy" src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( $title ); ?>"
-									class="absolute h-full w-full object-cover top-0 rounded-[20px]">
+								<?php render_feature_image( array( 'alt' => $title, 'class' => 'absolute h-full w-full object-cover top-0 rounded-[20px]' ) ); ?>
 							</div>
 						</a>
 					</div>
@@ -231,12 +229,11 @@ function render_other_posts_grid($posttype, $exclude_id, $heading, $excerpt_leng
 					$the_query->the_post();
 					$card_id     = get_the_ID();
 					$card_excerpt = excerpt( $excerpt_length );
-					$feature_img = (has_post_thumbnail()) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
 				?>
 				<div id="<?php echo esc_attr( $posttype ); ?>_<?php echo (int) $card_id; ?>" class="p-5 border border-n-30 rounded-3xl bg-n-0 news-card-hover">
 					<div class="pt-[63.8%] relative">
 						<a href="<?php echo esc_url( get_the_permalink() ); ?>">
-							<img loading="lazy" src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class=" absolute top-0 h-full w-full object-cover rounded-2xl">
+							<?php render_feature_image( array( 'class' => 'absolute top-0 h-full w-full object-cover rounded-2xl' ) ); ?>
 						</a>
 					</div>
 					<div class="pt-6">

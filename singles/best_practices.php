@@ -17,7 +17,7 @@ $realted_campaign = (is_array( $realted_campaign ) && isset( $realted_campaign['
 	<div class="<?php echo esc_attr( $posttype . '-' . $id ); ?> ">
 		<?php if ( $feature_img ) { ?>
 			<div class="pt-[45%] relative">
-				<img src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class=" absolute top-0 h-full w-full object-cover rounded-xl">
+				<?php render_feature_image( array( 'lazy' => false, 'priority' => true, 'sizes' => '(max-width: 1200px) 100vw, 1200px', 'class' => 'absolute top-0 h-full w-full object-cover rounded-xl' ) ); ?>
 			</div>
 		<?php } ?>
 		<div class="pt-8 sm:pt-14 lg:pt-20 grid gap-x-4 grid-cols-1 sm:grid-cols-12">
@@ -54,13 +54,12 @@ $realted_campaign = (is_array( $realted_campaign ) && isset( $realted_campaign['
 			<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8">
 				<?php foreach ( $realted_campaign as $campaign_id ) {
 					$campaign_title       = get_the_title( $campaign_id );
-					$campaign_feature_img = (has_post_thumbnail( $campaign_id )) ? get_the_post_thumbnail_url( $campaign_id ) : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
 					$campaign_permalink   = get_the_permalink( $campaign_id );
 				?>
 					<div class="campaign">
 						<a href="<?php echo esc_url( $campaign_permalink ); ?>">
 							<div class="pt-[65%] relative">
-								<img loading="lazy" src="<?php echo esc_url( $campaign_feature_img ); ?>" alt="<?php echo esc_attr( $campaign_title ); ?>" class=" absolute top-0 h-full w-full object-cover rounded-t-3xl">
+								<?php render_feature_image( array( 'post_id' => $campaign_id, 'alt' => $campaign_title, 'class' => 'absolute top-0 h-full w-full object-cover rounded-t-3xl' ) ); ?>
 							</div>
 							<div class="bg-n-0 px-8 sm:px-12 py-6 rounded-b-3xl">
 								<span class="text-lg font-bold !text-n-100"><?php echo esc_html( $campaign_title ); ?></span>

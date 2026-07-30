@@ -31,12 +31,11 @@ $the_query = new WP_Query( $args );
 					$the_query->the_post();
 					$campaign_id = get_the_ID();
 					$excerpt = excerpt( 200 );
-					$feature_img = (has_post_thumbnail()) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
 				?>
 					<div id="campaign_<?php echo (int) $campaign_id; ?>" class="campaign-each bg-n-0 rounded-3xl card-subtle-hover">
 						<div class="pt-[100%] relative card-image-container">
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>">
-								<img loading="lazy" src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class=" absolute top-0 h-full w-full object-cover rounded-t-3xl">
+								<?php render_feature_image( array( 'class' => 'absolute top-0 h-full w-full object-cover rounded-t-3xl' ) ); ?>
 							</a>
 						</div>
 						<div class="info bg-n-0 px-8 py-6 rounded-b-3xl">

@@ -5,7 +5,7 @@ $paragraph   = (function_exists( 'get_field' ) && $paragraph = get_field( 'parag
 $button_text = (function_exists( 'get_field' ) && $button_text = get_field( 'button_text' )) ? $button_text : 'Why Open Spending?';
 
 $button_url = home_url( '/about-the-organization/' );
-$image      = get_template_directory_uri() . '/dist/images/hero.png';
+$image      = get_template_directory_uri() . '/dist/images/hero.webp';
 
 $id       = get_the_ID();
 $posttype = get_post_type( $id );

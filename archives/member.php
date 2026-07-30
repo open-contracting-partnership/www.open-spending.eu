@@ -91,9 +91,7 @@ if ( $display_breadcrumb && ! $default_breadcrumb && $add_custom_breadcrumb ) {
 			<?php foreach ( $person_member_data as $member_data ) { ?>
 			<div data-id="<?php echo (int) $member_data['id']; ?>" class="relative member-card">
 				<div class="pt-[120%] relative members-list-image">
-					<img loading="lazy" src="<?php echo esc_url( $member_data['logoprofile_photo'] ); ?>"
-						alt="<?php echo esc_attr( $member_data['title'] ); ?>"
-						class="absolute top-0 h-full w-full object-cover rounded-3xl">
+					<?php render_acf_image( $member_data['logoprofile_photo'], array( 'alt' => $member_data['title'], 'class' => 'absolute top-0 h-full w-full object-cover rounded-3xl' ) ); ?>
 				</div>
 				<div class="absolute bottom-10 left-8 member-quote-animation">
 					<div class="member-quote hidden opacity-0 font-medium text-lg text-n-0 mb-8 pr-8">
@@ -114,8 +112,7 @@ if ( $display_breadcrumb && ! $default_breadcrumb && $add_custom_breadcrumb ) {
 			<?php foreach ( $organization_member_data as $organization_member ) { ?>
 			<a href="<?php echo esc_url( $organization_member['website'] ); ?>" target="_blank" rel="noopener noreferrer">
 				<div class="member-org-item">
-					<img loading="lazy" src="<?php echo esc_url( $organization_member['logoprofile_photo'] ); ?>"
-						alt="<?php echo esc_attr( $organization_member['title'] ); ?>">
+					<?php render_acf_image( $organization_member['logoprofile_photo'], array( 'alt' => $organization_member['title'], 'class' => 'w-auto' ) ); ?>
 				</div>
 			</a>
 			<?php } ?>
