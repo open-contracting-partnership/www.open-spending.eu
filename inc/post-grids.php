@@ -1,30 +1,41 @@
 <?php
+/**
+ * Shared renderers for grids of posts.
+ *
+ * The filtered, paginated listing used by the news, evidence, toolkit and
+ * best-practices archives, and the related-posts strip below their singles.
+ *
+ * @package OpenSpendingCoalition
+ */
 
 /**
  * Render a filterable post-type archive (campaign + country filters, paginated grid).
  * Used by archives/news.php, archives/evidence.php, archives/best_practices.php
  * and archives/toolkit.php.
+ *
+ * @param string $posttype Post type to render the archive for.
  */
-function render_filterable_archive($posttype)
-{
+function render_filterable_archive( $posttype ) {
 	$taxonomies = 'country';
 	$terms      = get_tax_post_type( $posttype, $taxonomies );
 
 	$get_campaign = isset( $_GET['campaign_post'] ) ? absint( $_GET['campaign_post'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Public read-only archive filter, input sanitized.
 	$get_country  = isset( $_GET['taxonomy_country'] ) ? sanitize_title( wp_unslash( $_GET['taxonomy_country'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Public read-only archive filter, input sanitized.
 
-	// Build the list of campaigns referenced by any post of this type
+	// Build the list of campaigns referenced by any post of this type.
 	$campaign_filter_data = array();
-	$filter_query = new WP_Query(array(
-		'post_type'      => $posttype,
-		'posts_per_page' => -1,
-		'post_status'    => array('publish'),
-		'fields'         => 'ids',
-	));
+	$filter_query         = new WP_Query(
+		array(
+			'post_type'      => $posttype,
+			'posts_per_page' => -1,
+			'post_status'    => array( 'publish' ),
+			'fields'         => 'ids',
+		)
+	);
 	if ( $filter_query->have_posts() ) {
 		foreach ( $filter_query->posts as $filter_post_id ) {
 			$related = get_field( 'realted_campaign', $filter_post_id );
-			$related = (is_array( $related ) && isset( $related['realted_campaign'] )) ? $related['realted_campaign'] : null;
+			$related = ( is_array( $related ) && isset( $related['realted_campaign'] ) ) ? $related['realted_campaign'] : null;
 			if ( $related ) {
 				foreach ( $related as $cid ) {
 					if ( ! in_array( $cid, $campaign_filter_data, true ) ) {
@@ -54,9 +65,10 @@ function render_filterable_archive($posttype)
 								<span>All</span>
 							</label>
 						</p>
-						<?php foreach ( $campaign_filter_data as $value_id ) {
-							$is_active = ($get_campaign === (int) $value_id);
-						?>
+						<?php
+						foreach ( $campaign_filter_data as $value_id ) {
+							$is_active = ( $get_campaign === (int) $value_id );
+							?>
 						<p class="campaign-item category-item <?php echo $is_active ? 'active' : ''; ?>"
 							data-filter="<?php echo esc_attr( '.campaign-' . $value_id ); ?>">
 							<label class="filter-input">
@@ -93,13 +105,14 @@ function render_filterable_archive($posttype)
 		</div>
 		<?php
 		$paged = paged();
-		$args = array(
+		$args  = array(
 			'post_type'      => $posttype,
-			'post_status'    => array('publish'),
+			'post_status'    => array( 'publish' ),
 			'posts_per_page' => 12,
 			'paged'          => $paged,
 		);
 		if ( $get_campaign ) {
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Optional campaign filter; 49 rows of this meta key today. LIKE is forced by the relation living in a serialised ACF field, so making it indexable means moving it to a taxonomy or relationship table. Revisit if post counts grow.
 			$args['meta_query'] = array(
 				'relation' => 'OR',
 				array(
@@ -110,6 +123,7 @@ function render_filterable_archive($posttype)
 			);
 		}
 		if ( $get_country ) {
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Optional country filter; bounded by 27 terms over at most 36 posts.
 			$args['tax_query'] = array(
 				array(
 					'taxonomy' => 'country',
@@ -120,24 +134,25 @@ function render_filterable_archive($posttype)
 		}
 		$the_query = new WP_Query( $args );
 		if ( $the_query->have_posts() ) {
-		?>
+			?>
 		<div class="<?php echo esc_attr( $posttype ); ?> archive-accordion py-8 w-full">
-			<?php while ( $the_query->have_posts() ) {
+			<?php
+			while ( $the_query->have_posts() ) {
 				$the_query->the_post();
-				$card_id     = get_the_ID();
-				$permalink   = get_the_permalink( $card_id );
-				$excerpt     = excerpt( 115 );
-				$title       = get_the_title();
-				$related     = get_field( 'realted_campaign' );
-				$related     = (is_array( $related ) && isset( $related['realted_campaign'] )) ? $related['realted_campaign'] : null;
+				$card_id      = get_the_ID();
+				$permalink    = get_the_permalink( $card_id );
+				$excerpt      = excerpt( 115 );
+				$title        = get_the_title();
+				$related      = get_field( 'realted_campaign' );
+				$related      = ( is_array( $related ) && isset( $related['realted_campaign'] ) ) ? $related['realted_campaign'] : null;
 				$card_classes = '';
 				if ( $related ) {
 					foreach ( $related as $cid ) {
 						$card_classes .= 'campaign-' . (int) $cid . ' ';
 					}
 				}
-				$card_classes .= taxoTermsSLug( $card_id, $taxonomies );
-			?>
+				$card_classes .= taxonomy_term_slugs( $card_id, $taxonomies );
+				?>
 			<div class="<?php echo esc_attr( $card_classes ); ?> archive-accordion-items p-5 border border-n-40 rounded-3xl"
 				data-id="<?php echo (int) $card_id; ?>">
 				<div class="accordion-card-inside ">
@@ -156,7 +171,7 @@ function render_filterable_archive($posttype)
 						<div class="mt-4">
 							<a href="<?php echo esc_url( $permalink ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
 								Learn More
-								<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+								<?php echo inline_svg( 'right-arrow' ); ?>
 							</a>
 						</div>
 					</div>
@@ -164,27 +179,26 @@ function render_filterable_archive($posttype)
 			</div>
 			<?php } ?>
 		</div>
-		<?php
+			<?php
 			echo custom_query_pagination( $the_query, $paged );
 		} else {
-		?>
+			?>
 		<div class="py-10 sm:py-14 lg:py-20">
 			<?php
 				$parts = array();
-				if ( $get_campaign ) {
-					$parts[] = 'campaign: "' . get_the_title( $get_campaign ) . '"';
+			if ( $get_campaign ) {
+				$parts[] = 'campaign: "' . get_the_title( $get_campaign ) . '"';
+			}
+			if ( $get_country ) {
+				$country_term = get_term_by( 'slug', $get_country, $taxonomies );
+				if ( $country_term ) {
+					$parts[] = 'country: "' . $country_term->name . '"';
 				}
-				if ( $get_country ) {
-					$country_term = get_term_by( 'slug', $get_country, $taxonomies );
-					if ( $country_term ) {
-						$parts[] = 'country: "' . $country_term->name . '"';
-					}
-				}
-				$no_result_msg = $parts ? esc_html( implode( ' and ', $parts ) ) : '';
+			}
 			?>
-			<h3 class="font-medium text-n-80">No data available for selected <?php echo $no_result_msg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pre-escaped above. ?></h3>
+			<h3 class="font-medium text-n-80">No data available for selected <?php echo esc_html( implode( ' and ', $parts ) ); ?></h3>
 		</div>
-		<?php
+			<?php
 		}
 		wp_reset_postdata();
 		?>
@@ -206,14 +220,18 @@ function render_filterable_archive($posttype)
 
 /**
  * Render the "Other X" related-posts grid below singles/news.php and singles/evidence.php.
+ *
+ * @param string $posttype       Post type to pull related posts from.
+ * @param int    $exclude_id     Post to leave out — normally the one being viewed.
+ * @param string $heading        Heading shown above the grid.
+ * @param int    $excerpt_length Maximum excerpt characters per card.
  */
-function render_other_posts_grid($posttype, $exclude_id, $heading, $excerpt_length = 115)
-{
-	$args = array(
+function render_other_posts_grid( $posttype, $exclude_id, $heading, $excerpt_length = 115 ) {
+	$args      = array(
 		'post_type'      => $posttype,
 		'posts_per_page' => 3,
-		'post_status'    => array('publish'),
-		'post__not_in'   => array($exclude_id),
+		'post_status'    => array( 'publish' ),
+		'post__not_in'   => array( $exclude_id ),
 	);
 	$the_query = new WP_Query( $args );
 	if ( ! $the_query->have_posts() ) {
@@ -225,11 +243,12 @@ function render_other_posts_grid($posttype, $exclude_id, $heading, $excerpt_leng
 		<div class="container py-10 md:pt-16 md:pb-20">
 			<h2 class="font-bold"><?php echo esc_html( $heading ); ?></h2>
 			<div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
-				<?php while ( $the_query->have_posts() ) {
+				<?php
+				while ( $the_query->have_posts() ) {
 					$the_query->the_post();
-					$card_id     = get_the_ID();
+					$card_id      = get_the_ID();
 					$card_excerpt = excerpt( $excerpt_length );
-				?>
+					?>
 				<div id="<?php echo esc_attr( $posttype ); ?>_<?php echo (int) $card_id; ?>" class="p-5 border border-n-30 rounded-3xl bg-n-0 news-card-hover">
 					<div class="pt-[63.8%] relative">
 						<a href="<?php echo esc_url( get_the_permalink() ); ?>">
@@ -242,7 +261,7 @@ function render_other_posts_grid($posttype, $exclude_id, $heading, $excerpt_leng
 						<p class="mt-2 text-sm text-n-60 mb-4"><?php echo esc_html( $card_excerpt ); ?></p>
 						<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
 							Learn more
-							<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+							<?php echo inline_svg( 'right-arrow' ); ?>
 						</a>
 					</div>
 				</div>

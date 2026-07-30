@@ -1,76 +1,64 @@
 <?xml version="1.0"?>
 <ruleset name="OpenSpendingCoalition">
-    <description>Coding standards for the Open Spending Coalition theme. Focuses on security and PHP/WP compatibility; style rules are intentionally narrow so CI stays useful rather than noisy.</description>
+    <description>Coding standards for the Open Spending Coalition theme: the WordPress standard, minus the exclusions below.</description>
+    <!-- Use this command to find all ignores:
+         rg -oIN 'phpcs:ignore (\S+)' -r '$1' | sort | uniq -c | sort -rn -->
 
     <file>.</file>
 
+    <exclude-pattern>*/.claude/*</exclude-pattern>
+    <exclude-pattern>*/acf_json/*</exclude-pattern>
     <exclude-pattern>*/dist/*</exclude-pattern>
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
-    <exclude-pattern>*/acf_json/*</exclude-pattern>
 
     <arg name="extensions" value="php"/>
     <arg name="colors"/>
     <arg value="sp"/>
     <arg name="parallel" value="8"/>
 
-    <config name="testVersion" value="7.4-"/>
+    <config name="testVersion" value="8.1-"/>
     <config name="minimum_supported_wp_version" value="6.1"/>
     <config name="text_domain" value="openspendingcoalition"/>
 
-    <!-- Catch unsafe output. These helpers return pre-escaped/trusted markup, so
-         their return value is treated as already-escaped. (useSvg is escaped per
-         call-site with an inline ignore instead: this sniff does not honour it in
-         customAutoEscapedFunctions.) -->
+    <rule ref="WordPress">
+        <!-- Yoda conditions read backwards, and Generic.CodeAnalysis.AssignmentInCondition
+             already catches the `if ( $x = 5 )` typo they exist to prevent. -->
+        <exclude name="WordPress.PHP.YodaConditions"/>
+
+        <!-- Short config arrays are clearer on one line:
+             array( 'slug' => 'news', 'with_front' => true ). -->
+        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound"/>
+    </rule>
+
+    <!-- These filenames come from code, not choice. archive.php and single.php load
+         partials by post-type slug, so archives/best_practices.php keeps its
+         underscore; renaming it fails silently, falling back to the generic layout.
+         acf_block/*.php match the ACF block names they render. -->
+    <rule ref="WordPress.Files.FileName">
+        <exclude-pattern>acf_block/*</exclude-pattern>
+        <exclude-pattern>archives/*</exclude-pattern>
+        <exclude-pattern>singles/*</exclude-pattern>
+    </rule>
+
+    <!-- These assemble their markup from escaped parts only, so callers don't have
+         to escape what they return. -->
     <rule ref="WordPress.Security.EscapeOutput">
         <properties>
             <property name="customAutoEscapedFunctions" type="array">
                 <element value="breadcrumb_section"/>
                 <element value="custom_query_pagination"/>
+                <element value="inline_svg"/>
                 <element value="main_query_pagination"/>
             </property>
         </properties>
     </rule>
-    <rule ref="WordPress.Security.NonceVerification"/>
-    <rule ref="WordPress.Security.ValidatedSanitizedInput"/>
-    <rule ref="WordPress.Security.SafeRedirect"/>
-    <rule ref="WordPress.Security.PluginMenuSlug"/>
 
-    <!-- Catch deprecated/incorrect WP API usage -->
-    <rule ref="WordPress.WP.DeprecatedFunctions"/>
-    <rule ref="WordPress.WP.DeprecatedParameters"/>
-    <rule ref="WordPress.WP.DeprecatedClasses"/>
-    <rule ref="WordPress.WP.EnqueuedResources"/>
-    <rule ref="WordPress.WP.PostsPerPage"/>
-
-    <!-- Generic PHP / correctness gotchas -->
-    <rule ref="WordPress.PHP.NoSilencedErrors"/>
-    <rule ref="Generic.CodeAnalysis.AssignmentInCondition"/>
-    <rule ref="WordPress.WP.I18n"/>
-
-    <!-- Formatting (WordPress house style): tabs, single quotes, long array()
-         syntax, and `if ( $x )` / `foo( $x )` spacing. Fully auto-fixable with
-         `phpcbf` (see .pre-commit-config.yaml). FunctionCallSignature's multi-line
-         sub-rules are excluded: they don't converge on the HTML-interleaved
-         templates, and re-flowing wrapped calls isn't worth the churn. -->
-    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
-    <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
-    <rule ref="Universal.Arrays.DisallowShortArraySyntax"/>
-    <rule ref="WordPress.WhiteSpace.ControlStructureSpacing"/>
-    <rule ref="WordPress.WhiteSpace.OperatorSpacing"/>
-    <rule ref="PEAR.Functions.FunctionCallSignature">
-        <properties>
-            <property name="requiredSpacesAfterOpen" value="1"/>
-            <property name="requiredSpacesBeforeClose" value="1"/>
-        </properties>
-        <exclude name="PEAR.Functions.FunctionCallSignature.OpeningIndent"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.ContentBeforeCloseBracket"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.Indent"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
+    <!-- includes.php has a file comment, but the sniff treats it as the require's
+         docblock, so it can't see the file comment. -->
+    <rule ref="Squiz.Commenting.FileComment.Missing">
+        <exclude-pattern>inc/includes.php</exclude-pattern>
     </rule>
 
-    <!-- Cross-version PHP compatibility checks -->
     <rule ref="PHPCompatibilityWP"/>
 </ruleset>

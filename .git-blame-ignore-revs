@@ -1,2 +1,7 @@
 6b119bd35e4b2be66d5ad859cbbaf411a44b1035 # phpcbf
 0291041d37318ede4e84e23e616fc68abd1e8de3 # biome
+24ea03eff8cbf5d58f151a7ddbe6f042ec66510f # phpcbf
+2f163443f7618051650064d0a8149ca7f8cecbde # WordPress.WP.GlobalVariablesOverride
+1c056acf434ff5f5dcc244ea13b904a516b8e68c # WordPress.NamingConventions.ValidVariableName
+3b63e84165f0fa0660e3a8f17ebc340bed7e906b # WordPress.NamingConventions.ValidFunctionName
+56e4f0850f1ffb1fc23513f07dda1d8503a84ec5 # PEAR.Functions.FunctionCallSignature

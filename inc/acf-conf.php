@@ -1,16 +1,21 @@
 <?php
-
-
 /**
  * ================================================
- * Local sync - Save json file 
+ * Local sync - Save json file
  * ================================================
+ *
+ * @package OpenSpendingCoalition
  */
 
 add_filter( 'acf/settings/save_json', 'my_acf_json_save_point' );
 
-function my_acf_json_save_point($path)
-{
+/**
+ * Write field-group JSON into the theme instead of ACF's default location.
+ *
+ * @param string $path ACF's default save path.
+ * @return string The theme's acf_json directory.
+ */
+function my_acf_json_save_point( $path ) {
 
 	$path = get_stylesheet_directory() . '/acf_json';
 
@@ -25,8 +30,13 @@ function my_acf_json_save_point($path)
 
 add_filter( 'acf/settings/load_json', 'my_acf_json_load_point' );
 
-function my_acf_json_load_point($paths)
-{
+/**
+ * Load field-group JSON from the theme, replacing ACF's default path.
+ *
+ * @param array $paths ACF's default load paths.
+ * @return array Paths with ACF's own directory swapped for the theme's acf_json.
+ */
+function my_acf_json_load_point( $paths ) {
 
 	unset( $paths[0] );
 

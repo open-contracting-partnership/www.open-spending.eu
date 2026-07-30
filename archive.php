@@ -1,9 +1,17 @@
 <?php
-/*
-Template Name: Archive Default
-*/
+/**
+ * Archive template.
+ *
+ * Renders the block header and footer around a per-post-type partial from
+ * archives/, falling back to a core block query layout when there isn't one.
+ *
+ * Template Name: Archive Default
+ *
+ * @package OpenSpendingCoalition
+ */
 
-$block_content = do_blocks('
+$block_content = do_blocks(
+	'
     <!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}}},"layout":{"type":"constrained"}} -->
     <main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--70);margin-bottom:var(--wp--preset--spacing--70)">
         <!-- wp:query-title {"type":"archive","align":"wide","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}}} /-->
@@ -29,17 +37,21 @@ $block_content = do_blocks('
         <!-- /wp:query -->
     </main>
     <!-- /wp:group -->
-');
+'
+);
 
+/*
+ * Render these before wp_head() so WordPress collects their blocks' styles in time
+ * to print them in <head>. Calling block_header_area() inline where it's echoed
+ * moves that CSS down beside the footer.
+ */
 ob_start();
 block_header_area();
-$block_header_area = ob_get_contents();
-ob_clean();
+$block_header_area = ob_get_clean();
 
 ob_start();
 block_footer_area();
-$block_footer_area = ob_get_contents();
-ob_clean();
+$block_footer_area = ob_get_clean();
 
 ?>
 
@@ -64,13 +76,13 @@ ob_clean();
 		<div class="archive-page">
 			<?php
 				$posttype = get_post_type();
-				$filepath = dirname( __FILE__ ) . '/archives/' . $posttype . '.php';
-				if ( file_exists( $filepath ) ) {
-					include_once( $filepath );
-				} else {
-					echo $block_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered block markup from do_blocks().
-				}
-				?>
+				$filepath = __DIR__ . '/archives/' . $posttype . '.php';
+			if ( file_exists( $filepath ) ) {
+				include_once $filepath;
+			} else {
+				echo $block_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered block markup from do_blocks().
+			}
+			?>
 		</div>
 
 

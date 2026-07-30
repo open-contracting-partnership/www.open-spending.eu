@@ -1,18 +1,25 @@
 <?php
-$heading     = (function_exists( 'get_field' ) && $heading = get_field( 'heading' )) ? $heading : '';
-$paragraph   = (function_exists( 'get_field' ) && $paragraph = get_field( 'paragraph' )) ? $paragraph : '';
-$btn_text    = (function_exists( 'get_field' ) && $btn_text = get_field( 'btn_text' )) ? $btn_text : 'See more';
+/**
+ * Members block: the expert members, dealt into two offset columns.
+ *
+ * @package OpenSpendingCoalition
+ */
+
+$heading     = theme_field( 'heading' );
+$paragraph   = theme_field( 'paragraph' );
+$btn_text    = theme_field( 'btn_text', false, 'See more' );
 $button_link = get_post_type_archive_link( 'member' );
 
 $args = array(
 	'post_type'      => 'member',
 	'posts_per_page' => -1,
-	'post_status'    => array('publish'),
+	'post_status'    => array( 'publish' ),
+	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- 33 member posts split across a 2-term taxonomy; there is no non-tax_query way to select one term.
 	'tax_query'      => array(
 		array(
 			'taxonomy' => 'type_of_member',
 			'field'    => 'slug',
-			'terms'    => 'person', // Experts
+			'terms'    => 'person', // Labelled "Experts" in the admin.
 		),
 	),
 );
@@ -20,10 +27,10 @@ $args = array(
 $the_query = new WP_Query( $args );
 
 $render_member_card = function () {
-	$member_id = get_the_ID();
-	$members = get_field( 'members', $member_id );
-	$logoprofile_photo = is_array( $members ) ? ($members['logoprofile_photo'] ?? '') : '';
-	$photo_src = ($logoprofile_photo) ? $logoprofile_photo : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
+	$member_id         = get_the_ID();
+	$members           = get_field( 'members', $member_id );
+	$logoprofile_photo = is_array( $members ) ? ( $members['logoprofile_photo'] ?? '' ) : '';
+	$photo_src         = ( $logoprofile_photo ) ? $logoprofile_photo : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
 	?>
 	<div id="member_<?php echo (int) $member_id; ?>" class="member-item mb-6">
 		<div class="pt-[124%] relative overflow-hidden rounded-3xl homepage-member-container">
@@ -50,11 +57,12 @@ $render_member_card = function () {
 				</div>
 				<a href="<?php echo esc_url( $button_link ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
 					<?php echo esc_html( $btn_text ); ?>
-					<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+					<?php echo inline_svg( 'right-arrow' ); ?>
 				</a>
 			</div>
 			<?php
-			if ( $the_query->have_posts() ) { ?>
+			if ( $the_query->have_posts() ) {
+				?>
 			<div class="member-animation">
 				<div class="member-data">
 					<div class="left-side-data -mt-28">
@@ -62,10 +70,10 @@ $render_member_card = function () {
 						$i = 0;
 						while ( $the_query->have_posts() ) {
 							$the_query->the_post();
-							if ( $i % 2 == 0 ) {
+							if ( $i % 2 === 0 ) {
 								$render_member_card();
 							}
-							$i++;
+							++$i;
 						}
 						?>
 					</div>
@@ -74,16 +82,16 @@ $render_member_card = function () {
 						$i = 0;
 						while ( $the_query->have_posts() ) {
 							$the_query->the_post();
-							if ( $i % 2 != 0 ) {
+							if ( $i % 2 !== 0 ) {
 								$render_member_card();
 							}
-							$i++;
+							++$i;
 						}
 						?>
 					</div>
 				</div>
 			</div>
-			<?php
+				<?php
 			}
 			wp_reset_postdata();
 			?>

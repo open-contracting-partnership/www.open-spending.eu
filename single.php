@@ -1,9 +1,17 @@
 <?php
-/*
-Template Name: Single Default
-*/
+/**
+ * Single template.
+ *
+ * Renders the block header and footer around a per-post-type partial from
+ * singles/, falling back to a core block layout when there isn't one.
+ *
+ * Template Name: Single Default
+ *
+ * @package OpenSpendingCoalition
+ */
 
-$block_content = do_blocks('
+$block_content = do_blocks(
+	'
     <!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
     <main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--50)">
         <!-- wp:group {"layout":{"type":"constrained"}} -->
@@ -18,17 +26,21 @@ $block_content = do_blocks('
         <!-- wp:template-part {"slug":"comments","tagName":"section"} /-->
     </main>
     <!-- /wp:group -->
-');
+'
+);
 
+/*
+ * Render these before wp_head() so WordPress collects their blocks' styles in time
+ * to print them in <head>. Calling block_header_area() inline where it's echoed
+ * moves that CSS down beside the footer.
+ */
 ob_start();
 block_header_area();
-$block_header_area = ob_get_contents();
-ob_clean();
+$block_header_area = ob_get_clean();
 
 ob_start();
 block_footer_area();
-$block_footer_area = ob_get_contents();
-ob_clean();
+$block_footer_area = ob_get_clean();
 
 ?>
 
@@ -53,13 +65,13 @@ ob_clean();
 		<div class="single-page wp-block-post-content">
 			<?php
 				$posttype = get_post_type();
-				$filepath = dirname( __FILE__ ) . '/singles/' . $posttype . '.php';
-				if ( file_exists( $filepath ) ) {
-					include_once( $filepath );
-				} else {
-					echo $block_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered block markup from do_blocks().
-				}
-				?>
+				$filepath = __DIR__ . '/singles/' . $posttype . '.php';
+			if ( file_exists( $filepath ) ) {
+				include_once $filepath;
+			} else {
+				echo $block_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered block markup from do_blocks().
+			}
+			?>
 		</div>
 
 		<footer class="wp-block-template-part">

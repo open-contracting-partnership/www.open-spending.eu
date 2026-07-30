@@ -1,20 +1,25 @@
 <?php
+/**
+ * Single best-practice entry, with its tags.
+ *
+ * @package OpenSpendingCoalition
+ */
 
-$id = get_the_ID();
-$posttype = get_post_type( $id );
-$feature_img = get_the_post_thumbnail_url();
+$current_id     = get_the_ID();
+$posttype       = get_post_type( $current_id );
+$feature_img    = get_the_post_thumbnail_url();
 $published_date = get_the_date( 'd M, Y' );
-$tags = get_the_tags();
+$tags           = get_the_tags();
 
 $realted_campaign = get_field( 'realted_campaign' );
-$realted_campaign = (is_array( $realted_campaign ) && isset( $realted_campaign['realted_campaign'] )) ? $realted_campaign['realted_campaign'] : null;
+$realted_campaign = ( is_array( $realted_campaign ) && isset( $realted_campaign['realted_campaign'] ) ) ? $realted_campaign['realted_campaign'] : null;
 
 ?>
 
-<?php echo breadcrumb_section( $id ); ?>
+<?php echo breadcrumb_section( $current_id ); ?>
 <div class="container py-10 sm:pt-16 lg:pb-20">
 
-	<div class="<?php echo esc_attr( $posttype . '-' . $id ); ?> ">
+	<div class="<?php echo esc_attr( $posttype . '-' . $current_id ); ?> ">
 		<?php if ( $feature_img ) { ?>
 			<div class="pt-[45%] relative">
 				<?php render_feature_image( array( 'lazy' => false, 'priority' => true, 'sizes' => '(max-width: 1200px) 100vw, 1200px', 'class' => 'absolute top-0 h-full w-full object-cover rounded-xl' ) ); ?>
@@ -31,9 +36,9 @@ $realted_campaign = (is_array( $realted_campaign ) && isset( $realted_campaign['
 					<div class="mt-4 sm:mt-9">
 						<p class="text-lg font-bold">Related tags</p>
 						<ul class="flex gap-x-4 sm:block">
-							<?php foreach ( $tags as $tag ) { ?>
-								<li class="text-sm px-2 py-1 bg-n-10 rounded-xl max-w-fit mt-2.5" data-tag="<?php echo esc_attr( $tag->slug ); ?>">
-									<?php echo esc_html( $tag->name ); ?> </li>
+							<?php foreach ( $tags as $post_tag ) { ?>
+								<li class="text-sm px-2 py-1 bg-n-10 rounded-xl max-w-fit mt-2.5" data-tag="<?php echo esc_attr( $post_tag->slug ); ?>">
+									<?php echo esc_html( $post_tag->name ); ?> </li>
 							<?php } ?>
 						</ul>
 					</div>
@@ -52,10 +57,11 @@ $realted_campaign = (is_array( $realted_campaign ) && isset( $realted_campaign['
 		<div class="realted_campaign container py-10 sm:py-14 lg:pt-24 lg:pb-32">
 			<h2 class="font-bold">Related Campaigns</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8">
-				<?php foreach ( $realted_campaign as $campaign_id ) {
-					$campaign_title       = get_the_title( $campaign_id );
-					$campaign_permalink   = get_the_permalink( $campaign_id );
-				?>
+				<?php
+				foreach ( $realted_campaign as $campaign_id ) {
+					$campaign_title     = get_the_title( $campaign_id );
+					$campaign_permalink = get_the_permalink( $campaign_id );
+					?>
 					<div class="campaign">
 						<a href="<?php echo esc_url( $campaign_permalink ); ?>">
 							<div class="pt-[65%] relative">
@@ -65,7 +71,7 @@ $realted_campaign = (is_array( $realted_campaign ) && isset( $realted_campaign['
 								<span class="text-lg font-bold !text-n-100"><?php echo esc_html( $campaign_title ); ?></span>
 								<span class="flex gap-x-2.5 items-center learn-more-btn mt-4">
 									Learn More
-									<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+									<?php echo inline_svg( 'right-arrow' ); ?>
 								</span>
 							</div>
 						</a>

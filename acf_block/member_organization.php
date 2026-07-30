@@ -1,16 +1,23 @@
 <?php
-$heading   = (function_exists( 'get_field' ) && $heading = get_field( 'heading' )) ? $heading : '';
-$paragraph = (function_exists( 'get_field' ) && $paragraph = get_field( 'paragraph' )) ? $paragraph : '';
+/**
+ * Member organizations block: the organization members' logos.
+ *
+ * @package OpenSpendingCoalition
+ */
+
+$heading   = theme_field( 'heading' );
+$paragraph = theme_field( 'paragraph' );
 
 $args = array(
 	'post_type'      => 'member',
 	'posts_per_page' => -1,
-	'post_status'    => array('publish'),
+	'post_status'    => array( 'publish' ),
+	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- 33 member posts split across a 2-term taxonomy; there is no non-tax_query way to select one term.
 	'tax_query'      => array(
 		array(
 			'taxonomy' => 'type_of_member',
 			'field'    => 'slug',
-			'terms'    => 'organization', // Organizations
+			'terms'    => 'organization', // Labelled "Organizations" in the admin.
 		),
 	),
 );
@@ -29,18 +36,18 @@ $the_query = new WP_Query( $args );
 				if ( $the_query->have_posts() ) {
 					while ( $the_query->have_posts() ) {
 						$the_query->the_post();
-						$member_id = get_the_ID();
-						$members = get_field( 'members', $member_id );
-						$logoprofile_photo = is_array( $members ) ? ($members['logoprofile_photo'] ?? '') : '';
-						$website = is_array( $members ) ? ($members['website'] ?? '') : '';
-						$logo_src = ($logoprofile_photo) ? $logoprofile_photo : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
-				?>
+						$member_id         = get_the_ID();
+						$members           = get_field( 'members', $member_id );
+						$logoprofile_photo = is_array( $members ) ? ( $members['logoprofile_photo'] ?? '' ) : '';
+						$website           = is_array( $members ) ? ( $members['website'] ?? '' ) : '';
+						$logo_src          = ( $logoprofile_photo ) ? $logoprofile_photo : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
+						?>
 				<div>
 					<a href="<?php echo esc_url( $website ); ?>" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center">
 						<?php render_acf_image( $logo_src, array( 'alt' => get_the_title(), 'class' => 'max-h-14 w-auto transition-all duration-300', 'size' => 'medium' ) ); ?>
 					</a>
 				</div>
-				<?php
+						<?php
 					}
 				}
 				wp_reset_postdata();

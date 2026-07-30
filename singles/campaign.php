@@ -1,19 +1,24 @@
 <?php
+/**
+ * Single campaign, with its related news and other campaigns.
+ *
+ * @package OpenSpendingCoalition
+ */
 
-$id = get_the_ID();
-$posttype = get_post_type( $id );
+$current_id  = get_the_ID();
+$posttype    = get_post_type( $current_id );
 $feature_img = get_the_post_thumbnail_url();
 
-$campaign = get_field( 'campaign' );
-$campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos'] )) ? $campaign['campaign_videos'] : null;
+$campaign        = get_field( 'campaign' );
+$campaign_videos = ( is_array( $campaign ) && isset( $campaign['campaign_videos'] ) ) ? $campaign['campaign_videos'] : null;
 
 ?>
 
-<?php echo breadcrumb_section( $id ); ?>
+<?php echo breadcrumb_section( $current_id ); ?>
 
 <div class="container py-10 sm:pt-16 lg:pb-28">
 
-	<div class="<?php echo esc_attr( $posttype . '-' . $id ); ?> ">
+	<div class="<?php echo esc_attr( $posttype . '-' . $current_id ); ?> ">
 		<?php if ( $feature_img ) { ?>
 			<div class="pt-[45%] relative">
 				<?php render_feature_image( array( 'lazy' => false, 'priority' => true, 'sizes' => '(max-width: 1200px) 100vw, 1200px', 'class' => 'absolute top-0 h-full w-full object-cover rounded-xl' ) ); ?>
@@ -37,15 +42,20 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 			</div>
 			<hr class="bg-n-100 h-1">
 			<div class="py-8 sm:pt-9 sm:pb-12 grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-				<?php foreach ( $campaign_videos as $video ) {
+				<?php
+				foreach ( $campaign_videos as $video ) {
 					$youtube_embed_url = $video['youtube_embed_url'];
-					$thumbnail_image   = ($video['thumbnail_image']) ? $video['thumbnail_image'] : get_template_directory_uri() . '/dist/images/sample-image.jpg';
-					$video_title       = ($video['video_title']) ? $video['video_title'] : 'Poverty in Europe';
+					$thumbnail_image   = ( $video['thumbnail_image'] ) ? $video['thumbnail_image'] : get_template_directory_uri() . '/dist/images/sample-image.jpg';
+					$video_title       = ( $video['video_title'] ) ? $video['video_title'] : 'Poverty in Europe';
 					$has_video         = (bool) $youtube_embed_url;
 					$thumb_class       = $has_video ? 'campaign-vid-thumbnail' : 'campaign-vid-thumbnail--empty';
-				?>
+					?>
 					<div>
-						<div class="pt-[60%] <?php echo esc_attr( $thumb_class ); ?> relative"<?php if ( $has_video ) : ?> data-src="<?php echo esc_url( $youtube_embed_url ); ?>"<?php endif; ?>>
+						<div class="pt-[60%] <?php echo esc_attr( $thumb_class ); ?> relative"
+						<?php
+						if ( $has_video ) :
+							?>
+							data-src="<?php echo esc_url( $youtube_embed_url ); ?>"<?php endif; ?>>
 							<?php render_acf_image( $thumbnail_image, array( 'alt' => $video_title, 'class' => 'absolute top-0 h-full w-full object-cover rounded-xl' ) ); ?>
 
 							<div class="video-title absolute left-5 bottom-4 z-20">
@@ -58,7 +68,7 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 							<div class="relative flex  items-center justify-center h-full container">
 								<iframe width="642px" height="361px" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 								<div tabindex="0" class="absolute p-3 text-xs text-white border border-white border-solid rounded-full cursor-pointer video-close top-4 right-4">
-									<?php echo useSvg( 'cross-icon' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+									<?php echo inline_svg( 'cross-icon' ); ?>
 								</div>
 							</div>
 						</div>
@@ -75,18 +85,19 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 	$args = array(
 		'post_type'      => 'news',
 		'posts_per_page' => 3,
-		'post_status'    => array('publish'),
+		'post_status'    => array( 'publish' ),
+		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Related-news lookup; 49 rows of this meta key today. LIKE is forced by the relation living in a serialised ACF field, so making it indexable means moving it to a taxonomy or relationship table. Revisit if post counts grow.
 		'meta_query'     => array(
 			array(
 				'key'     => 'realted_campaign_realted_campaign',
-				'value'   => $id,
+				'value'   => $current_id,
 				'compare' => 'LIKE',
 			),
 		),
 	);
-	$current_id = $id;
 	$the_query = new WP_Query( $args );
-	if ( $the_query->have_posts() ) { ?>
+	if ( $the_query->have_posts() ) {
+		?>
 		<div class="related-news">
 			<h2 class="font-bold">Related news</h2>
 			<hr class="bg-n-100 h-1">
@@ -96,7 +107,7 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 					$the_query->the_post();
 					$news_id = get_the_ID();
 					$excerpt = excerpt( 115 );
-				?>
+					?>
 					<div id="news_<?php echo (int) $news_id; ?>" class="p-5 border border-n-30 rounded-3xl news-card-hover">
 						<div class="pt-[63.8%] relative">
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>">
@@ -109,7 +120,7 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 							<p class="mt-2 text-sm text-n-60 mb-4"> <?php echo esc_html( $excerpt ); ?></p>
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
 								Learn more
-								<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+								<?php echo inline_svg( 'right-arrow' ); ?>
 							</a>
 						</div>
 					</div>
@@ -122,7 +133,8 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 				</a>
 			</div>
 		</div>
-	<?php }
+		<?php
+	}
 	wp_reset_postdata();
 	?>
 </div>
@@ -133,21 +145,22 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 	<div class="container py-10 sm:py-14 md:pt-24 md:pb-32">
 		<h2 class="font-bold">Other Campaigns</h2>
 		<?php
-		$args = array(
+		$args      = array(
 			'post_type'      => 'campaign',
 			'posts_per_page' => 2,
-			'post_status'    => array('publish'),
-			'post__not_in'   => array($id),
+			'post_status'    => array( 'publish' ),
+			'post__not_in'   => array( $current_id ),
 		);
 		$the_query = new WP_Query( $args );
-		if ( $the_query->have_posts() ) { ?>
+		if ( $the_query->have_posts() ) {
+			?>
 			<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8">
 				<?php
 				while ( $the_query->have_posts() ) {
 					$the_query->the_post();
 					$other_campaign_id = get_the_ID();
-					$excerpt = excerpt( 115 );
-				?>
+					$excerpt           = excerpt( 115 );
+					?>
 					<div id="campaign_<?php echo (int) $other_campaign_id; ?>" class="card-subtle-hover bg-n-0 rounded-3xl">
 						<div class="pt-[65%] relative card-image-container">
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>">
@@ -160,13 +173,14 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 							<p class="mt-2.5 text-sm text-n-60 mb-4"> <?php echo esc_html( $excerpt ); ?></p>
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
 								Learn More
-								<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+								<?php echo inline_svg( 'right-arrow' ); ?>
 							</a>
 						</div>
 					</div>
 				<?php } ?>
 			</div>
-		<?php }
+			<?php
+		}
 		wp_reset_postdata();
 		?>
 	</div>

@@ -1,14 +1,22 @@
 <?php
+/**
+ * Hero Banner block, and the page/archive/search header.
+ *
+ * Renders the front-page hero from its ACF fields, and on other views the heading
+ * band: archive title plus sub-heading, search summary, or single title.
+ *
+ * @package OpenSpendingCoalition
+ */
 
-$heading     = (function_exists( 'get_field' ) && $heading = get_field( 'heading' )) ? $heading : '';
-$paragraph   = (function_exists( 'get_field' ) && $paragraph = get_field( 'paragraph' )) ? $paragraph : '';
-$button_text = (function_exists( 'get_field' ) && $button_text = get_field( 'button_text' )) ? $button_text : 'Why Open Spending?';
+$heading     = theme_field( 'heading' );
+$paragraph   = theme_field( 'paragraph' );
+$button_text = theme_field( 'button_text', false, 'Why Open Spending?' );
 
 $button_url = home_url( '/about-the-organization/' );
 $image      = get_template_directory_uri() . '/dist/images/hero.webp';
 
-$id       = get_the_ID();
-$posttype = get_post_type( $id );
+$current_id = get_the_ID();
+$posttype   = get_post_type( $current_id );
 
 ?>
 
@@ -40,7 +48,7 @@ header {
 					class="mt-11 py-2.5 px-4 md:py-5 md:px-8 border border-[#FFF200] rounded-lg flex gap-x-4 sm:gap-x-6 hero-btn max-w-fit items-center">
 					<p class="text-lg text-n-0 transition-all duration-[400ms]"><?php echo esc_html( $button_text ); ?>
 					</p>
-					<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+					<?php echo inline_svg( 'right-arrow' ); ?>
 				</div>
 			</a>
 		</div>
@@ -48,30 +56,30 @@ header {
 </section>
 
 <?php
-// archive page title and sub-title at header
+// Archive heading band: the post type's label, plus its ACF sub-heading.
 if ( is_archive() ) {
 	$post_object = get_post_type_object( $posttype );
-	$labels = $post_object->labels;
-	$sub_heading = (function_exists( 'get_field' ) && $sub_heading = get_field( 'sub_heading', $posttype . '_options' )) ? $sub_heading : '';
-?>
+	$labels      = $post_object->labels;
+	$sub_heading = theme_field( 'sub_heading', $posttype . '_options' );
+	?>
 <div class="archive-header container text-center text-n-0 pt-12 pb-10 md:pt-20 md:pb-16">
 	<h1 class="font-bold"><?php echo esc_html( $labels->name ); ?></h1>
 	<p class="text-lg mt-2"><?php echo wp_kses_post( $sub_heading ); ?></p>
 </div>
-<?php
+	<?php
 }
 
-// single page title at header
+// Heading band for searches, singles and non-front pages.
 if ( is_search() ) {
-?>
+	?>
 <div class="single-header text-n-0 pb-10">
 	<h1 class="font-bold">Search results for: <?php echo esc_html( sanitize_text_field( wp_unslash( $_GET['s'] ?? '' ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Public read-only search query, input sanitized. ?></h1>
 </div>
-<?php
-} else if ( (is_single() || ($posttype == 'page')) && ! is_front_page() && ! is_admin() ) {
-?>
+	<?php
+} elseif ( ( is_single() || ( $posttype === 'page' ) ) && ! is_front_page() && ! is_admin() ) {
+	?>
 <div class="single-header text-n-0 pb-10">
 	<h1 class="font-bold"><?php echo esc_html( get_the_title() ); ?></h1>
 </div>
-<?php
+	<?php
 }

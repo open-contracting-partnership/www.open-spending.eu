@@ -1,21 +1,27 @@
 <?php
+/**
+ * Load the theme's PHP modules.
+ *
+ * Order matters: post types and helper functions must exist before the ACF block
+ * registrations and query filters that reference them.
+ *
+ * @package OpenSpendingCoalition
+ */
 
+require_once __DIR__ . '/acf-conf.php';
 
-require_once  dirname( __FILE__ ).'/_acf_conf.php';
+require_once __DIR__ . '/custom-posttype.php';
 
-require_once  dirname( __FILE__ ).'/_custom_posttype.php';
+require_once __DIR__ . '/custom-function.php';
 
-require_once  dirname( __FILE__ ).'/_custom_function.php';
+require_once __DIR__ . '/acf-register-block-type.php';
 
-require_once  dirname( __FILE__ ).'/_acf_register_block_type.php';
+require_once __DIR__ . '/pre-get-posts.php';
 
-require_once  dirname( __FILE__ ).'/_pre_get_posts.php';
+require_once __DIR__ . '/post-grids.php';
 
-require_once  dirname( __FILE__ ).'/_archive_helpers.php';
+require_once __DIR__ . '/seo.php';
 
-require_once  dirname( __FILE__ ).'/_seo.php';
+require_once __DIR__ . '/analytics.php';
 
-require_once  dirname( __FILE__ ).'/_analytics.php';
-
-require_once  dirname( __FILE__ ).'/_acf_options.php';
-
+require_once __DIR__ . '/acf-options.php';

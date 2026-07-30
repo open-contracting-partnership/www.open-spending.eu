@@ -66,6 +66,8 @@ wp: ## extract files into a working directory, patch wp-config.php, symlink this
 
 serve: ## start PHP's built-in server (php -S), with OPcache off so file edits take effect immediately
 	@test -f "$(WP)/wp-load.php" || { echo "run 'make setup' first"; exit 1; }
+	@url="$$($(MYSQL) "$(DB)" -N -sse "SELECT option_value FROM wp_options WHERE option_name='siteurl'" 2>/dev/null)"; \
+	[ "$$url" = "$(URL)" ] || { echo ">> siteurl is $$url, but this would serve $(URL) — every request would redirect. Run 'make db PORT=$(PORT)' first."; exit 1; }
 	@echo ">> $(URL)  (Ctrl-C to stop)"
 	@WP_ENVIRONMENT_TYPE=local php -d opcache.enable=0 -S localhost:$(PORT) -t "$(WP)"
 
