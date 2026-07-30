@@ -5,7 +5,7 @@
  * @package OpenSpendingCoalition
  */
 
-$block_id    = '' . $block['id'];
+$block_id    = $block['id'];
 $heading     = theme_field( 'heading', false, 'Campaigns' );
 $paragraph   = theme_field( 'paragraph' );
 $button_text = theme_field( 'button_text', false, 'Learn more' );

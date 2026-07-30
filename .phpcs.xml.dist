@@ -57,5 +57,22 @@
         <exclude-pattern>inc/includes.php</exclude-pattern>
     </rule>
 
+    <!-- Catches dead locals: an unused variable, an unused `global $x`, or a value
+         assigned and never read — the kind of leftover that survives a refactor
+         because nothing else looks at it. -->
+    <rule ref="VariableAnalysis">
+        <properties>
+            <!-- ACF injects $block into a block's render template, so it is never
+                 assigned in the file that reads it. Space-separated, not an array:
+                 the sniff trims and splits this itself. -->
+            <property name="validUndefinedVariableNames" value="block"/>
+            <!-- WPCS already reports unused parameters, via
+                 Generic.CodeAnalysis.UnusedFunctionParameter. Leaving this on would
+                 duplicate every message and need a second suppression comment
+                 wherever a signature is fixed by a parent class. -->
+            <property name="allowUnusedFunctionParameters" value="true"/>
+        </properties>
+    </rule>
+
     <rule ref="PHPCompatibilityWP"/>
 </ruleset>

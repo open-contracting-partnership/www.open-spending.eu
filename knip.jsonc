@@ -1,5 +1,7 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "entry": ["build.js", "src/js/app.js", "src/sass/app.scss"],
+  // One entry per esbuild entryPoint in build.js, plus build.js itself. A bundle
+  // missing from this list is reported as an unused file.
+  "entry": ["build.js", "src/js/app.js", "src/js/slider.js", "src/sass/app.scss"],
   "project": ["src/**"]
 }

@@ -5,6 +5,11 @@
  * Registers news, member, campaign, evidence, toolkit and best_practices, plus a
  * single-select metabox for the type_of_member taxonomy.
  *
+ * Only arguments that differ from WordPress' defaults are passed. In particular
+ * `rewrite` is omitted because its default slug is the post type's own name, and
+ * `publicly_queryable`, `show_ui`, `show_in_menu`, `show_in_nav_menus` and
+ * `exclude_from_search` all derive from `public`.
+ *
  * @package OpenSpendingCoalition
  */
 
@@ -29,30 +34,14 @@ function cptui_register_my_cpts() {
 		'search_items'  => esc_html__( 'Search News', 'openspendingcoalition' ),
 	);
 	$args   = array(
-		'label'                 => esc_html__( 'News', 'openspendingcoalition' ),
-		'labels'                => $labels,
-		'description'           => '',
-		'public'                => true,
-		'publicly_queryable'    => true,
-		'show_ui'               => true,
-		'show_in_rest'          => true,
-		'rest_base'             => '',
-		'rest_controller_class' => 'WP_REST_Posts_Controller',
-		'rest_namespace'        => 'wp/v2',
-		'has_archive'           => true,
-		'show_in_menu'          => true,
-		'show_in_nav_menus'     => true,
-		'delete_with_user'      => false,
-		'exclude_from_search'   => false,
-		'capability_type'       => 'post',
-		'map_meta_cap'          => true,
-		'hierarchical'          => false,
-		'can_export'            => false,
-		'rewrite'               => array( 'slug' => 'news', 'with_front' => true ),
-		'query_var'             => true,
-		'menu_icon'             => 'dashicons-welcome-widgets-menus',
-		'supports'              => array( 'title', 'editor', 'thumbnail' ),
-		'show_in_graphql'       => false,
+		'labels'           => $labels,
+		'public'           => true,
+		'show_in_rest'     => true,
+		'has_archive'      => true,
+		'delete_with_user' => false,
+		'can_export'       => false,
+		'menu_icon'        => 'dashicons-welcome-widgets-menus',
+		'supports'         => array( 'title', 'editor', 'thumbnail' ),
 	);
 	register_post_type( 'news', $args );
 
@@ -72,31 +61,14 @@ function cptui_register_my_cpts() {
 		'search_items'  => esc_html__( 'Search Evidence', 'openspendingcoalition' ),
 	);
 	$args   = array(
-		'label'                 => esc_html__( 'Evidence', 'openspendingcoalition' ),
-		'labels'                => $labels,
-		'description'           => '',
-		'public'                => true,
-		'publicly_queryable'    => true,
-		'show_ui'               => true,
-		'show_in_rest'          => true,
-		'rest_base'             => '',
-		'rest_controller_class' => 'WP_REST_Posts_Controller',
-		'rest_namespace'        => 'wp/v2',
-		'has_archive'           => true,
-		'show_in_menu'          => true,
-		'show_in_nav_menus'     => true,
-		'delete_with_user'      => false,
-		'exclude_from_search'   => false,
-		'capability_type'       => 'post',
-		'map_meta_cap'          => true,
-		'hierarchical'          => false,
-		'can_export'            => false,
-		'rewrite'               => array( 'slug' => 'evidence', 'with_front' => true ),
-		'query_var'             => true,
-		'menu_icon'             => 'dashicons-media-document',
-		'supports'              => array( 'title', 'editor', 'thumbnail' ),
-		'taxonomies'            => array(),
-		'show_in_graphql'       => false,
+		'labels'           => $labels,
+		'public'           => true,
+		'show_in_rest'     => true,
+		'has_archive'      => true,
+		'delete_with_user' => false,
+		'can_export'       => false,
+		'menu_icon'        => 'dashicons-media-document',
+		'supports'         => array( 'title', 'editor', 'thumbnail' ),
 	);
 	register_post_type( 'evidence', $args );
 
@@ -110,25 +82,15 @@ function cptui_register_my_cpts() {
 	);
 
 	$args = array(
-		'label'                 => esc_html__( 'Countries', 'openspendingcoalition' ),
-		'labels'                => $labels,
-		'public'                => false,
-		'publicly_queryable'    => false,
-		'hierarchical'          => true,
-		'show_ui'               => true,
-		'show_in_menu'          => true,
-		'show_in_nav_menus'     => false,
-		'query_var'             => false,
-		'rewrite'               => false,
-		'show_admin_column'     => true,
-		'show_in_rest'          => true,
-		'show_tagcloud'         => true,
-		'rest_base'             => 'country',
-		'rest_controller_class' => 'WP_REST_Terms_Controller',
-		'rest_namespace'        => 'wp/v2',
-		'show_in_quick_edit'    => true,
-		'sort'                  => true,
-		'show_in_graphql'       => false,
+		'labels'            => $labels,
+		'public'            => false,
+		'hierarchical'      => true,
+		'show_ui'           => true,
+		'query_var'         => false,
+		'rewrite'           => false,
+		'show_admin_column' => true,
+		'show_in_rest'      => true,
+		'sort'              => true,
 	);
 	register_taxonomy( 'country', array( 'news', 'toolkit', 'evidence', 'best_practices' ), $args );
 
@@ -148,30 +110,15 @@ function cptui_register_my_cpts() {
 		'search_items'  => esc_html__( 'Search Campaign', 'openspendingcoalition' ),
 	);
 	$args   = array(
-		'label'                 => esc_html__( 'Campaigns', 'openspendingcoalition' ),
-		'labels'                => $labels,
-		'description'           => '',
-		'public'                => true,
-		'publicly_queryable'    => true,
-		'show_ui'               => true,
-		'show_in_rest'          => true,
-		'rest_base'             => '',
-		'rest_controller_class' => 'WP_REST_Posts_Controller',
-		'rest_namespace'        => 'wp/v2',
-		'has_archive'           => true,
-		'show_in_menu'          => true,
-		'show_in_nav_menus'     => true,
-		'delete_with_user'      => false,
-		'exclude_from_search'   => false,
-		'capability_type'       => 'post',
-		'map_meta_cap'          => true,
-		'hierarchical'          => false,
-		'can_export'            => false,
-		'rewrite'               => array( 'slug' => 'campaign', 'with_front' => true ),
-		'query_var'             => true,
-		'menu_icon'             => 'dashicons-megaphone',
-		'supports'              => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
-		'show_in_graphql'       => false,
+		'labels'           => $labels,
+		'public'           => true,
+		'show_in_rest'     => true,
+		'has_archive'      => true,
+		'delete_with_user' => false,
+		'can_export'       => false,
+		'menu_icon'        => 'dashicons-megaphone',
+		// page-attributes keeps the "Order" field, which pre-get-posts.php sorts on.
+		'supports'         => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
 	);
 	register_post_type( 'campaign', $args );
 	/**
@@ -190,35 +137,21 @@ function cptui_register_my_cpts() {
 		'search_items'  => esc_html__( 'Search Member', 'openspendingcoalition' ),
 	);
 	$args   = array(
-		'label'                 => esc_html__( 'Members', 'openspendingcoalition' ),
-		'labels'                => $labels,
-		'description'           => '',
-		'public'                => true,
-		'publicly_queryable'    => true,
-		'show_ui'               => true,
-		'show_in_rest'          => true,
-		'rest_base'             => '',
-		'rest_controller_class' => 'WP_REST_Posts_Controller',
-		'rest_namespace'        => 'wp/v2',
-		'has_archive'           => true,
-		'show_in_menu'          => true,
-		'show_in_nav_menus'     => true,
-		'delete_with_user'      => false,
-		'exclude_from_search'   => true,
-		'capability_type'       => 'post',
-		'map_meta_cap'          => true,
-		'hierarchical'          => false,
-		'can_export'            => false,
-		'rewrite'               => array( 'slug' => 'member', 'with_front' => true ),
-		'query_var'             => true,
-		'menu_icon'             => 'dashicons-groups',
-		'supports'              => array( 'title', 'editor', 'thumbnail' ),
-		'show_in_graphql'       => false,
+		'labels'              => $labels,
+		'public'              => true,
+		'show_in_rest'        => true,
+		'has_archive'         => true,
+		// Members are thin pages; seo.php also noindexes their singles.
+		'exclude_from_search' => true,
+		'delete_with_user'    => false,
+		'can_export'          => false,
+		'menu_icon'           => 'dashicons-groups',
+		'supports'            => array( 'title', 'editor', 'thumbnail' ),
 	);
 	register_post_type( 'member', $args );
 
 	/**
-	 * Taxonomy: Countries.
+	 * Taxonomy: Type of Members.
 	 */
 
 	$labels = array(
@@ -227,26 +160,16 @@ function cptui_register_my_cpts() {
 	);
 
 	$args = array(
-		'label'                 => esc_html__( 'Type of Members', 'openspendingcoalition' ),
-		'labels'                => $labels,
-		'public'                => false,
-		'publicly_queryable'    => false,
-		'hierarchical'          => true,
-		'show_ui'               => true,
-		'show_in_menu'          => true,
-		'show_in_nav_menus'     => false,
-		'query_var'             => false,
-		'rewrite'               => false,
-		'show_admin_column'     => true,
-		'show_in_rest'          => true,
-		'show_tagcloud'         => true,
-		'rest_base'             => 'type_of_member',
-		'meta_box_cb'           => 'member_type_meta_box',
-		'rest_controller_class' => 'WP_REST_Terms_Controller',
-		'rest_namespace'        => 'wp/v2',
-		'show_in_quick_edit'    => true,
-		'sort'                  => true,
-		'show_in_graphql'       => false,
+		'labels'            => $labels,
+		'public'            => false,
+		'hierarchical'      => true,
+		'show_ui'           => true,
+		'query_var'         => false,
+		'rewrite'           => false,
+		'show_admin_column' => true,
+		'show_in_rest'      => true,
+		'sort'              => true,
+		'meta_box_cb'       => 'member_type_meta_box',
 	);
 	register_taxonomy( 'type_of_member', array( 'member' ), $args );
 
@@ -266,30 +189,14 @@ function cptui_register_my_cpts() {
 		'search_items'  => esc_html__( 'Search Tools', 'openspendingcoalition' ),
 	);
 	$args   = array(
-		'label'                 => esc_html__( 'Tools', 'openspendingcoalition' ),
-		'labels'                => $labels,
-		'description'           => '',
-		'public'                => true,
-		'publicly_queryable'    => true,
-		'show_ui'               => true,
-		'show_in_rest'          => true,
-		'rest_base'             => '',
-		'rest_controller_class' => 'WP_REST_Posts_Controller',
-		'rest_namespace'        => 'wp/v2',
-		'has_archive'           => true,
-		'show_in_menu'          => true,
-		'show_in_nav_menus'     => true,
-		'delete_with_user'      => false,
-		'exclude_from_search'   => false,
-		'capability_type'       => 'post',
-		'map_meta_cap'          => true,
-		'hierarchical'          => false,
-		'can_export'            => false,
-		'rewrite'               => array( 'slug' => 'toolkit', 'with_front' => true ),
-		'query_var'             => true,
-		'menu_icon'             => 'dashicons-list-view',
-		'supports'              => array( 'title', 'editor', 'thumbnail' ),
-		'show_in_graphql'       => false,
+		'labels'           => $labels,
+		'public'           => true,
+		'show_in_rest'     => true,
+		'has_archive'      => true,
+		'delete_with_user' => false,
+		'can_export'       => false,
+		'menu_icon'        => 'dashicons-list-view',
+		'supports'         => array( 'title', 'editor', 'thumbnail' ),
 	);
 	register_post_type( 'toolkit', $args );
 	/**
@@ -308,30 +215,14 @@ function cptui_register_my_cpts() {
 		'search_items'  => esc_html__( 'Search Best Practice', 'openspendingcoalition' ),
 	);
 	$args   = array(
-		'label'                 => esc_html__( 'Best Practices', 'openspendingcoalition' ),
-		'labels'                => $labels,
-		'description'           => '',
-		'public'                => true,
-		'publicly_queryable'    => true,
-		'show_ui'               => true,
-		'show_in_rest'          => true,
-		'rest_base'             => '',
-		'rest_controller_class' => 'WP_REST_Posts_Controller',
-		'rest_namespace'        => 'wp/v2',
-		'has_archive'           => true,
-		'show_in_menu'          => true,
-		'show_in_nav_menus'     => true,
-		'delete_with_user'      => false,
-		'exclude_from_search'   => false,
-		'capability_type'       => 'post',
-		'map_meta_cap'          => true,
-		'hierarchical'          => false,
-		'can_export'            => false,
-		'rewrite'               => array( 'slug' => 'best_practices', 'with_front' => true ),
-		'query_var'             => true,
-		'menu_icon'             => 'dashicons-edit-page',
-		'supports'              => array( 'title', 'editor', 'thumbnail' ),
-		'show_in_graphql'       => false,
+		'labels'           => $labels,
+		'public'           => true,
+		'show_in_rest'     => true,
+		'has_archive'      => true,
+		'delete_with_user' => false,
+		'can_export'       => false,
+		'menu_icon'        => 'dashicons-edit-page',
+		'supports'         => array( 'title', 'editor', 'thumbnail' ),
 	);
 	register_post_type( 'best_practices', $args );
 }

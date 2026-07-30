@@ -1,8 +1,6 @@
 /**
- * Slick sliders and the homepage member-column height calc. Slick is a jQuery
- * plugin, so this is the theme's only remaining jQuery consumer. The height
- * calc lives here (not in the vanilla app.js) because it must read .member-data
- * *after* slick has transformed the DOM.
+ * Slick sliders. Slick is a jQuery plugin, so this is the theme's only
+ * remaining jQuery consumer.
  */
 jQuery(($) => {
   // Homepage member columns: continuous vertical auto-scroll.
@@ -38,14 +36,4 @@ jQuery(($) => {
       { breakpoint: 480, settings: { slidesToShow: 2 } },
     ],
   });
-
-  // Homepage member-column height -> CSS var used by the reveal animation.
-  if ($("body").hasClass("home")) {
-    const membersHeight = $(".member-data")[0].scrollHeight;
-    $(".member-data").attr("data-height", membersHeight);
-    const root = document.documentElement;
-    setTimeout(() => {
-      root.style.setProperty("--member-height", `${membersHeight}px`);
-    }, 500);
-  }
 });

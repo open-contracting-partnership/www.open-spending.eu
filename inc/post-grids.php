@@ -58,10 +58,10 @@ function render_filterable_archive( $posttype ) {
 				<?php if ( $campaign_filter_data ) { ?>
 				<div class="mt-8">
 					<p class="text-n-60">Filter <?php echo esc_html( $posttype_label ); ?> by campaign: </p>
-					<div class="<?php echo esc_attr( $posttype ); ?>-campaign archive-accordion-campaign archive-accordion-category flex flex-wrap gap-2 sm:gap-4 mt-2">
-						<p class="campaign-item category-item <?php echo $get_campaign ? '' : 'active'; ?>" data-filter="*">
+					<div class="<?php echo esc_attr( $posttype ); ?>-campaign archive-accordion-category flex flex-wrap gap-2 sm:gap-4 mt-2">
+						<p class="category-item <?php echo $get_campaign ? '' : 'active'; ?>">
 							<label class="filter-input">
-								<input class="yi-input-radio " type="radio" name="campaign_post" value="" style="display: none">
+								<input type="radio" name="campaign_post" value="" style="display: none">
 								<span>All</span>
 							</label>
 						</p>
@@ -69,10 +69,9 @@ function render_filterable_archive( $posttype ) {
 						foreach ( $campaign_filter_data as $value_id ) {
 							$is_active = ( $get_campaign === (int) $value_id );
 							?>
-						<p class="campaign-item category-item <?php echo $is_active ? 'active' : ''; ?>"
-							data-filter="<?php echo esc_attr( '.campaign-' . $value_id ); ?>">
+						<p class="category-item <?php echo $is_active ? 'active' : ''; ?>">
 							<label class="filter-input">
-								<input class="yi-input-radio" type="radio" name="campaign_post"
+								<input type="radio" name="campaign_post"
 									value="<?php echo esc_attr( $value_id ); ?>" <?php checked( $is_active ); ?> style="display: none">
 								<span><?php echo esc_html( get_the_title( $value_id ) ); ?></span>
 							</label>
@@ -91,7 +90,6 @@ function render_filterable_archive( $posttype ) {
 							<option value="" class="filter-input">Select a country</option>
 							<?php foreach ( $terms as $term ) { ?>
 							<option class="filter-input"
-								data-filter="<?php echo esc_attr( '.' . $term['slug'] ); ?>"
 								value="<?php echo esc_attr( $term['slug'] ); ?>"
 								<?php selected( $get_country, $term['slug'] ); ?>>
 								<?php echo esc_html( $term['name'] ); ?>
@@ -139,41 +137,30 @@ function render_filterable_archive( $posttype ) {
 			<?php
 			while ( $the_query->have_posts() ) {
 				$the_query->the_post();
-				$card_id      = get_the_ID();
-				$permalink    = get_the_permalink( $card_id );
-				$excerpt      = excerpt( 115 );
-				$title        = get_the_title();
-				$related      = get_field( 'realted_campaign' );
-				$related      = ( is_array( $related ) && isset( $related['realted_campaign'] ) ) ? $related['realted_campaign'] : null;
-				$card_classes = '';
-				if ( $related ) {
-					foreach ( $related as $cid ) {
-						$card_classes .= 'campaign-' . (int) $cid . ' ';
-					}
-				}
-				$card_classes .= taxonomy_term_slugs( $card_id, $taxonomies );
+				$card_id   = get_the_ID();
+				$permalink = get_the_permalink( $card_id );
+				$excerpt   = excerpt( 115 );
+				$title     = get_the_title();
 				?>
-			<div class="<?php echo esc_attr( $card_classes ); ?> archive-accordion-items p-5 border border-n-40 rounded-3xl"
+			<div class="archive-accordion-items p-5 border border-n-40 rounded-3xl"
 				data-id="<?php echo (int) $card_id; ?>">
-				<div class="accordion-card-inside ">
-					<div>
-						<a href="<?php echo esc_url( $permalink ); ?>">
-							<div class="pt-[63%] relative">
-								<?php render_feature_image( array( 'alt' => $title, 'class' => 'absolute h-full w-full object-cover top-0 rounded-[20px]' ) ); ?>
-							</div>
-						</a>
-					</div>
-					<div>
-						<div class="mt-6"> <a href="<?php echo esc_url( $permalink ); ?>"
-								class="text-2xl font-bold card-title-hover leading-none sm:leading-normal">
-								<?php echo esc_html( $title ); ?></a> </div>
-						<div class="mt-2 text-n-60 text-sm"> <?php echo esc_html( $excerpt ); ?> </div>
-						<div class="mt-4">
-							<a href="<?php echo esc_url( $permalink ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
-								Learn More
-								<?php echo inline_svg( 'right-arrow' ); ?>
-							</a>
+				<div>
+					<a href="<?php echo esc_url( $permalink ); ?>">
+						<div class="pt-[63%] relative">
+							<?php render_feature_image( array( 'alt' => $title, 'class' => 'absolute h-full w-full object-cover top-0 rounded-[20px]' ) ); ?>
 						</div>
+					</a>
+				</div>
+				<div>
+					<div class="mt-6"> <a href="<?php echo esc_url( $permalink ); ?>"
+							class="text-2xl font-bold card-title-hover leading-none sm:leading-normal">
+							<?php echo esc_html( $title ); ?></a> </div>
+					<div class="mt-2 text-n-60 text-sm"> <?php echo esc_html( $excerpt ); ?> </div>
+					<div class="mt-4">
+						<a href="<?php echo esc_url( $permalink ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
+							Learn More
+							<?php echo inline_svg( 'right-arrow' ); ?>
+						</a>
 					</div>
 				</div>
 			</div>

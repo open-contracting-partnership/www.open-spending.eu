@@ -20,7 +20,6 @@ $posttype   = get_post_type( $current_id );
 
 ?>
 
-<?php if ( $image ) { ?>
 <style>
 header {
 	background-image: url(<?php echo esc_url( $image ); ?>);
@@ -31,7 +30,6 @@ header {
 	display: none;
 }
 </style>
-<?php } ?>
 
 <canvas id="heroCanvas"></canvas>
 <section class="hero_banner_1">

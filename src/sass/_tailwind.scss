@@ -2,50 +2,11 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+// Only the neutral ramp is used by the stylesheets. The brand colours live in
+// tailwind.config.cjs (as `s`/`d`/`m`/`b`/`t` scales) and are applied through
+// utility classes, so they need no custom properties here.
 @layer base {
   :root {
-    --color-default-text: rgb(51 51 51);
-    //Sapphire
-    --s-0: rgba(203, 222, 255, 1);
-    --s-10: rgba(39, 93, 243, 0.8);
-    --s-20: rgba(39, 93, 243, 1);
-    --s-30: rgba(0, 54, 204, 1);
-    --s-40: rgba(0, 40, 153, 1);
-    --s-50: rgba(10, 34, 102, 1);
-
-    //Dandelion
-    --y-0: rgba(255, 230, 0, 0.5);
-    --y-10: rgba(255, 230, 0, 0.8);
-    --y-20: rgba(255, 230, 0, 1);
-    --y-30: rgba(221, 203, 39, 1);
-    --y-40: rgba(155, 140, 3, 1);
-    --y-50: rgba(119, 109, 17, 1);
-
-    //moss green
-    --m-0: rgba(107, 190, 103, 0.5);
-    --m-10: rgba(107, 190, 103, 0.8);
-    --m-20: rgba(107, 190, 103, 1);
-    --m-30: rgba(86, 153, 83, 1);
-    --m-40: rgba(57, 102, 55, 1);
-    --m-50: rgba(43, 77, 41, 1);
-
-    //Berry
-    --b-0: rgba(255, 203, 203, 1);
-    --b-10: rgba(238, 92, 79, 0.8);
-    --b-20: rgba(234, 51, 35, 1);
-    --b-30: rgba(204, 44, 31, 1);
-    --b-40: rgba(153, 33, 23, 1);
-    --b-50: rgba(102, 22, 15, 1);
-
-    //Tangerine
-    --t-0: rgba(255, 159, 105, 0.65);
-    --t-10: rgba(255, 135, 68, 0.8);
-    --t-20: rgba(255, 135, 68, 1);
-    --t-30: rgba(204, 108, 54, 1);
-    --t-40: rgba(153, 81, 41, 1);
-    --t-50: rgba(102, 54, 27, 1);
-
-    //Neutral
     --n-0: #ffffff;
     --n-10: #f4f4f5;
     --n-20: #e9e9ea;
