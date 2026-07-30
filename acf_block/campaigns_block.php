@@ -1,8 +1,8 @@
 <?php
 $block_id    = '' . $block['id'];
-$heading     = (function_exists( 'get_field' ) && $heading = get_field( 'heading' )) ? $heading : 'Campaigns';
-$paragraph   = (function_exists( 'get_field' ) && $paragraph = get_field( 'paragraph' )) ? $paragraph : '';
-$button_text = (function_exists( 'get_field' ) && $button_text = get_field( 'button_text' )) ? $button_text : 'Learn more';
+$heading     = theme_field( 'heading', false, 'Campaigns' );
+$paragraph   = theme_field( 'paragraph' );
+$button_text = theme_field( 'button_text', false, 'Learn more' );
 
 $args = array(
 	'post_type'      => 'campaign',

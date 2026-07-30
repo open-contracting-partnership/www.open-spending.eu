@@ -1,6 +1,6 @@
 <?php
-$heading   = (function_exists( 'get_field' ) && $heading = get_field( 'heading' )) ? $heading : '';
-$paragraph = (function_exists( 'get_field' ) && $paragraph = get_field( 'paragraph' )) ? $paragraph : '';
+$heading   = theme_field( 'heading' );
+$paragraph = theme_field( 'paragraph' );
 
 $args = array(
 	'post_type'      => 'member',

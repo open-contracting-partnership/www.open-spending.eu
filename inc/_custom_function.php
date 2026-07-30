@@ -1,5 +1,29 @@
 <?php
 
+/**
+ * Read an ACF field, falling back when ACF is unavailable or the value is empty.
+ *
+ * Every template needs the `function_exists( 'get_field' )` guard so the theme
+ * still renders with the ACF plugin deactivated. This wraps that guard together
+ * with the "empty means use the default" behaviour the templates all relied on.
+ *
+ * @param string     $selector Field name.
+ * @param int|string $post_id  Post ID, or an ACF options page id such as
+ *                             'member_options'. Default false (current post).
+ * @param mixed      $fallback Returned when ACF is inactive or the value is empty.
+ * @return mixed The field value, or $fallback.
+ */
+function theme_field( $selector, $post_id = false, $fallback = '' )
+{
+	if ( ! function_exists( 'get_field' ) ) {
+		return $fallback;
+	}
+
+	$value = get_field( $selector, $post_id );
+
+	return $value ? $value : $fallback;
+}
+
 // get limit value then return post excerpt value of certain limit
 function excerpt($limit = 115)
 {

@@ -54,9 +54,9 @@ if ( have_posts() ) {
 }
 
 // Breadcrumb: render the member archive's breadcrumb from its per-archive options.
-$display_breadcrumb    = (function_exists( 'get_field' ) && $display_breadcrumb = get_field( 'display_breadcrumb', $posttype . '_options' )) ? $display_breadcrumb : '0';
-$default_breadcrumb    = (function_exists( 'get_field' ) && $default_breadcrumb = get_field( 'default_breadcrumb', $posttype . '_options' )) ? $default_breadcrumb : '0';
-$add_custom_breadcrumb = (function_exists( 'get_field' ) && $add_custom_breadcrumb = get_field( 'add_custom_breadcrumb', $posttype . '_options' )) ? $add_custom_breadcrumb : '';
+$display_breadcrumb    = theme_field( 'display_breadcrumb', $posttype . '_options', '0' );
+$default_breadcrumb    = theme_field( 'default_breadcrumb', $posttype . '_options', '0' );
+$add_custom_breadcrumb = theme_field( 'add_custom_breadcrumb', $posttype . '_options' );
 
 if ( $display_breadcrumb && $default_breadcrumb ) {
 	echo breadcrumb_section( $id );

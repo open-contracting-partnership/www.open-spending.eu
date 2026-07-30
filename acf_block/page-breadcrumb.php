@@ -4,9 +4,9 @@ $posttype = get_post_type( $id );
 
 if ( $id && ($posttype == 'page') ) {
 
-	$display_breadcrumb    = (function_exists( 'get_field' ) && $display_breadcrumb = get_field( 'display_breadcrumb', $id )) ? $display_breadcrumb : '';
-	$default_breadcrumb    = (function_exists( 'get_field' ) && $default_breadcrumb = get_field( 'default_breadcrumb', $id )) ? $default_breadcrumb : '';
-	$add_custom_breadcrumb = (function_exists( 'get_field' ) && $add_custom_breadcrumb = get_field( 'add_custom_breadcrumb', $id )) ? $add_custom_breadcrumb : '';
+	$display_breadcrumb    = theme_field( 'display_breadcrumb', $id );
+	$default_breadcrumb    = theme_field( 'default_breadcrumb', $id );
+	$add_custom_breadcrumb = theme_field( 'add_custom_breadcrumb', $id );
 
 	if ( $display_breadcrumb && $default_breadcrumb ) {
 ?>

@@ -1,8 +1,8 @@
 <?php
 
-$heading                  = (function_exists( 'get_field' ) && $heading = get_field( 'heading' )) ? $heading : '';
-$heading_body             = (function_exists( 'get_field' ) && $heading_body = get_field( 'heading_body' )) ? $heading_body : '';
-$form_short_code          = (function_exists( 'get_field' ) && $form_short_code = get_field( 'form_short_code' )) ? $form_short_code : '';
+$heading                  = theme_field( 'heading' );
+$heading_body             = theme_field( 'heading_body' );
+$form_short_code          = theme_field( 'form_short_code' );
 $side_information            = (function_exists( 'get_field' )) ? get_field( 'side_information' ) : null;
 $side_information_heading    = is_array( $side_information ) ? ($side_information['heading'] ?? '') : '';
 $side_information_body       = is_array( $side_information ) ? ($side_information['heading_body'] ?? '') : '';

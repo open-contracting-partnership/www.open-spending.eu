@@ -1,8 +1,8 @@
 <?php
 
-$heading     = (function_exists( 'get_field' ) && $heading = get_field( 'heading' )) ? $heading : '';
-$paragraph   = (function_exists( 'get_field' ) && $paragraph = get_field( 'paragraph' )) ? $paragraph : '';
-$button_text = (function_exists( 'get_field' ) && $button_text = get_field( 'button_text' )) ? $button_text : 'Why Open Spending?';
+$heading     = theme_field( 'heading' );
+$paragraph   = theme_field( 'paragraph' );
+$button_text = theme_field( 'button_text', false, 'Why Open Spending?' );
 
 $button_url = home_url( '/about-the-organization/' );
 $image      = get_template_directory_uri() . '/dist/images/hero.png';
@@ -52,7 +52,7 @@ header {
 if ( is_archive() ) {
 	$post_object = get_post_type_object( $posttype );
 	$labels = $post_object->labels;
-	$sub_heading = (function_exists( 'get_field' ) && $sub_heading = get_field( 'sub_heading', $posttype . '_options' )) ? $sub_heading : '';
+	$sub_heading = theme_field( 'sub_heading', $posttype . '_options' );
 ?>
 <div class="archive-header container text-center text-n-0 pt-12 pb-10 md:pt-20 md:pb-16">
 	<h1 class="font-bold"><?php echo esc_html( $labels->name ); ?></h1>

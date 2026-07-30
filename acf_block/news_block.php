@@ -1,8 +1,8 @@
 <?php
-$heading        = (function_exists( 'get_field' ) && $heading = get_field( 'heading' )) ? $heading : '';
-$paragraph      = (function_exists( 'get_field' ) && $paragraph = get_field( 'paragraph' )) ? $paragraph : '';
-$btn_text       = (function_exists( 'get_field' ) && $btn_text = get_field( 'btn_text' )) ? $btn_text : 'Learn more';
-$number_of_news = (function_exists( 'get_field' ) && $number_of_news = get_field( 'number_of_news' )) ? $number_of_news : 6;
+$heading        = theme_field( 'heading' );
+$paragraph      = theme_field( 'paragraph' );
+$btn_text       = theme_field( 'btn_text', false, 'Learn more' );
+$number_of_news = theme_field( 'number_of_news', false, 6 );
 
 $view_all_news_url   = get_post_type_archive_link( 'news' );
 $view_all_news_label = 'View all news';
