@@ -246,6 +246,7 @@ add_action('init', function () {
 	}
 
 	// phpcs:disable PHPCompatibility.FunctionDeclarations.NewClosure.ThisFoundOutsideClass -- false positive: $this is valid inside this anonymous class.
+	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter -- signatures are fixed by WP_Sitemaps_Provider. get_url_list() is abstract there, so dropping $page_num/$object_subtype would be a fatal signature mismatch. This provider emits one unpaginated list and has no subtypes, so it ignores both.
 	$provider = new class extends WP_Sitemaps_Provider {
 		public function __construct() {
 			$this->name        = 'archives';
@@ -269,6 +270,7 @@ add_action('init', function () {
 			return 1;
 		}
 	};
+	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter
 	// phpcs:enable PHPCompatibility.FunctionDeclarations.NewClosure.ThisFoundOutsideClass
 
 	wp_register_sitemap_provider( 'archives', $provider );

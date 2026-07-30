@@ -49,6 +49,7 @@
     <rule ref="Squiz.PHP.DisallowMultipleAssignments"/>
     <rule ref="WordPress.CodeAnalysis.AssignmentInTernaryCondition"/>
     <rule ref="Squiz.Operators.IncrementDecrementUsage"/>
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
     <rule ref="Generic.CodeAnalysis.AssignmentInCondition"/>
     <rule ref="WordPress.WP.I18n"/>
 
