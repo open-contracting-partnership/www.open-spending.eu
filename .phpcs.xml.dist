@@ -55,15 +55,10 @@
              being worked through one rule per commit; this list should empty.
              ============================================================== -->
 
-        <!-- Documentation. -->
-        <exclude name="Squiz.Commenting.InlineComment"/>
-        <exclude name="Generic.Commenting.DocComment"/>
-
         <!-- Naming and filenames. -->
         <exclude name="WordPress.NamingConventions.ValidVariableName"/>
         <exclude name="WordPress.NamingConventions.ValidFunctionName"/>
         <exclude name="WordPress.Files.FileName"/>
-
     </rule>
 
     <!-- These three build their markup entirely from escaped parts, so their

@@ -107,7 +107,7 @@ function theme_seo_canonical() {
 }
 
 /**
- * noindex thin / non-content pages (member singles are handled this way instead
+ * Noindex thin and non-content pages (member singles are handled this way instead
  * of by making the post type non-public, which would break the /member/ archive).
  */
 add_filter('wp_robots', function ( $robots ) {
@@ -222,7 +222,7 @@ add_filter('wp_sitemaps_post_types', function ( $post_types ) {
 });
 
 add_filter('wp_sitemaps_taxonomies', function ( $taxonomies ) {
-	unset( $taxonomies['post_tag'] ); // core public taxonomy
+	unset( $taxonomies['post_tag'] ); // Thin archives, and noindexed by the wp_robots filter above.
 	return $taxonomies;
 });
 
@@ -263,7 +263,7 @@ add_action('init', function () {
 		public function get_url_list( $page_num, $object_subtype = '' ) {
 			$urls       = array();
 			$post_types = get_post_types( array( 'public' => true, 'has_archive' => true ), 'names' );
-			unset( $post_types['member'] ); // noindexed post type, excluded from the sitemap
+			unset( $post_types['member'] ); // Noindexed, so keep it out of the sitemap too.
 			foreach ( $post_types as $post_type ) {
 				$link = get_post_type_archive_link( $post_type );
 				if ( $link ) {
@@ -274,6 +274,8 @@ add_action('init', function () {
 		}
 
 		/**
+		 * How many pages this provider's sitemap spans.
+		 *
 		 * @param string $object_subtype Subtype. Ignored — this provider has none.
 		 * @return int Always 1: a handful of archive links needs no paging.
 		 */

@@ -19,7 +19,7 @@ $args = array(
 		array(
 			'taxonomy' => 'type_of_member',
 			'field'    => 'slug',
-			'terms'    => 'person', // Experts
+			'terms'    => 'person', // Labelled "Experts" in the admin.
 		),
 	),
 );

@@ -17,7 +17,7 @@ $args = array(
 		array(
 			'taxonomy' => 'type_of_member',
 			'field'    => 'slug',
-			'terms'    => 'organization', // Organizations
+			'terms'    => 'organization', // Labelled "Organizations" in the admin.
 		),
 	),
 );

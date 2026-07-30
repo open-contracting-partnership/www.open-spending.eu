@@ -131,7 +131,6 @@ add_action('init', function () {
 });
 
 /**
- * include custom functions
- *
+ * Load the theme's PHP modules.
  */
 require_once __DIR__ . '/inc/includes.php';

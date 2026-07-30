@@ -56,7 +56,7 @@ header {
 </section>
 
 <?php
-// archive page title and sub-title at header
+// Archive heading band: the post type's label, plus its ACF sub-heading.
 if ( is_archive() ) {
 	$post_object = get_post_type_object( $posttype );
 	$labels      = $post_object->labels;
@@ -69,7 +69,7 @@ if ( is_archive() ) {
 	<?php
 }
 
-// single page title at header
+// Heading band for searches, singles and non-front pages.
 if ( is_search() ) {
 	?>
 <div class="single-header text-n-0 pb-10">
