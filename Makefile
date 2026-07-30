@@ -20,7 +20,11 @@ DUMP   ?= $(shell ls -t $(REPO)/*$(DB)*.sql 2>/dev/null | head -1)
 SOCKET := $(or $(shell mysql -uroot -N -sse "SELECT @@socket" 2>/dev/null),/tmp/mysql.sock)
 MYSQL  := mysql -uroot
 
-.PHONY: help up setup db wp serve flush clean
+ASSETS  := dist/js/app.js dist/css/app.css
+REF     ?= HEAD
+ESBUILD := pnpm exec esbuild --log-level=warning
+
+.PHONY: help up setup db wp serve flush clean diff
 
 help: ## list the available commands (runs by default)
 	@grep -hE '^[a-z-]+:.*##' $(MAKEFILE_LIST) | sed -E 's/:[^#]*## /\t/'
@@ -31,7 +35,7 @@ up: setup ## setup and serve
 
 setup: db wp ## db and wp
 
-db: ## create and load the coalition_wp database (FORCE=1 reloads), rewrite the site URL to localhost, disable production-only plugins
+db: ## create and load the coalition_wp database (FORCE=1 to re-load), rewrite the site URL to localhost, disable production-only plugins
 	@test -f "$(DUMP)" || { echo "no SQL dump — set DUMP=/path/to.sql"; exit 1; }
 	@$(MYSQL) -e 'CREATE DATABASE IF NOT EXISTS `$(DB)`;'
 	@if [ -z "$(FORCE)" ] && [ "$$($(MYSQL) -N -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='$(DB)'")" -gt 0 ]; then \
@@ -46,10 +50,12 @@ db: ## create and load the coalition_wp database (FORCE=1 reloads), rewrite the 
 		| $(MYSQL) "$(DB)"
 	@echo ">> DB ready (url=$(URL), dev plugins disabled)"
 
-wp: ## extract files into a working directory, patch wp-config.php, symlink this directory as the theme
-	@if [ ! -f "$(WP)/wp-load.php" ]; then \
+wp: ## extract files into a working directory (FORCE=1 to re-extract), patch wp-config.php, symlink this directory as the theme
+	@if [ -z "$(FORCE)" ] && [ -f "$(WP)/wp-load.php" ]; then \
+		echo ">> files already extracted (FORCE=1 to re-extract)"; \
+	else \
 		test -f "$(TAR)" || { echo "no files backup — set TAR=/path/to.tar"; exit 1; }; \
-		echo ">> extracting $$(basename "$(TAR)")"; mkdir -p "$(WORKDIR)"; \
+		echo ">> extracting $$(basename "$(TAR)")"; rm -rf "$(WP)"; mkdir -p "$(WORKDIR)"; \
 		tar -xf "$(TAR)" -C "$(WORKDIR)" --strip-components=2; \
 	fi
 	@sed -i.bak -E \
@@ -80,3 +86,18 @@ clean: ## drop the coalition_wp database and remove the working directory
 	@rm -rf "$(WORKDIR)"
 	@$(MYSQL) -e 'DROP DATABASE IF EXISTS `$(DB)`;'
 	@echo ">> cleaned"
+
+diff: ## diff the built assets against git (REF=HEAD), pretty-printing them so the change is readable
+	@t=$$(mktemp -d); trap 'rm -rf "$$t"' EXIT; mkdir -p "$$t/raw"; \
+	for f in $(ASSETS); do \
+		b=$$(basename "$$f"); \
+		git show "$(REF):$$f" > "$$t/raw/$$b" || { echo "no $$f in $(REF)"; exit 1; }; \
+		$(ESBUILD) "$$t/raw/$$b" --outfile="$$t/$(REF)/$$b" || exit 1; \
+		$(ESBUILD) "$$f"         --outfile="$$t/working/$$b" || exit 1; \
+	done; \
+	cd "$$t"; \
+	if git diff --no-index --quiet "$(REF)" working; then \
+		echo ">> $(ASSETS) match $(REF)"; \
+	else \
+		git diff --no-index "$(REF)" working || [ $$? -eq 1 ]; \
+	fi
