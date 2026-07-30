@@ -50,9 +50,14 @@ if ( ! function_exists( 'useSvg' ) ) {
 	function useSvg( $filename = 'long-arrow-right' ) {
 		$icon = get_stylesheet_directory() . '/dist/images/icons/' . $filename . '.svg';
 
-		$svg_icon_content = @file_get_contents( $icon );
+		// A missing icon should render as nothing, not a warning. Checked
+		// explicitly rather than silenced with @, so a genuine read error
+		// (permissions, I/O) still surfaces in the log.
+		if ( ! is_readable( $icon ) ) {
+			return '';
+		}
 
-		return $svg_icon_content;
+		return file_get_contents( $icon );
 	}
 }
 

@@ -86,16 +86,6 @@
         </properties>
     </rule>
 
-    <!-- Not yet adopted: WordPress-Extra sets usePHPFunctionsList="false", which
-         reports every `@`. Pinned back to the sniff default (report only `@` on
-         functions PHP doesn't expect to be silenced) so we keep today's coverage
-         until the two @file_get_contents calls are dealt with. -->
-    <rule ref="WordPress.PHP.NoSilencedErrors">
-        <properties>
-            <property name="usePHPFunctionsList" value="true"/>
-        </properties>
-    </rule>
-
     <!-- Cross-version PHP compatibility checks -->
     <rule ref="PHPCompatibilityWP"/>
 </ruleset>
