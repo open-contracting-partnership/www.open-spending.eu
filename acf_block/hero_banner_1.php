@@ -7,8 +7,8 @@ $button_text = theme_field( 'button_text', false, 'Why Open Spending?' );
 $button_url = home_url( '/about-the-organization/' );
 $image      = get_template_directory_uri() . '/dist/images/hero.png';
 
-$id       = get_the_ID();
-$posttype = get_post_type( $id );
+$current_id       = get_the_ID();
+$posttype = get_post_type( $current_id );
 
 ?>
 

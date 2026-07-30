@@ -1,12 +1,12 @@
 <?php
-$id = get_the_ID();
-$posttype = get_post_type( $id );
+$current_id = get_the_ID();
+$posttype = get_post_type( $current_id );
 
-if ( $id && ($posttype == 'page') ) {
+if ( $current_id && ($posttype == 'page') ) {
 
-	$display_breadcrumb    = theme_field( 'display_breadcrumb', $id );
-	$default_breadcrumb    = theme_field( 'default_breadcrumb', $id );
-	$add_custom_breadcrumb = theme_field( 'add_custom_breadcrumb', $id );
+	$display_breadcrumb    = theme_field( 'display_breadcrumb', $current_id );
+	$default_breadcrumb    = theme_field( 'default_breadcrumb', $current_id );
+	$add_custom_breadcrumb = theme_field( 'add_custom_breadcrumb', $current_id );
 
 	if ( $display_breadcrumb && $default_breadcrumb ) {
 ?>
@@ -15,7 +15,7 @@ if ( $id && ($posttype == 'page') ) {
 				<div class="breadcrumb-menu__item">
 					<a href="<?php echo esc_url( home_url() ); ?>">Home</a>
 				</div>
-				<div class="breadcrumb-menu__item"> <?php echo esc_html( get_the_title( $id ) ); ?> </div>
+				<div class="breadcrumb-menu__item"> <?php echo esc_html( get_the_title( $current_id ) ); ?> </div>
 			</div>
 		</div>
 	<?php
@@ -30,7 +30,7 @@ if ( $id && ($posttype == 'page') ) {
 						<a href="<?php echo esc_url( $value['link'] ); ?>"> <?php echo esc_html( $value['item'] ); ?> </a>
 					</div>
 				<?php } ?>
-				<div class="breadcrumb-menu__item"> <?php echo esc_html( get_the_title( $id ) ); ?> </div>
+				<div class="breadcrumb-menu__item"> <?php echo esc_html( get_the_title( $current_id ) ); ?> </div>
 			</div>
 		</div>
 <?php

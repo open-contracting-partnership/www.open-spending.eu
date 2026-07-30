@@ -1,7 +1,7 @@
 <?php
 
-$id = get_the_ID();
-$posttype = get_post_type( $id );
+$current_id = get_the_ID();
+$posttype = get_post_type( $current_id );
 $feature_img = get_the_post_thumbnail_url();
 
 $campaign = get_field( 'campaign' );
@@ -9,11 +9,11 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 
 ?>
 
-<?php echo breadcrumb_section( $id ); ?>
+<?php echo breadcrumb_section( $current_id ); ?>
 
 <div class="container py-10 sm:pt-16 lg:pb-28">
 
-	<div class="<?php echo esc_attr( $posttype . '-' . $id ); ?> ">
+	<div class="<?php echo esc_attr( $posttype . '-' . $current_id ); ?> ">
 		<?php if ( $feature_img ) { ?>
 			<div class="pt-[45%] relative">
 				<img src="<?php echo esc_url( $feature_img ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class=" absolute top-0 h-full w-full object-cover rounded-xl">
@@ -79,12 +79,11 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 		'meta_query'     => array(
 			array(
 				'key'     => 'realted_campaign_realted_campaign',
-				'value'   => $id,
+				'value'   => $current_id,
 				'compare' => 'LIKE',
 			),
 		),
 	);
-	$current_id = $id;
 	$the_query = new WP_Query( $args );
 	if ( $the_query->have_posts() ) { ?>
 		<div class="related-news">
@@ -138,7 +137,7 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 			'post_type'      => 'campaign',
 			'posts_per_page' => 2,
 			'post_status'    => array('publish'),
-			'post__not_in'   => array($id),
+			'post__not_in'   => array($current_id),
 		);
 		$the_query = new WP_Query( $args );
 		if ( $the_query->have_posts() ) { ?>

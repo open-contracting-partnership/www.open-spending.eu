@@ -36,13 +36,13 @@ $social_links = array(
 			<h3 class="font-bold"><?php echo wp_kses_post( $side_information_heading ); ?></h3>
 			<p class="text-base pt-1 sm:pt-4"><?php echo wp_kses_post( $side_information_body ); ?></p>
 			<ul class="mt-8 sm:mt-12 contact-admin">
-				<?php foreach ( $social_links as $link ) { ?>
+				<?php foreach ( $social_links as $social_link ) { ?>
 				<li class="flex gap-x-1.5 sm:gap-x-2.5 mt-4 sm:mt-6 icon-hover max-w-fit">
-					<a href="<?php echo esc_url( $link['url'] ); ?>" target="_blank" rel="noopener noreferrer" class="flex gap-x-1.5 sm:gap-x-2.5 items-center">
+					<a href="<?php echo esc_url( $social_link['url'] ); ?>" target="_blank" rel="noopener noreferrer" class="flex gap-x-1.5 sm:gap-x-2.5 items-center">
 						<span class="flex justify-center items-center h-4 w-4 sm:h-6 sm:w-6 transition-all cursor-pointer duration-300">
-							<?php echo useSvg( $link['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+							<?php echo useSvg( $social_link['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
 						</span>
-						<span class="contact-links"><?php echo esc_html( $link['label'] ); ?></span>
+						<span class="contact-links"><?php echo esc_html( $social_link['label'] ); ?></span>
 					</a>
 				</li>
 				<?php } ?>

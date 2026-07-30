@@ -1,7 +1,7 @@
 <?php
 
-$id           = get_the_ID();
-$posttype     = get_post_type( $id );
+$current_id           = get_the_ID();
+$posttype     = get_post_type( $current_id );
 $post_object  = get_post_type_object( $posttype );
 $labels       = $post_object->labels;
 $person_member_data       = array();
@@ -13,7 +13,7 @@ if ( have_posts() ) {
 	while ( have_posts() ) {
 		the_post();
 		$member_id     = get_the_ID();
-		$title         = get_the_title();
+		$post_title         = get_the_title();
 		$content       = get_the_content();
 		$member_fields = get_field( 'members' );
 		if ( ! is_array( $member_fields ) ) {
@@ -29,7 +29,7 @@ if ( have_posts() ) {
 		if ( $type_of_member == 'Person' ) {
 			$person_member_data[$i] = array(
 				'id'                => $member_id,
-				'title'             => $title,
+				'title'             => $post_title,
 				'content'           => $content,
 				'logoprofile_photo' => $photo_src,
 				'designation'       => $member_fields['designation'] ?? '',
@@ -40,7 +40,7 @@ if ( have_posts() ) {
 		} elseif ( $type_of_member == 'Organization' ) {
 			$organization_member_data[$i] = array(
 				'id'                => $member_id,
-				'title'             => $title,
+				'title'             => $post_title,
 				'content'           => $content,
 				'logoprofile_photo' => $photo_src,
 				'phone'             => $member_fields['phone'] ?? '',
@@ -59,7 +59,7 @@ $default_breadcrumb    = theme_field( 'default_breadcrumb', $posttype . '_option
 $add_custom_breadcrumb = theme_field( 'add_custom_breadcrumb', $posttype . '_options' );
 
 if ( $display_breadcrumb && $default_breadcrumb ) {
-	echo breadcrumb_section( $id );
+	echo breadcrumb_section( $current_id );
 }
 if ( $display_breadcrumb && ! $default_breadcrumb && $add_custom_breadcrumb ) {
 ?>

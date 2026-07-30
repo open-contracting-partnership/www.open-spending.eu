@@ -42,6 +42,7 @@
     <rule ref="WordPress.WP.DeprecatedClasses"/>
     <rule ref="WordPress.WP.EnqueuedResources"/>
     <rule ref="WordPress.WP.PostsPerPage"/>
+    <rule ref="WordPress.WP.GlobalVariablesOverride"/>
 
     <!-- Generic PHP / correctness gotchas -->
     <rule ref="WordPress.PHP.NoSilencedErrors"/>
