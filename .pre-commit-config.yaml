@@ -1,14 +1,10 @@
-# Pre-commit hooks for the theme's PHP coding standard (.phpcs.xml.dist).
-#
-# One-time setup:
-#   brew install pre-commit      # or: pipx install pre-commit
-#   composer install             # provides vendor/bin/phpcbf + phpcs
-#   pre-commit install
-#
-# On commit, phpcbf auto-fixes the staged PHP files; if it changes anything the
-# commit stops so you can re-stage (git add -u) and commit again, after which
-# phpcs confirms nothing non-fixable remains.
+ci:
+  autoupdate_schedule: quarterly
 repos:
+  - repo: https://github.com/biomejs/pre-commit
+    rev: v2.5.2
+    hooks:
+      - id: biome-check
   - repo: local
     hooks:
       - id: phpcbf
@@ -23,8 +19,3 @@ repos:
         language: system
         types: [php]
         exclude: '^(vendor|dist|node_modules|acf_json|dev)/'
-  - repo: https://github.com/biomejs/pre-commit
-    rev: v2.5.2
-    hooks:
-      - id: biome-check
-        additional_dependencies: ["@biomejs/biome@2.5.2"]

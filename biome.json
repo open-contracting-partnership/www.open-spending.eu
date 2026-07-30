@@ -1,16 +1,15 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.5.2/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true,
     "defaultBranch": "main"
   },
-  "files": {
-    "includes": ["**", "!acf_json", "!dist"]
-  },
   "formatter": {
     "indentStyle": "space",
     "lineWidth": 119
+  },
+  "files": {
+    "includes": ["**", "!acf_json", "!dist"]
   }
 }

@@ -28,7 +28,6 @@ const options = {
   plugins: [
     esbuildPluginBrowserslist(browserslist(), { printUnknownTargets: false }),
     sassPlugin({
-      // The stylesheets predate the @use migration.
       silenceDeprecations: ["import"],
       async transform(source) {
         const { css } = await postcss([
