@@ -22,6 +22,4 @@ require_once __DIR__ . '/post-grids.php';
 
 require_once __DIR__ . '/seo.php';
 
-require_once __DIR__ . '/analytics.php';
-
 require_once __DIR__ . '/acf-options.php';
