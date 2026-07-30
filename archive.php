@@ -40,15 +40,19 @@ $block_content = do_blocks(
 '
 );
 
+/*
+ * Render the header and footer parts up front, even though they're echoed further
+ * down. Doing it before wp_head() is what lets WordPress collect their blocks'
+ * styles in time to print them in <head>; calling block_header_area() inline
+ * instead moves that CSS down next to the footer.
+ */
 ob_start();
 block_header_area();
-$block_header_area = ob_get_contents();
-ob_clean();
+$block_header_area = ob_get_clean();
 
 ob_start();
 block_footer_area();
-$block_footer_area = ob_get_contents();
-ob_clean();
+$block_footer_area = ob_get_clean();
 
 ?>
 
