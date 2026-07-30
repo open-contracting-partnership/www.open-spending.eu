@@ -1,14 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  // Every file that can name a utility class. Omitting one silently purges the
+  // classes only that file uses, so this covers all of the theme's markup:
+  // archive.php and single.php at the root, and the block templates.
   content: [
-    "./src/sass/*.scss",
-    "./src/sass/**/*.scss",
+    "./*.php",
     "./acf_block/*.php",
     "./archives/*.php",
     "./inc/*.php",
     "./patterns/*.php",
     "./singles/*.php",
     "./parts/*.html",
+    "./templates/*.html",
+    "./src/sass/**/*.scss",
   ],
   theme: {
     colors: {
