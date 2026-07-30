@@ -8,6 +8,7 @@ $args = array(
 	'post_type'      => 'member',
 	'posts_per_page' => -1,
 	'post_status'    => array( 'publish' ),
+	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- 33 member posts split across a 2-term taxonomy; there is no non-tax_query way to select one term.
 	'tax_query'      => array(
 		array(
 			'taxonomy' => 'type_of_member',

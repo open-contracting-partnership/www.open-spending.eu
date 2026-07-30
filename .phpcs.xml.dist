@@ -67,7 +67,6 @@
         <exclude name="WordPress.Files.FileName"/>
 
         <!-- Security and performance. -->
-        <exclude name="WordPress.DB.SlowDBQuery"/>
     </rule>
 
     <!-- These helpers return pre-escaped/trusted markup, so their return value

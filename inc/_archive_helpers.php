@@ -99,6 +99,7 @@ function render_filterable_archive( $posttype ) {
 			'paged'          => $paged,
 		);
 		if ( $get_campaign ) {
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Optional campaign filter over 49 rows of this meta key; the relation is a serialised ACF field, so LIKE is the only way to query it.
 			$args['meta_query'] = array(
 				'relation' => 'OR',
 				array(
@@ -109,6 +110,7 @@ function render_filterable_archive( $posttype ) {
 			);
 		}
 		if ( $get_country ) {
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Optional country filter; bounded by 27 terms over at most 36 posts.
 			$args['tax_query'] = array(
 				array(
 					'taxonomy' => 'country',
