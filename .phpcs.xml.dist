@@ -8,8 +8,6 @@
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/acf_json/*</exclude-pattern>
-    <!-- Local-only dev tooling: runs before WordPress loads, so WP sanitizers do not apply. -->
-    <exclude-pattern>*/dev/*</exclude-pattern>
 
     <arg name="extensions" value="php"/>
     <arg name="colors"/>
