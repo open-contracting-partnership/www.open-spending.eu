@@ -14,7 +14,7 @@ $args = array(
 	'post_type'      => 'member',
 	'posts_per_page' => -1,
 	'post_status'    => array( 'publish' ),
-	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- 33 member posts split across a 2-term taxonomy; there is no non-tax_query way to select one term.
+	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Selects one of two member types from a small, bounded post set. get_objects_in_term() with post__in avoids the join but trades it for a second query and an ID list, which is not a win at this size.
 	'tax_query'      => array(
 		array(
 			'taxonomy' => 'type_of_member',

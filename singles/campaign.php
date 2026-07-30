@@ -86,7 +86,7 @@ $campaign_videos = ( is_array( $campaign ) && isset( $campaign['campaign_videos'
 		'post_type'      => 'news',
 		'posts_per_page' => 3,
 		'post_status'    => array( 'publish' ),
-		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Related-news lookup; 49 rows of this meta key today. LIKE is forced by the relation living in a serialised ACF field, so making it indexable means moving it to a taxonomy or relationship table. Revisit if post counts grow.
+		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Related-news lookup. LIKE is forced by the relation living in a serialised ACF field; making it indexable means moving it to a taxonomy or relationship table. Revisit if the news archive grows large.
 		'meta_query'     => array(
 			array(
 				'key'     => 'realted_campaign_realted_campaign',

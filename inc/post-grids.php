@@ -112,7 +112,7 @@ function render_filterable_archive( $posttype ) {
 			'paged'          => $paged,
 		);
 		if ( $get_campaign ) {
-			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Optional campaign filter; 49 rows of this meta key today. LIKE is forced by the relation living in a serialised ACF field, so making it indexable means moving it to a taxonomy or relationship table. Revisit if post counts grow.
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Optional campaign filter, only applied when a visitor picks one. LIKE is forced by the relation living in a serialised ACF field; making it indexable means moving it to a taxonomy or relationship table. Revisit if this archive grows large.
 			$args['meta_query'] = array(
 				'relation' => 'OR',
 				array(
@@ -123,7 +123,7 @@ function render_filterable_archive( $posttype ) {
 			);
 		}
 		if ( $get_country ) {
-			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Optional country filter; bounded by 27 terms over at most 36 posts.
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Optional country filter, only applied when a visitor picks one, over a small post set.
 			$args['tax_query'] = array(
 				array(
 					'taxonomy' => 'country',
