@@ -204,7 +204,7 @@ function get_tax_post_type($posttype, $taxonomies)
 						array_push( $tax_post_type_array, $term->slug );
 						$tax_post_type[$i]['slug'] = $term->slug;
 						$tax_post_type[$i]['name'] = $term->name;
-						$i = $i + 1;
+						++$i;
 					}
 				}
 			}
