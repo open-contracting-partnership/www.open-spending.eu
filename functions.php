@@ -99,16 +99,58 @@ function theme_scripts() {
 		theme_asset_version( '/dist/js/slick.min.js' ),
 		true
 	);
-
-	wp_enqueue_script(
-		'isotope-js',
-		get_stylesheet_directory_uri() . '/dist/js/isotope.pkgd.min.js',
-		array( 'jquery' ),
-		theme_asset_version( '/dist/js/isotope.pkgd.min.js' ),
-		true
-	);
 }
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
+
+/**
+ * Drop jquery-migrate on the front end — nothing here relies on the legacy
+ * jQuery APIs it shims.
+ */
+add_action(
+	'wp_default_scripts',
+	function ( $scripts ) {
+		if ( is_admin() || empty( $scripts->registered['jquery'] ) ) {
+			return;
+		}
+		$scripts->registered['jquery']->deps = array_diff(
+			$scripts->registered['jquery']->deps,
+			array( 'jquery-migrate' )
+		);
+	}
+);
+
+/**
+ * Load jQuery in the footer instead of the <head>, so it stops blocking the
+ * initial render. Safe because the only front-end jQuery consumers (app.js and
+ * slick) are already footer-enqueued, and the archive-filter inline script is
+ * now vanilla — nothing uses jQuery before the footer.
+ */
+add_action(
+	'wp_enqueue_scripts',
+	function () {
+		if ( is_admin() ) {
+			return;
+		}
+		wp_scripts()->add_data( 'jquery', 'group', 1 );
+		wp_scripts()->add_data( 'jquery-core', 'group', 1 );
+	},
+	100
+);
+
+/**
+ * Preload the hero background so the LCP image starts downloading from the
+ * initial HTML, instead of only after the header block's inline <style> parses.
+ */
+add_action(
+	'wp_head',
+	function () {
+		printf(
+			'<link rel="preload" as="image" href="%s" fetchpriority="high">' . "\n",
+			esc_url( get_template_directory_uri() . '/dist/images/hero.webp' )
+		);
+	},
+	1
+);
 
 /**
  * ===================================================
