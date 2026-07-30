@@ -10,9 +10,7 @@
 /**
  * Read an ACF field, falling back when ACF is unavailable or the value is empty.
  *
- * Every template needs the `function_exists( 'get_field' )` guard so the theme
- * still renders with the ACF plugin deactivated. This wraps that guard together
- * with the "empty means use the default" behaviour the templates all relied on.
+ * The guard is what keeps the theme rendering with the ACF plugin deactivated.
  *
  * @param string     $selector Field name.
  * @param int|string $post_id  Post ID, or an ACF options page id such as
@@ -81,14 +79,12 @@ if ( ! function_exists( 'inline_svg' ) ) {
 
 		$icon = get_stylesheet_directory() . '/dist/images/icons/' . $filename . '.svg';
 
-		// A missing icon should render as nothing, not a warning. Checked
-		// explicitly rather than silenced with @, so a genuine read error
-		// (permissions, I/O) still surfaces in the log.
+		// A missing icon renders as nothing; a real read error still logs.
 		if ( ! is_readable( $icon ) ) {
 			return '';
 		}
 
-		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Reads a bundled theme asset off local disk. WP_Filesystem is the abstraction for writable paths, isn't loaded on the front end, and can prompt for credentials; it would be both slower and wrong here.
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Reads a bundled theme asset off local disk; WP_Filesystem is for writable paths and isn't loaded on the front end.
 		return file_get_contents( $icon );
 	}
 }
