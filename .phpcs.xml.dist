@@ -73,4 +73,18 @@
 
     <!-- Cross-version PHP compatibility checks -->
     <rule ref="PHPCompatibilityWP"/>
+
+    <!-- ==================================================================
+         Deliberately not adopted from the WordPress standard.
+
+         Each entry is a decision we've made and don't intend to revisit, not
+         a backlog item. These become <exclude> elements once the include list
+         above is replaced by <rule ref="WordPress"/>.
+
+         - WordPress.PHP.YodaConditions
+           `'page' === $posttype` reads backwards. Yoda exists to stop the
+           `if ( $x = 5 )` typo, and Generic.CodeAnalysis.AssignmentInCondition
+           (enabled above) already catches that class of bug directly, so the
+           readability cost buys us nothing.
+         ================================================================== -->
 </ruleset>
