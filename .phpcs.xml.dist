@@ -1,16 +1,14 @@
 <?xml version="1.0"?>
 <ruleset name="OpenSpendingCoalition">
-    <description>Coding standards for the Open Spending Coalition theme: the WordPress standard, minus a short list of rules we've decided against and a shrinking list we haven't adopted yet.</description>
+    <description>Coding standards for the Open Spending Coalition theme: the WordPress standard, minus the exclusions below.</description>
 
     <file>.</file>
 
+    <exclude-pattern>*/.claude/*</exclude-pattern>
+    <exclude-pattern>*/acf_json/*</exclude-pattern>
     <exclude-pattern>*/dist/*</exclude-pattern>
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
-    <exclude-pattern>*/acf_json/*</exclude-pattern>
-    <!-- Agent scratch space; .claude/worktrees holds checkouts of other branches,
-         which would otherwise be linted as if they were part of this one. -->
-    <exclude-pattern>*/.claude/*</exclude-pattern>
 
     <arg name="extensions" value="php"/>
     <arg name="colors"/>
@@ -22,27 +20,16 @@
     <config name="text_domain" value="openspendingcoalition"/>
 
     <rule ref="WordPress">
-
-        <!-- ==============================================================
-             Deliberately not adopted. Decisions, not backlog.
-             ============================================================== -->
-
-        <!-- `'page' === $posttype` reads backwards. Yoda's purpose is to make
-             the `if ( $x = 5 )` typo a parse error, and
-             Generic.CodeAnalysis.AssignmentInCondition already reports that
-             directly, so the readability cost buys nothing we don't have. -->
+        <!-- Yoda conditions read backwards, and Generic.CodeAnalysis.AssignmentInCondition
+             already catches the `if ( $x = 5 )` typo they exist to prevent. -->
         <exclude name="WordPress.PHP.YodaConditions"/>
 
-        <!-- Forcing every multi-item associative array onto multiple lines.
-             All the hits are short nested config arrays like
-             `array( 'slug' => 'news', 'with_front' => true )`, which cost three
-             extra lines each and read worse for it. -->
+        <!-- Short config arrays are clearer on one line:
+             array( 'slug' => 'news', 'with_front' => true ). -->
         <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound"/>
 
-        <!-- FunctionCallSignature's multi-line sub-rules. These don't converge
-             on the HTML-interleaved templates, where a call's arguments are
-             routinely broken up by inline markup; re-flowing them is churn with
-             no clarity gain. The single-line spacing rules stay on. -->
+        <!-- Multi-line call formatting doesn't converge on templates that break a
+             call's arguments up with inline markup. Single-line spacing stays on. -->
         <exclude name="PEAR.Functions.FunctionCallSignature.OpeningIndent"/>
         <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
         <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
@@ -50,44 +37,18 @@
         <exclude name="PEAR.Functions.FunctionCallSignature.Indent"/>
         <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
 
-        <!-- Hyphenated-lowercase filenames. Three reasons, in descending order of
-             how much they matter:
-
-             1. archives/best_practices.php and singles/best_practices.php are
-                located by post-type slug — archive.php and single.php build
-                `__DIR__ . '/archives/' . get_post_type() . '.php'`, and the CPT's
-                slug is best_practices. Renaming them doesn't error, it silently
-                falls through to the generic block layout: the archive keeps
-                returning 200 while its filter grid disappears. Verified by doing
-                it. The underscore is required by the code, not a style choice.
-
-             2. For inc/_*.php the sniff's own suggestion is '-custom-posttype.php'
-                — a leading hyphen. The leading underscore is a deliberate
-                convention marking these as modules loaded by includes.php.
-
-             3. acf_block/*.php filenames match the ACF block names they render
-                (hero_banner_1, news_block), which are the values registered in
-                _acf_register_block_type.php. Those are renameable, but filename
-                == block name is worth more than the convention. -->
+        <!-- Filenames are load-bearing. archive.php and single.php locate their
+             partials as '/archives/' . get_post_type() . '.php', so
+             archives/best_practices.php has to keep its underscore — renaming it
+             silently drops through to the generic layout rather than erroring.
+             acf_block/*.php likewise match the ACF block names they render, and
+             inc/_*.php marks the modules includes.php loads. -->
         <exclude name="WordPress.Files.FileName"/>
     </rule>
 
-    <!-- These three build their markup entirely from escaped parts, so their
-         return value is treated as already-escaped:
-
-           breadcrumb_section()      — every interpolation goes through esc_url()
-                                       or esc_html().
-           main_query_pagination()   — core's paginate_links() output, wrapped in
-           custom_query_pagination()   literal divs; the only injected values are
-                                       prev_text/next_text, our own bundled SVGs.
-
-         inline_svg() is deliberately *not* listed here even though it would work —
-         note that entries must be lowercase, as the sniff lowercases function
-         names before matching, so a camelCase "inline_svg" silently never matches
-         and "usesvg" is what takes effect. It stays annotated per call-site
-         instead: it returns raw file bytes for a path built by concatenating its
-         argument, so listing it globally would also wave through a future
-         inline_svg( $untrusted ). The inline ignores keep each call site justified. -->
+    <!-- These three assemble their markup from escaped parts only, so callers
+         don't have to escape what they return. inline_svg() is not among them: it
+         returns raw file contents, so it's justified per call-site instead. -->
     <rule ref="WordPress.Security.EscapeOutput">
         <properties>
             <property name="customAutoEscapedFunctions" type="array">
@@ -98,15 +59,12 @@
         </properties>
     </rule>
 
-    <!-- inc/includes.php contains nothing but require_once lines, and this sniff
-         has T_REQUIRE_ONCE in its "the comment belongs to the next statement, not
-         the file" list (FileCommentSniff.php:113). So it reports the file comment
-         as missing however the docblock is written. The file does have one; the
-         sniff structurally cannot see it. -->
+    <!-- includes.php is nothing but require_once lines, and the sniff treats a
+         docblock followed by a require as the require's, so it can't see the file
+         comment that is there. -->
     <rule ref="Squiz.Commenting.FileComment.Missing">
         <exclude-pattern>inc/includes.php</exclude-pattern>
     </rule>
 
-    <!-- Cross-version PHP compatibility checks -->
     <rule ref="PHPCompatibilityWP"/>
 </ruleset>
