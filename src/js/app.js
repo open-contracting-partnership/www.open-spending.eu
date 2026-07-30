@@ -104,9 +104,9 @@ jQuery(function ($) {
    */
   $(".campaign-vid-thumbnail").on("click", function () {
     var source = $(this).attr("data-src");
-    var match = source && source.match(
-      /(?:youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([\w-]{11})/
-    );
+    var match =
+      source &&
+      source.match(/(?:youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
     if (!match) {
       return;
     }
