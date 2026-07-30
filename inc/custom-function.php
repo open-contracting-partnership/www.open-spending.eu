@@ -106,10 +106,17 @@ function render_plain_image( $src, $args ) {
  * has no thumbnail. Saves callers from repeating the has_post_thumbnail() dance and
  * gives every feature image display-appropriate sizing.
  *
- * @param array $args Optional. Accepts post_id (default: the current post), size
- *                    (default 'large'), class, alt (default: the post title), lazy
- *                    (default true; pass false for the LCP hero), priority to set
- *                    fetchpriority="high", and sizes for eager images.
+ * @param array $args {
+ *     Optional. Image arguments.
+ *
+ *     @type int|null $post_id  Post ID. Default null (current post in the loop).
+ *     @type string   $size     Registered image size. Default 'large'.
+ *     @type string   $class    Class attribute for the <img>.
+ *     @type string   $alt      Alt text. Default get_the_title( $post_id ).
+ *     @type bool     $lazy     Lazy-load. Default true. Set false for the LCP hero.
+ *     @type bool     $priority Set fetchpriority="high". Default false.
+ *     @type string   $sizes    Explicit sizes attribute, for eager images.
+ * }
  */
 function render_feature_image( $args = array() ) {
 	$post_id = $args['post_id'] ?? null;
