@@ -196,9 +196,8 @@ function render_filterable_archive( $posttype ) {
 					$parts[] = 'country: "' . $country_term->name . '"';
 				}
 			}
-				$no_result_msg = $parts ? esc_html( implode( ' and ', $parts ) ) : '';
 			?>
-			<h3 class="font-medium text-n-80">No data available for selected <?php echo $no_result_msg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pre-escaped above. ?></h3>
+			<h3 class="font-medium text-n-80">No data available for selected <?php echo esc_html( implode( ' and ', $parts ) ); ?></h3>
 		</div>
 			<?php
 		}

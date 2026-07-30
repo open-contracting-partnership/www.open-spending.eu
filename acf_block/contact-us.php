@@ -13,12 +13,6 @@ $side_information_heading    = is_array( $side_information ) ? ( $side_informati
 $side_information_body       = is_array( $side_information ) ? ( $side_information['heading_body'] ?? '' ) : '';
 $side_information_background = get_template_directory_uri() . '/dist/images/sidebar-picture.png';
 
-// Assembled here rather than inline, so the conditional attribute doesn't have
-// to be spliced into the middle of the opening <div> tag below.
-$side_background_attr = $side_information_background
-	? sprintf( ' style="background-image: url(%s);"', esc_url( $side_information_background ) )
-	: '';
-
 $social_links = array(
 	array(
 		'icon'  => 'email',
@@ -43,7 +37,7 @@ $social_links = array(
 	<h2 class="font-bold"><?php echo wp_kses_post( $heading ); ?></h2>
 	<p class="sm:mt-4 text-base sm:text-lg"><?php echo wp_kses_post( $heading_body ); ?></p>
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 mt-6 sm:mt-9">
-		<div class="lg:col-span-5 px-8 py-10 sm:py-14 md:pt-24 sm:pl-14 md:pl-8 lg:pl-14 sm:pr-11 rounded-t-lg md:rounded-tr-none md:rounded-l-lg text-n-0 contact-us-background"<?php echo $side_background_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Assembled above; the only interpolated value went through esc_url(). ?>>
+		<div class="lg:col-span-5 px-8 py-10 sm:py-14 md:pt-24 sm:pl-14 md:pl-8 lg:pl-14 sm:pr-11 rounded-t-lg md:rounded-tr-none md:rounded-l-lg text-n-0 contact-us-background" style="background-image: url(<?php echo esc_url( $side_information_background ); ?>);">
 			<h3 class="font-bold"><?php echo wp_kses_post( $side_information_heading ); ?></h3>
 			<p class="text-base pt-1 sm:pt-4"><?php echo wp_kses_post( $side_information_body ); ?></p>
 			<ul class="mt-8 sm:mt-12 contact-admin">
