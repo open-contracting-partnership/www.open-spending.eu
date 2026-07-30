@@ -205,13 +205,18 @@ function render_filterable_archive( $posttype ) {
 	</div>
 
 	<script>
-	jQuery(function($) {
-		$('.filter-input').click(function() {
-			$('#filter-form').submit();
+	document.addEventListener('DOMContentLoaded', function () {
+		document.querySelectorAll('.filter-input').forEach(function (el) {
+			el.addEventListener('click', function () {
+				document.getElementById('filter-form').submit();
+			});
 		});
-		$("#country-filter").change(function() {
-			$('#filter-form').submit();
-		});
+		var country = document.getElementById('country-filter');
+		if (country) {
+			country.addEventListener('change', function () {
+				document.getElementById('filter-form').submit();
+			});
+		}
 	});
 	</script>
 	<?php

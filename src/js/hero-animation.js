@@ -1,5 +1,8 @@
-jQuery(() => {
+function initHeroAnimation() {
   const canvas = document.getElementById("heroCanvas");
+  if (!canvas) {
+    return;
+  }
   const ctx = canvas.getContext("2d");
 
   canvas.width = window.innerWidth;
@@ -98,4 +101,10 @@ jQuery(() => {
   }
 
   tick();
-});
+}
+
+if (document.readyState !== "loading") {
+  initHeroAnimation();
+} else {
+  document.addEventListener("DOMContentLoaded", initHeroAnimation);
+}

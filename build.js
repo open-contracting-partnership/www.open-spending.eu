@@ -12,6 +12,7 @@ const options = {
   entryPoints: {
     "css/app": "src/sass/app.scss",
     "js/app": "src/js/app.js",
+    "js/slider": "src/js/slider.js",
   },
   bundle: true,
   outdir: "dist",
