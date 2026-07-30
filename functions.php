@@ -84,12 +84,16 @@ function theme_scripts() {
 		theme_asset_version( '/dist/css/app.css' )
 	);
 
+	// Vanilla, no jQuery — deferred on its own.
 	wp_enqueue_script(
 		'main-script',
 		get_stylesheet_directory_uri() . '/dist/js/app.js',
-		array( 'jquery' ),
+		array(),
 		theme_asset_version( '/dist/js/app.js' ),
-		true
+		array(
+			'in_footer' => true,
+			'strategy'  => 'defer',
+		)
 	);
 
 	wp_enqueue_script(
@@ -97,6 +101,15 @@ function theme_scripts() {
 		get_stylesheet_directory_uri() . '/dist/js/slick.min.js',
 		array( 'jquery' ),
 		theme_asset_version( '/dist/js/slick.min.js' ),
+		true
+	);
+
+	// Slick initialisation — the theme's only jQuery consumer.
+	wp_enqueue_script(
+		'slider-init',
+		get_stylesheet_directory_uri() . '/dist/js/slider.js',
+		array( 'slick-slider' ),
+		theme_asset_version( '/dist/js/slider.js' ),
 		true
 	);
 }
