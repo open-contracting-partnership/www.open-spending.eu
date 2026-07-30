@@ -86,7 +86,7 @@ $campaign_videos = ( is_array( $campaign ) && isset( $campaign['campaign_videos'
 		'post_type'      => 'news',
 		'posts_per_page' => 3,
 		'post_status'    => array( 'publish' ),
-		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Related-news lookup over 49 rows of this meta key; the relation is a serialised ACF field, so LIKE is the only way to query it.
+		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Related-news lookup; 49 rows of this meta key today. LIKE is forced by the relation living in a serialised ACF field, so making it indexable means moving it to a taxonomy or relationship table. Revisit if post counts grow.
 		'meta_query'     => array(
 			array(
 				'key'     => 'realted_campaign_realted_campaign',
