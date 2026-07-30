@@ -9,11 +9,13 @@
  * @since 1.0.0
  */
 
-// theme set up
 if ( ! function_exists( 'theme_setup' ) ) {
+	/**
+	 * Declare the theme's editor and markup support on after_setup_theme.
+	 */
 	function theme_setup() {
 
-		// manage document title
+		// Let WordPress render <title>; _seo.php filters its parts.
 		add_theme_support( 'title-tag' );
 
 		// Post Thumbnails on posts and pages.
@@ -31,8 +33,8 @@ if ( ! function_exists( 'theme_setup' ) ) {
 		// Add support for responsive embedded content.
 		add_theme_support( 'responsive-embeds' );
 
-		// allows the use of HTML5 markup for the
-		// search forms, comment forms, comment lists, gallery, and caption
+		// Use HTML5 markup for search forms, comment forms, comment lists,
+		// galleries and captions.
 		add_theme_support(
 			'html5',
 			array(
@@ -72,7 +74,9 @@ function theme_asset_version( $path ) {
 	return file_exists( $file ) ? hash_file( 'crc32b', $file ) : null;
 }
 
-// theme's scripts and styles for frontend
+/**
+ * Enqueue the theme's front-end styles and scripts.
+ */
 function theme_scripts() {
 	wp_enqueue_style(
 		'fse-style',

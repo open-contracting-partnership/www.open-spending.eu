@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Register the theme's custom post types: news, member, campaign, evidence,
+ * toolkit and best_practices.
+ */
 function cptui_register_my_cpts() {
 	/**
 	 * Post Type: News.
@@ -329,6 +333,8 @@ add_action( 'init', 'cptui_register_my_cpts' );
  * Single-select (radio) metabox for the type_of_member taxonomy — a member is
  * exactly one Person or Organization. Core saves the chosen term automatically
  * from the tax_input[] radio fields rendered below.
+ *
+ * @param WP_Post $post The member being edited, used to preselect its term.
  */
 function member_type_meta_box( $post ) {
 	$taxonomy = 'type_of_member';

@@ -1,19 +1,21 @@
 <?php
 
 
-// set posts_per_page for post
-
+/**
+ * Set posts_per_page per archive type: members are unpaginated (the archive
+ * renders every member into two tabbed columns), other post-type archives show
+ * 12, and search results 9.
+ *
+ * @param WP_Query $query The query being prepared.
+ */
 function filter_main_query( $query ) {
 	if ( $query->is_main_query() && is_post_type_archive( 'member' ) ) {
-		// post per pagination
 		$post_per_page = -1;
 		$query->set( 'posts_per_page', $post_per_page );
 	} elseif ( $query->is_main_query() && is_post_type_archive() ) {
-		// post per pagination
 		$post_per_page = 12;
 		$query->set( 'posts_per_page', $post_per_page );
 	} elseif ( is_search() ) {
-		// post per pagination
 		$post_per_page = 9;
 		$query->set( 'posts_per_page', $post_per_page );
 	}
@@ -26,6 +28,8 @@ add_action( 'pre_get_posts', 'filter_main_query', 11 );
  * `page-attributes` support so editors keep the "Order" field to change it.
  * Applies to every front-end campaign query (the archive and the home page's
  * Campaigns section).
+ *
+ * @param WP_Query $query The query being prepared.
  */
 function order_campaigns_by_menu_order( $query ) {
 	if ( is_admin() ) {

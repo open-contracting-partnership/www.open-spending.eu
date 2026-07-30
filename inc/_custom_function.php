@@ -23,7 +23,12 @@ function theme_field( $selector, $post_id = false, $fallback = '' ) {
 	return $value ? $value : $fallback;
 }
 
-// get limit value then return post excerpt value of certain limit
+/**
+ * The current post's excerpt, hard-truncated to a character budget.
+ *
+ * @param int $limit Maximum characters before the ellipsis.
+ * @return string The excerpt, or '' when the post has none.
+ */
 function excerpt( $limit = 115 ) {
 	$excerpt = get_the_excerpt();
 	if ( $excerpt ) {
@@ -32,7 +37,14 @@ function excerpt( $limit = 115 ) {
 	return $excerpt;
 }
 
-// get post id and Taxonomy then return the string of all the taxonomy slug associated with post id
+/**
+ * A post's term slugs for one taxonomy, space-separated for use in a class
+ * attribute (the archive filters match on these).
+ *
+ * @param int    $id           Post ID.
+ * @param string $taxonomy_val Taxonomy name.
+ * @return string Space-separated slugs, with a trailing space; '' if none.
+ */
 function taxoTermsSLug( $id, $taxonomy_val ) {
 	$termsArray = get_the_terms( $id, $taxonomy_val );
 	$termsSLug  = '';
@@ -44,9 +56,17 @@ function taxoTermsSLug( $id, $taxonomy_val ) {
 	return $termsSLug;
 }
 
-// Display svg icons
-
 if ( ! function_exists( 'useSvg' ) ) {
+	/**
+	 * Inline the contents of one of the theme's bundled SVG icons.
+	 *
+	 * Returned markup is not escaped — it is raw file content, so callers are
+	 * responsible for only passing icon names they control.
+	 *
+	 * @param string $filename Icon name, without the .svg extension, as found in
+	 *                         dist/images/icons.
+	 * @return string The SVG markup, or '' when there is no such readable file.
+	 */
 	function useSvg( $filename = 'long-arrow-right' ) {
 		$icon = get_stylesheet_directory() . '/dist/images/icons/' . $filename . '.svg';
 
@@ -63,7 +83,11 @@ if ( ! function_exists( 'useSvg' ) ) {
 }
 
 
-// pagination
+/**
+ * Pagination for the main query, with the theme's arrow icons.
+ *
+ * @return string Pagination markup, already escaped, or '' on a single page.
+ */
 function main_query_pagination() {
 
 	global $wp_query, $svgIcon;
@@ -90,6 +114,13 @@ function main_query_pagination() {
 	return $html_paginate;
 }
 
+/**
+ * Pagination for a secondary WP_Query, with the theme's arrow icons.
+ *
+ * @param WP_Query $query The query to paginate.
+ * @param int      $paged The current page number.
+ * @return string Pagination markup, already escaped, or '' on a single page.
+ */
 function custom_query_pagination( $query, $paged ) {
 
 	global $wp_query, $svgIcon;
@@ -127,6 +158,11 @@ function custom_query_pagination( $query, $paged ) {
 	return $html_paginate;
 }
 
+/**
+ * The current page number, reading whichever query var applies.
+ *
+ * @return int Page number; 1 when unpaginated.
+ */
 function paged() {
 	if ( get_query_var( 'paged' ) ) {
 		$paged = get_query_var( 'paged' );
@@ -139,11 +175,11 @@ function paged() {
 }
 
 /**
- * =========================================================
- * Breadcrumb
- * =========================================================
+ * Breadcrumb trail for a post or archive: Home / post type / title.
+ *
+ * @param int $id Post ID, used to resolve the post type and its labels.
+ * @return string Breadcrumb markup, already escaped.
  */
-
 function breadcrumb_section( $id ) {
 	$posttype    = get_post_type( $id );
 	$post_object = get_post_type_object( $posttype );
@@ -181,7 +217,14 @@ function breadcrumb_section( $id ) {
 	return $outupt_breadcrumb_section;
 }
 
-// get all the taxo for post types
+/**
+ * The distinct terms of one taxonomy actually used by posts of a post type,
+ * for building an archive's filter controls.
+ *
+ * @param string $posttype   Post type to scan.
+ * @param string $taxonomies Taxonomy name.
+ * @return array List of array( 'slug' => ..., 'name' => ... ), in first-seen order.
+ */
 function get_tax_post_type( $posttype, $taxonomies ) {
 	$args_campaign       = array(
 		'post_type'      => $posttype,

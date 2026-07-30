@@ -57,7 +57,6 @@
 
         <!-- Documentation. -->
         <exclude name="Squiz.Commenting.FileComment"/>
-        <exclude name="Squiz.Commenting.FunctionComment"/>
         <exclude name="Squiz.Commenting.InlineComment"/>
         <exclude name="Generic.Commenting.DocComment"/>
 
@@ -66,7 +65,6 @@
         <exclude name="WordPress.NamingConventions.ValidFunctionName"/>
         <exclude name="WordPress.Files.FileName"/>
 
-        <!-- Security and performance. -->
     </rule>
 
     <!-- These three build their markup entirely from escaped parts, so their

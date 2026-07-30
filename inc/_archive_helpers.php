@@ -3,6 +3,8 @@
 /**
  * Render a filterable post-type archive (campaign + country filters, paginated grid).
  * Used by archives/news.php, archives/evidence.php, archives/best_practices.php.
+ *
+ * @param string $posttype Post type to render the archive for.
  */
 function render_filterable_archive( $posttype ) {
 	$taxonomies = 'country';
@@ -210,6 +212,11 @@ function render_filterable_archive( $posttype ) {
 
 /**
  * Render the "Other X" related-posts grid below singles/news.php and singles/evidence.php.
+ *
+ * @param string $posttype       Post type to pull related posts from.
+ * @param int    $exclude_id     Post to leave out — normally the one being viewed.
+ * @param string $heading        Heading shown above the grid.
+ * @param int    $excerpt_length Maximum excerpt characters per card.
  */
 function render_other_posts_grid( $posttype, $exclude_id, $heading, $excerpt_length = 115 ) {
 	$args      = array(

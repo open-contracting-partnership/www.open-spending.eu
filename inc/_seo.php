@@ -244,11 +244,21 @@ add_action('init', function () {
 	// phpcs:disable PHPCompatibility.FunctionDeclarations.NewClosure.ThisFoundOutsideClass -- false positive: $this is valid inside this anonymous class.
 	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter -- signatures are fixed by WP_Sitemaps_Provider. get_url_list() is abstract there, so dropping $page_num/$object_subtype would be a fatal signature mismatch. This provider emits one unpaginated list and has no subtypes, so it ignores both.
 	$provider = new class() extends WP_Sitemaps_Provider {
+		/**
+		 * Name the provider so core routes wp-sitemap-archives-archive-1.xml here.
+		 */
 		public function __construct() {
 			$this->name        = 'archives';
 			$this->object_type = 'archive';
 		}
 
+		/**
+		 * Every public post-type archive link, minus the noindexed member archive.
+		 *
+		 * @param int    $page_num       Page number. Ignored — see the single page below.
+		 * @param string $object_subtype Subtype. Ignored — this provider has none.
+		 * @return array List of array( 'loc' => URL ).
+		 */
 		public function get_url_list( $page_num, $object_subtype = '' ) {
 			$urls       = array();
 			$post_types = get_post_types( array( 'public' => true, 'has_archive' => true ), 'names' );
@@ -262,6 +272,10 @@ add_action('init', function () {
 			return $urls;
 		}
 
+		/**
+		 * @param string $object_subtype Subtype. Ignored — this provider has none.
+		 * @return int Always 1: a handful of archive links needs no paging.
+		 */
 		public function get_max_num_pages( $object_subtype = '' ) {
 			return 1;
 		}
