@@ -7,8 +7,8 @@ $button_text = theme_field( 'button_text', false, 'Why Open Spending?' );
 $button_url = home_url( '/about-the-organization/' );
 $image      = get_template_directory_uri() . '/dist/images/hero.png';
 
-$current_id       = get_the_ID();
-$posttype = get_post_type( $current_id );
+$current_id = get_the_ID();
+$posttype   = get_post_type( $current_id );
 
 ?>
 
@@ -51,27 +51,27 @@ header {
 // archive page title and sub-title at header
 if ( is_archive() ) {
 	$post_object = get_post_type_object( $posttype );
-	$labels = $post_object->labels;
+	$labels      = $post_object->labels;
 	$sub_heading = theme_field( 'sub_heading', $posttype . '_options' );
-?>
+	?>
 <div class="archive-header container text-center text-n-0 pt-12 pb-10 md:pt-20 md:pb-16">
 	<h1 class="font-bold"><?php echo esc_html( $labels->name ); ?></h1>
 	<p class="text-lg mt-2"><?php echo wp_kses_post( $sub_heading ); ?></p>
 </div>
-<?php
+	<?php
 }
 
 // single page title at header
 if ( is_search() ) {
-?>
+	?>
 <div class="single-header text-n-0 pb-10">
 	<h1 class="font-bold">Search results for: <?php echo esc_html( sanitize_text_field( wp_unslash( $_GET['s'] ?? '' ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Public read-only search query, input sanitized. ?></h1>
 </div>
-<?php
-} else if ( (is_single() || ($posttype == 'page')) && ! is_front_page() && ! is_admin() ) {
-?>
+	<?php
+} elseif ( ( is_single() || ( $posttype == 'page' ) ) && ! is_front_page() && ! is_admin() ) {
+	?>
 <div class="single-header text-n-0 pb-10">
 	<h1 class="font-bold"><?php echo esc_html( get_the_title() ); ?></h1>
 </div>
-<?php
+	<?php
 }

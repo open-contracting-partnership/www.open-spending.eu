@@ -16,7 +16,7 @@
  * The site tagline is a full sentence — keep it out of the front-page <title>
  * so it reads "Open Spending EU Coalition" rather than name + whole tagline.
  */
-add_filter('document_title_parts', function ($parts) {
+add_filter('document_title_parts', function ( $parts ) {
 	if ( is_front_page() ) {
 		unset( $parts['tagline'] );
 	}
@@ -26,8 +26,7 @@ add_filter('document_title_parts', function ($parts) {
 /**
  * Social profiles for schema `sameAs` (kept in sync with acf_block/contact-us.php).
  */
-function theme_seo_social_profiles()
-{
+function theme_seo_social_profiles() {
 	return array(
 		'https://twitter.com/EuSpending',
 		'https://linkedin.com/company/open-spending-eu-coalition/',
@@ -37,15 +36,14 @@ function theme_seo_social_profiles()
 /**
  * A clean ~160-char meta description for the current request.
  */
-function theme_seo_description()
-{
+function theme_seo_description() {
 	if ( is_front_page() ) {
 		$desc = get_bloginfo( 'description', 'display' );
 	} elseif ( is_singular() ) {
 		$desc = get_the_excerpt();
 	} elseif ( is_post_type_archive() ) {
 		$obj  = get_queried_object();
-		$desc = ($obj && ! empty( $obj->description )) ? $obj->description : get_bloginfo( 'description', 'display' );
+		$desc = ( $obj && ! empty( $obj->description ) ) ? $obj->description : get_bloginfo( 'description', 'display' );
 	} elseif ( is_tax() || is_category() || is_tag() ) {
 		$desc = term_description();
 	} else {
@@ -68,12 +66,11 @@ function theme_seo_description()
  *
  * @return array{url:string,w:int,h:int}
  */
-function theme_seo_image()
-{
+function theme_seo_image() {
 	if ( is_singular() && has_post_thumbnail() ) {
 		$src = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
 		if ( $src ) {
-			return array('url' => $src[0], 'w' => (int) $src[1], 'h' => (int) $src[2]);
+			return array( 'url' => $src[0], 'w' => (int) $src[1], 'h' => (int) $src[2] );
 		}
 	}
 
@@ -87,8 +84,7 @@ function theme_seo_image()
 /**
  * Canonical URL for the current request.
  */
-function theme_seo_canonical()
-{
+function theme_seo_canonical() {
 	if ( is_front_page() ) {
 		return home_url( '/' );
 	}
@@ -113,7 +109,7 @@ function theme_seo_canonical()
  * noindex thin / non-content pages (member singles are handled this way instead
  * of by making the post type non-public, which would break the /member/ archive).
  */
-add_filter('wp_robots', function ($robots) {
+add_filter('wp_robots', function ( $robots ) {
 	if ( is_singular( 'member' ) || is_search() || is_404() || is_tag() ) {
 		$robots['noindex'] = true;
 	}
@@ -128,7 +124,7 @@ add_action('wp_head', function () {
 	$url   = theme_seo_canonical();
 	$img   = theme_seo_image();
 	$title = wp_get_document_title();
-	$type  = (is_singular() && ! is_front_page()) ? 'article' : 'website';
+	$type  = ( is_singular() && ! is_front_page() ) ? 'article' : 'website';
 
 	echo "\n";
 	if ( $desc ) {
@@ -187,7 +183,7 @@ add_action('wp_head', function () {
 
 	$logo = wp_get_attachment_image_url( (int) get_option( 'site_logo' ), 'full' );
 	if ( $logo ) {
-		$organization['logo'] = array('@type' => 'ImageObject', 'url' => $logo);
+		$organization['logo'] = array( '@type' => 'ImageObject', 'url' => $logo );
 	}
 
 	$website = array(
@@ -195,7 +191,7 @@ add_action('wp_head', function () {
 		'@id'             => $site . '#website',
 		'name'            => $name,
 		'url'             => $site,
-		'publisher'       => array('@id' => $site . '#organization'),
+		'publisher'       => array( '@id' => $site . '#organization' ),
 		'potentialAction' => array(
 			'@type'       => 'SearchAction',
 			'target'      => array(
@@ -206,7 +202,7 @@ add_action('wp_head', function () {
 		),
 	);
 
-	$graph = array('@context' => 'https://schema.org', '@graph' => array($organization, $website));
+	$graph = array( '@context' => 'https://schema.org', '@graph' => array( $organization, $website ) );
 
 	echo "\n" . '<script type="application/ld+json">'
 		. wp_json_encode( $graph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE )
@@ -219,18 +215,18 @@ add_action('wp_head', function () {
  * archives, and add the post-type archive landing pages that core omits (see
  * provider below).
  */
-add_filter('wp_sitemaps_post_types', function ($post_types) {
+add_filter('wp_sitemaps_post_types', function ( $post_types ) {
 	unset( $post_types['member'] );
 	return $post_types;
 });
 
-add_filter('wp_sitemaps_taxonomies', function ($taxonomies) {
+add_filter('wp_sitemaps_taxonomies', function ( $taxonomies ) {
 	unset( $taxonomies['post_tag'] ); // core public taxonomy
 	return $taxonomies;
 });
 
-add_filter('wp_sitemaps_add_provider', function ($provider, $name) {
-	return ('users' === $name) ? false : $provider;
+add_filter('wp_sitemaps_add_provider', function ( $provider, $name ) {
+	return ( 'users' === $name ) ? false : $provider;
 }, 10, 2);
 
 /**
@@ -247,26 +243,26 @@ add_action('init', function () {
 
 	// phpcs:disable PHPCompatibility.FunctionDeclarations.NewClosure.ThisFoundOutsideClass -- false positive: $this is valid inside this anonymous class.
 	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter -- signatures are fixed by WP_Sitemaps_Provider. get_url_list() is abstract there, so dropping $page_num/$object_subtype would be a fatal signature mismatch. This provider emits one unpaginated list and has no subtypes, so it ignores both.
-	$provider = new class extends WP_Sitemaps_Provider {
+	$provider = new class() extends WP_Sitemaps_Provider {
 		public function __construct() {
 			$this->name        = 'archives';
 			$this->object_type = 'archive';
 		}
 
-		public function get_url_list($page_num, $object_subtype = '') {
+		public function get_url_list( $page_num, $object_subtype = '' ) {
 			$urls       = array();
-			$post_types = get_post_types( array('public' => true, 'has_archive' => true), 'names' );
+			$post_types = get_post_types( array( 'public' => true, 'has_archive' => true ), 'names' );
 			unset( $post_types['member'] ); // noindexed post type, excluded from the sitemap
 			foreach ( $post_types as $post_type ) {
 				$link = get_post_type_archive_link( $post_type );
 				if ( $link ) {
-					$urls[] = array('loc' => $link);
+					$urls[] = array( 'loc' => $link );
 				}
 			}
 			return $urls;
 		}
 
-		public function get_max_num_pages($object_subtype = '') {
+		public function get_max_num_pages( $object_subtype = '' ) {
 			return 1;
 		}
 	};

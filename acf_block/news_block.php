@@ -10,7 +10,7 @@ $view_all_news_label = 'View all news';
 $args = array(
 	'post_type'      => 'news',
 	'posts_per_page' => (int) $number_of_news,
-	'post_status'    => array('publish'),
+	'post_status'    => array( 'publish' ),
 );
 
 $the_query = new WP_Query( $args );
@@ -29,14 +29,15 @@ $the_query = new WP_Query( $args );
 			</div>
 		</div>
 		<?php
-		if ( $the_query->have_posts() ) { ?>
+		if ( $the_query->have_posts() ) {
+			?>
 		<div class="mt-8 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
 			<?php
-				while ( $the_query->have_posts() ) {
-					$the_query->the_post();
-					$current_id = get_the_ID();
-					$excerpt = excerpt( 100 );
-					$feature_img = (has_post_thumbnail()) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
+			while ( $the_query->have_posts() ) {
+				$the_query->the_post();
+				$current_id  = get_the_ID();
+				$excerpt     = excerpt( 100 );
+				$feature_img = ( has_post_thumbnail() ) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
 
 				?>
 			<div id="news_<?php echo (int) $current_id; ?>" class="p-5 border border-n-30 rounded-3xl news-card-hover">
@@ -49,19 +50,19 @@ $the_query = new WP_Query( $args );
 				<div class="pt-6">
 					<a href="<?php echo esc_url( get_the_permalink() ); ?>"
 						class="text-heading-3 font-bold !text-n-100 card-title-hover leading-tight">
-						<?php echo esc_html( get_the_title() ); ?></a>
+					<?php echo esc_html( get_the_title() ); ?></a>
 					<p class="mt-2 text-sm text-n-60 mb-4"><?php echo esc_html( $excerpt ); ?></p>
 					<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">
-						<?php echo esc_html( $btn_text ); ?>
-						<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
+					<?php echo esc_html( $btn_text ); ?>
+					<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
 					</a>
 				</div>
 			</div>
-			<?php
-				}
-				?>
+				<?php
+			}
+			?>
 		</div>
-		<?php if ( $view_all_news_url ) { ?>
+			<?php if ( $view_all_news_url ) { ?>
 		<div class="flex justify-center mt-8">
 			<a href="<?php echo esc_url( $view_all_news_url ); ?>"
 				class="!text-n-100 font-bold py-2.5 px-4 border border-teal rounded-lg transition-all duration-300 hover:bg-teal hover:!text-n-0">
@@ -70,7 +71,7 @@ $the_query = new WP_Query( $args );
 		</div>
 		<?php } ?>
 
-		<?php
+			<?php
 		}
 		wp_reset_postdata();
 		?>

@@ -9,7 +9,7 @@
  */
 
 add_action('wp_head', function () {
-	if ( is_user_logged_in() && array_intersect( array('administrator', 'editor'), (array) wp_get_current_user()->roles ) ) {
+	if ( is_user_logged_in() && array_intersect( array( 'administrator', 'editor' ), (array) wp_get_current_user()->roles ) ) {
 		return;
 	}
 

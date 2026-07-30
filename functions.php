@@ -11,8 +11,7 @@
 
 // theme set up
 if ( ! function_exists( 'theme_setup' ) ) {
-	function theme_setup()
-	{
+	function theme_setup() {
 
 		// manage document title
 		add_theme_support( 'title-tag' );
@@ -32,7 +31,7 @@ if ( ! function_exists( 'theme_setup' ) ) {
 		// Add support for responsive embedded content.
 		add_theme_support( 'responsive-embeds' );
 
-		// allows the use of HTML5 markup for the 
+		// allows the use of HTML5 markup for the
 		// search forms, comment forms, comment lists, gallery, and caption
 		add_theme_support(
 			'html5',
@@ -55,12 +54,11 @@ if ( ! function_exists( 'theme_setup' ) ) {
 
 /**
  * Enqueue the style.css file.
- * 
+ *
  * @since 1.0.0
  */
 // theme's scripts and styles for frontend
-function theme_scripts()
-{
+function theme_scripts() {
 	// Version the built assets by a content hash so a rebuild cache-busts, while
 	// the URL stays identical across deploys/servers when the bytes are unchanged.
 	$css = get_stylesheet_directory() . '/dist/css/app.css';
@@ -76,7 +74,7 @@ function theme_scripts()
 	wp_enqueue_script(
 		'main-script',
 		get_stylesheet_directory_uri() . '/dist/js/app.js',
-		array('jquery'),
+		array( 'jquery' ),
 		file_exists( $js ) ? hash_file( 'crc32b', $js ) : null,
 		true
 	);
@@ -84,7 +82,7 @@ function theme_scripts()
 	wp_enqueue_script(
 		'slick-slider',
 		get_stylesheet_directory_uri() . '/dist/js/slick.min.js',
-		array('jquery'),
+		array( 'jquery' ),
 		false,
 		true
 	);
@@ -92,7 +90,7 @@ function theme_scripts()
 	wp_enqueue_script(
 		'isotope-js',
 		get_stylesheet_directory_uri() . '/dist/js/isotope.pkgd.min.js',
-		array('jquery'),
+		array( 'jquery' ),
 		false,
 		true
 	);
@@ -113,14 +111,14 @@ add_action('init', function () {
 	$app_css = get_stylesheet_directory() . '/dist/css/app.css';
 	wp_register_style( 'awp-block-styles', get_stylesheet_directory_uri() . '/dist/css/app.css', false, file_exists( $app_css ) ? hash_file( 'crc32b', $app_css ) : null );
 	register_block_style('core/heading', array(
-		'name' => 'colored-bottom-border',
-		'label' => __( 'Colored bottom border', 'openspendingcoalition' ),
-		'style_handle' => 'awp-block-styles'
+		'name'         => 'colored-bottom-border',
+		'label'        => __( 'Colored bottom border', 'openspendingcoalition' ),
+		'style_handle' => 'awp-block-styles',
 	));
 });
 
 /**
  * include custom functions
- * 
+ *
  */
-require_once dirname( __FILE__ ) . '/inc/includes.php';
+require_once __DIR__ . '/inc/includes.php';

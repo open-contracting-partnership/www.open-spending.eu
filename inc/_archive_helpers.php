@@ -4,8 +4,7 @@
  * Render a filterable post-type archive (campaign + country filters, paginated grid).
  * Used by archives/news.php, archives/evidence.php, archives/best_practices.php.
  */
-function render_filterable_archive($posttype)
-{
+function render_filterable_archive( $posttype ) {
 	$taxonomies = 'country';
 	$terms      = get_tax_post_type( $posttype, $taxonomies );
 
@@ -14,16 +13,16 @@ function render_filterable_archive($posttype)
 
 	// Build the list of campaigns referenced by any post of this type
 	$campaign_filter_data = array();
-	$filter_query = new WP_Query(array(
+	$filter_query         = new WP_Query(array(
 		'post_type'      => $posttype,
 		'posts_per_page' => -1,
-		'post_status'    => array('publish'),
+		'post_status'    => array( 'publish' ),
 		'fields'         => 'ids',
 	));
 	if ( $filter_query->have_posts() ) {
 		foreach ( $filter_query->posts as $filter_post_id ) {
 			$related = get_field( 'realted_campaign', $filter_post_id );
-			$related = (is_array( $related ) && isset( $related['realted_campaign'] )) ? $related['realted_campaign'] : null;
+			$related = ( is_array( $related ) && isset( $related['realted_campaign'] ) ) ? $related['realted_campaign'] : null;
 			if ( $related ) {
 				foreach ( $related as $cid ) {
 					if ( ! in_array( $cid, $campaign_filter_data, true ) ) {
@@ -53,9 +52,10 @@ function render_filterable_archive($posttype)
 								<span>All</span>
 							</label>
 						</p>
-						<?php foreach ( $campaign_filter_data as $value_id ) {
-							$is_active = ($get_campaign === (int) $value_id);
-						?>
+						<?php
+						foreach ( $campaign_filter_data as $value_id ) {
+							$is_active = ( $get_campaign === (int) $value_id );
+							?>
 						<p class="campaign-item category-item <?php echo $is_active ? 'active' : ''; ?>"
 							data-filter="<?php echo esc_attr( '.campaign-' . $value_id ); ?>">
 							<label class="filter-input">
@@ -92,9 +92,9 @@ function render_filterable_archive($posttype)
 		</div>
 		<?php
 		$paged = paged();
-		$args = array(
+		$args  = array(
 			'post_type'      => $posttype,
-			'post_status'    => array('publish'),
+			'post_status'    => array( 'publish' ),
 			'posts_per_page' => 12,
 			'paged'          => $paged,
 		);
@@ -119,17 +119,18 @@ function render_filterable_archive($posttype)
 		}
 		$the_query = new WP_Query( $args );
 		if ( $the_query->have_posts() ) {
-		?>
+			?>
 		<div class="<?php echo esc_attr( $posttype ); ?> archive-accordion py-8 w-full">
-			<?php while ( $the_query->have_posts() ) {
+			<?php
+			while ( $the_query->have_posts() ) {
 				$the_query->the_post();
-				$card_id     = get_the_ID();
-				$permalink   = get_the_permalink( $card_id );
-				$feature_img = (has_post_thumbnail()) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
-				$excerpt     = excerpt( 115 );
-				$title       = get_the_title();
-				$related     = get_field( 'realted_campaign' );
-				$related     = (is_array( $related ) && isset( $related['realted_campaign'] )) ? $related['realted_campaign'] : null;
+				$card_id      = get_the_ID();
+				$permalink    = get_the_permalink( $card_id );
+				$feature_img  = ( has_post_thumbnail() ) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
+				$excerpt      = excerpt( 115 );
+				$title        = get_the_title();
+				$related      = get_field( 'realted_campaign' );
+				$related      = ( is_array( $related ) && isset( $related['realted_campaign'] ) ) ? $related['realted_campaign'] : null;
 				$card_classes = '';
 				if ( $related ) {
 					foreach ( $related as $cid ) {
@@ -137,7 +138,7 @@ function render_filterable_archive($posttype)
 					}
 				}
 				$card_classes .= taxoTermsSLug( $card_id, $taxonomies );
-			?>
+				?>
 			<div class="<?php echo esc_attr( $card_classes ); ?> archive-accordion-items p-5 border border-n-40 rounded-3xl"
 				data-id="<?php echo (int) $card_id; ?>">
 				<div class="accordion-card-inside ">
@@ -165,27 +166,27 @@ function render_filterable_archive($posttype)
 			</div>
 			<?php } ?>
 		</div>
-		<?php
+			<?php
 			echo custom_query_pagination( $the_query, $paged );
 		} else {
-		?>
+			?>
 		<div class="py-10 sm:py-14 lg:py-20">
 			<?php
 				$parts = array();
-				if ( $get_campaign ) {
-					$parts[] = 'campaign: "' . get_the_title( $get_campaign ) . '"';
+			if ( $get_campaign ) {
+				$parts[] = 'campaign: "' . get_the_title( $get_campaign ) . '"';
+			}
+			if ( $get_country ) {
+				$country_term = get_term_by( 'slug', $get_country, $taxonomies );
+				if ( $country_term ) {
+					$parts[] = 'country: "' . $country_term->name . '"';
 				}
-				if ( $get_country ) {
-					$country_term = get_term_by( 'slug', $get_country, $taxonomies );
-					if ( $country_term ) {
-						$parts[] = 'country: "' . $country_term->name . '"';
-					}
-				}
+			}
 				$no_result_msg = $parts ? esc_html( implode( ' and ', $parts ) ) : '';
 			?>
 			<h3 class="font-medium text-n-80">No data available for selected <?php echo $no_result_msg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Pre-escaped above. ?></h3>
 		</div>
-		<?php
+			<?php
 		}
 		wp_reset_postdata();
 		?>
@@ -208,13 +209,12 @@ function render_filterable_archive($posttype)
 /**
  * Render the "Other X" related-posts grid below singles/news.php and singles/evidence.php.
  */
-function render_other_posts_grid($posttype, $exclude_id, $heading, $excerpt_length = 115)
-{
-	$args = array(
+function render_other_posts_grid( $posttype, $exclude_id, $heading, $excerpt_length = 115 ) {
+	$args      = array(
 		'post_type'      => $posttype,
 		'posts_per_page' => 3,
-		'post_status'    => array('publish'),
-		'post__not_in'   => array($exclude_id),
+		'post_status'    => array( 'publish' ),
+		'post__not_in'   => array( $exclude_id ),
 	);
 	$the_query = new WP_Query( $args );
 	if ( ! $the_query->have_posts() ) {
@@ -226,12 +226,13 @@ function render_other_posts_grid($posttype, $exclude_id, $heading, $excerpt_leng
 		<div class="container py-10 md:pt-16 md:pb-20">
 			<h2 class="font-bold"><?php echo esc_html( $heading ); ?></h2>
 			<div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
-				<?php while ( $the_query->have_posts() ) {
+				<?php
+				while ( $the_query->have_posts() ) {
 					$the_query->the_post();
-					$card_id     = get_the_ID();
+					$card_id      = get_the_ID();
 					$card_excerpt = excerpt( $excerpt_length );
-					$feature_img = (has_post_thumbnail()) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
-				?>
+					$feature_img  = ( has_post_thumbnail() ) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
+					?>
 				<div id="<?php echo esc_attr( $posttype ); ?>_<?php echo (int) $card_id; ?>" class="p-5 border border-n-30 rounded-3xl bg-n-0 news-card-hover">
 					<div class="pt-[63.8%] relative">
 						<a href="<?php echo esc_url( get_the_permalink() ); ?>">

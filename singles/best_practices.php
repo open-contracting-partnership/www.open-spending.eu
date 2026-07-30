@@ -1,13 +1,13 @@
 <?php
 
-$current_id = get_the_ID();
-$posttype = get_post_type( $current_id );
-$feature_img = get_the_post_thumbnail_url();
+$current_id     = get_the_ID();
+$posttype       = get_post_type( $current_id );
+$feature_img    = get_the_post_thumbnail_url();
 $published_date = get_the_date( 'd M, Y' );
-$tags = get_the_tags();
+$tags           = get_the_tags();
 
 $realted_campaign = get_field( 'realted_campaign' );
-$realted_campaign = (is_array( $realted_campaign ) && isset( $realted_campaign['realted_campaign'] )) ? $realted_campaign['realted_campaign'] : null;
+$realted_campaign = ( is_array( $realted_campaign ) && isset( $realted_campaign['realted_campaign'] ) ) ? $realted_campaign['realted_campaign'] : null;
 
 ?>
 
@@ -52,11 +52,12 @@ $realted_campaign = (is_array( $realted_campaign ) && isset( $realted_campaign['
 		<div class="realted_campaign container py-10 sm:py-14 lg:pt-24 lg:pb-32">
 			<h2 class="font-bold">Related Campaigns</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8">
-				<?php foreach ( $realted_campaign as $campaign_id ) {
+				<?php
+				foreach ( $realted_campaign as $campaign_id ) {
 					$campaign_title       = get_the_title( $campaign_id );
-					$campaign_feature_img = (has_post_thumbnail( $campaign_id )) ? get_the_post_thumbnail_url( $campaign_id ) : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
+					$campaign_feature_img = ( has_post_thumbnail( $campaign_id ) ) ? get_the_post_thumbnail_url( $campaign_id ) : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
 					$campaign_permalink   = get_the_permalink( $campaign_id );
-				?>
+					?>
 					<div class="campaign">
 						<a href="<?php echo esc_url( $campaign_permalink ); ?>">
 							<div class="pt-[65%] relative">

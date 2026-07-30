@@ -53,13 +53,13 @@ ob_clean();
 		<div class="single-page wp-block-post-content">
 			<?php
 				$posttype = get_post_type();
-				$filepath = dirname( __FILE__ ) . '/singles/' . $posttype . '.php';
-				if ( file_exists( $filepath ) ) {
-					include_once( $filepath );
-				} else {
-					echo $block_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered block markup from do_blocks().
-				}
-				?>
+				$filepath = __DIR__ . '/singles/' . $posttype . '.php';
+			if ( file_exists( $filepath ) ) {
+				include_once $filepath;
+			} else {
+				echo $block_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered block markup from do_blocks().
+			}
+			?>
 		</div>
 
 		<footer class="wp-block-template-part">

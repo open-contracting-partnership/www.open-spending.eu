@@ -17,7 +17,7 @@ add_action('acf/init', function () {
 		return;
 	}
 
-	$post_types = array('news', 'evidence', 'campaign', 'member', 'toolkit', 'best_practices');
+	$post_types = array( 'news', 'evidence', 'campaign', 'member', 'toolkit', 'best_practices' );
 
 	foreach ( $post_types as $post_type ) {
 		acf_add_options_sub_page(array(

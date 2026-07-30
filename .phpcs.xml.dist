@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="OpenSpendingCoalition">
-    <description>Coding standards for the Open Spending Coalition theme. Focuses on security and PHP/WP compatibility; style rules are intentionally narrow so CI stays useful rather than noisy.</description>
+    <description>Coding standards for the Open Spending Coalition theme: the WordPress standard, minus a short list of rules we've decided against and a shrinking list we haven't adopted yet.</description>
 
     <file>.</file>
 
@@ -21,9 +21,64 @@
     <config name="minimum_supported_wp_version" value="6.1"/>
     <config name="text_domain" value="openspendingcoalition"/>
 
-    <!-- Catch unsafe output. These helpers return pre-escaped/trusted markup, so
-         their return value is treated as already-escaped. (useSvg is escaped per
-         call-site with an inline ignore instead: this sniff does not honour it in
+    <rule ref="WordPress">
+
+        <!-- ==============================================================
+             Deliberately not adopted. Decisions, not backlog.
+             ============================================================== -->
+
+        <!-- `'page' === $posttype` reads backwards. Yoda's purpose is to make
+             the `if ( $x = 5 )` typo a parse error, and
+             Generic.CodeAnalysis.AssignmentInCondition already reports that
+             directly, so the readability cost buys nothing we don't have. -->
+        <exclude name="WordPress.PHP.YodaConditions"/>
+
+        <!-- Forcing every multi-item associative array onto multiple lines.
+             All the hits are short nested config arrays like
+             `array( 'slug' => 'news', 'with_front' => true )`, which cost three
+             extra lines each and read worse for it. -->
+        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound"/>
+
+        <!-- FunctionCallSignature's multi-line sub-rules. These don't converge
+             on the HTML-interleaved templates, where a call's arguments are
+             routinely broken up by inline markup; re-flowing them is churn with
+             no clarity gain. The single-line spacing rules stay on. -->
+        <exclude name="PEAR.Functions.FunctionCallSignature.OpeningIndent"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.ContentBeforeCloseBracket"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.Indent"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
+
+        <!-- ==============================================================
+             Not yet adopted. Backlog — see CODING_STANDARD_PLAN.md. Each is
+             being worked through one rule per commit; this list should empty.
+             ============================================================== -->
+
+        <!-- Auto-fixable, but `==` -> `===` is not behaviour-preserving, so
+             each occurrence needs reading rather than a phpcbf run. -->
+        <exclude name="Universal.Operators.StrictComparisons"/>
+
+        <!-- Documentation. -->
+        <exclude name="Squiz.Commenting.FileComment"/>
+        <exclude name="Squiz.Commenting.FunctionComment"/>
+        <exclude name="Squiz.Commenting.InlineComment"/>
+        <exclude name="Generic.Commenting.DocComment"/>
+
+        <!-- Naming and filenames. -->
+        <exclude name="WordPress.NamingConventions.ValidVariableName"/>
+        <exclude name="WordPress.NamingConventions.ValidFunctionName"/>
+        <exclude name="WordPress.Files.FileName"/>
+
+        <!-- Security and performance. -->
+        <exclude name="WordPress.WP.AlternativeFunctions"/>
+        <exclude name="WordPress.WP.EnqueuedResourceParameters"/>
+        <exclude name="WordPress.DB.SlowDBQuery"/>
+    </rule>
+
+    <!-- These helpers return pre-escaped/trusted markup, so their return value
+         is treated as already-escaped. (useSvg is escaped per call-site with an
+         inline ignore instead: this sniff does not honour it in
          customAutoEscapedFunctions.) -->
     <rule ref="WordPress.Security.EscapeOutput">
         <properties>
@@ -34,66 +89,17 @@
             </property>
         </properties>
     </rule>
-    <rule ref="WordPress.Security.NonceVerification"/>
-    <rule ref="WordPress.Security.ValidatedSanitizedInput"/>
-    <rule ref="WordPress.Security.SafeRedirect"/>
-    <rule ref="WordPress.Security.PluginMenuSlug"/>
 
-    <!-- Catch deprecated/incorrect WP API usage -->
-    <rule ref="WordPress.WP.DeprecatedFunctions"/>
-    <rule ref="WordPress.WP.DeprecatedParameters"/>
-    <rule ref="WordPress.WP.DeprecatedClasses"/>
-    <rule ref="WordPress.WP.EnqueuedResources"/>
-    <rule ref="WordPress.WP.PostsPerPage"/>
-    <rule ref="WordPress.WP.GlobalVariablesOverride"/>
-
-    <!-- Generic PHP / correctness gotchas -->
-    <rule ref="WordPress.PHP.NoSilencedErrors"/>
-    <rule ref="WordPress.PHP.StrictInArray"/>
-    <rule ref="Squiz.PHP.DisallowMultipleAssignments"/>
-    <rule ref="WordPress.CodeAnalysis.AssignmentInTernaryCondition"/>
-    <rule ref="Squiz.Operators.IncrementDecrementUsage"/>
-    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
-    <rule ref="Generic.CodeAnalysis.AssignmentInCondition"/>
-    <rule ref="WordPress.WP.I18n"/>
-
-    <!-- Formatting (WordPress house style): tabs, single quotes, long array()
-         syntax, and `if ( $x )` / `foo( $x )` spacing. Fully auto-fixable with
-         `phpcbf` (see .pre-commit-config.yaml). FunctionCallSignature's multi-line
-         sub-rules are excluded: they don't converge on the HTML-interleaved
-         templates, and re-flowing wrapped calls isn't worth the churn. -->
-    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
-    <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
-    <rule ref="Universal.Arrays.DisallowShortArraySyntax"/>
-    <rule ref="WordPress.WhiteSpace.ControlStructureSpacing"/>
-    <rule ref="WordPress.WhiteSpace.OperatorSpacing"/>
-    <rule ref="PEAR.Functions.FunctionCallSignature">
+    <!-- Not yet adopted: WordPress-Extra sets usePHPFunctionsList="false", which
+         reports every `@`. Pinned back to the sniff default (report only `@` on
+         functions PHP doesn't expect to be silenced) so we keep today's coverage
+         until the two @file_get_contents calls are dealt with. -->
+    <rule ref="WordPress.PHP.NoSilencedErrors">
         <properties>
-            <property name="requiredSpacesAfterOpen" value="1"/>
-            <property name="requiredSpacesBeforeClose" value="1"/>
+            <property name="usePHPFunctionsList" value="true"/>
         </properties>
-        <exclude name="PEAR.Functions.FunctionCallSignature.OpeningIndent"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.ContentBeforeCloseBracket"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.Indent"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
     </rule>
 
     <!-- Cross-version PHP compatibility checks -->
     <rule ref="PHPCompatibilityWP"/>
-
-    <!-- ==================================================================
-         Deliberately not adopted from the WordPress standard.
-
-         Each entry is a decision we've made and don't intend to revisit, not
-         a backlog item. These become <exclude> elements once the include list
-         above is replaced by <rule ref="WordPress"/>.
-
-         - WordPress.PHP.YodaConditions
-           `'page' === $posttype` reads backwards. Yoda exists to stop the
-           `if ( $x = 5 )` typo, and Generic.CodeAnalysis.AssignmentInCondition
-           (enabled above) already catches that class of bug directly, so the
-           readability cost buys us nothing.
-         ================================================================== -->
 </ruleset>

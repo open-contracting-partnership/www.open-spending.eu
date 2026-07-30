@@ -35,23 +35,25 @@ $resource_cards = array(
 				<?php echo wp_kses_post( $paragraph ); ?>
 			</div>
 			<div class="mt-8 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
-				<?php foreach ( $resource_cards as $card ) {
+				<?php
+				foreach ( $resource_cards as $card ) {
 					$card_query = new WP_Query(array(
 						'post_type'      => $card['post_type'],
 						'posts_per_page' => 1,
-						'post_status'    => array('publish'),
+						'post_status'    => array( 'publish' ),
 					));
-				?>
+					?>
 				<div class="bg-n-0 px-8 py-6 rounded-3xl resources-card">
 					<div class="flex gap-x-2.5 items-center">
 						<img src="<?php echo esc_url( get_template_directory_uri() . '/dist/images/icons/' . $card['icon'] ); ?>"
 							alt="icon" class="p-5 rounded-2xl resources-image">
 						<div class="text-n-70"><?php echo esc_html( $card['label'] ); ?></div>
 					</div>
-					<?php if ( $card_query->have_posts() ) {
+					<?php
+					if ( $card_query->have_posts() ) {
 						$card_query->the_post();
 						$excerpt = excerpt( 200 );
-					?>
+						?>
 					<div class="my-5 sm:mb-10">
 						<h3 class="font-bold"><a
 								href="<?php echo esc_url( get_the_permalink() ); ?>"><?php echo esc_html( get_the_title() ); ?></a></h3>
@@ -61,7 +63,8 @@ $resource_cards = array(
 						Learn more
 						<?php echo useSvg( 'right-arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted SVG file content. ?>
 					</a>
-					<?php }
+						<?php
+					}
 					wp_reset_postdata();
 					?>
 				</div>

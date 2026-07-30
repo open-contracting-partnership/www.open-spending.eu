@@ -64,13 +64,13 @@ ob_clean();
 		<div class="archive-page">
 			<?php
 				$posttype = get_post_type();
-				$filepath = dirname( __FILE__ ) . '/archives/' . $posttype . '.php';
-				if ( file_exists( $filepath ) ) {
-					include_once( $filepath );
-				} else {
-					echo $block_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered block markup from do_blocks().
-				}
-				?>
+				$filepath = __DIR__ . '/archives/' . $posttype . '.php';
+			if ( file_exists( $filepath ) ) {
+				include_once $filepath;
+			} else {
+				echo $block_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered block markup from do_blocks().
+			}
+			?>
 		</div>
 
 

@@ -1,11 +1,11 @@
 <?php
 
-$current_id = get_the_ID();
-$posttype = get_post_type( $current_id );
+$current_id  = get_the_ID();
+$posttype    = get_post_type( $current_id );
 $feature_img = get_the_post_thumbnail_url();
 
-$campaign = get_field( 'campaign' );
-$campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos'] )) ? $campaign['campaign_videos'] : null;
+$campaign        = get_field( 'campaign' );
+$campaign_videos = ( is_array( $campaign ) && isset( $campaign['campaign_videos'] ) ) ? $campaign['campaign_videos'] : null;
 
 ?>
 
@@ -37,15 +37,20 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 			</div>
 			<hr class="bg-n-100 h-1">
 			<div class="py-8 sm:pt-9 sm:pb-12 grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-				<?php foreach ( $campaign_videos as $video ) {
+				<?php
+				foreach ( $campaign_videos as $video ) {
 					$youtube_embed_url = $video['youtube_embed_url'];
-					$thumbnail_image   = ($video['thumbnail_image']) ? $video['thumbnail_image'] : get_template_directory_uri() . '/dist/images/sample-image.jpg';
-					$video_title       = ($video['video_title']) ? $video['video_title'] : 'Poverty in Europe';
+					$thumbnail_image   = ( $video['thumbnail_image'] ) ? $video['thumbnail_image'] : get_template_directory_uri() . '/dist/images/sample-image.jpg';
+					$video_title       = ( $video['video_title'] ) ? $video['video_title'] : 'Poverty in Europe';
 					$has_video         = (bool) $youtube_embed_url;
 					$thumb_class       = $has_video ? 'campaign-vid-thumbnail' : 'campaign-vid-thumbnail--empty';
-				?>
+					?>
 					<div>
-						<div class="pt-[60%] <?php echo esc_attr( $thumb_class ); ?> relative"<?php if ( $has_video ) : ?> data-src="<?php echo esc_url( $youtube_embed_url ); ?>"<?php endif; ?>>
+						<div class="pt-[60%] <?php echo esc_attr( $thumb_class ); ?> relative"
+						<?php
+						if ( $has_video ) :
+							?>
+							data-src="<?php echo esc_url( $youtube_embed_url ); ?>"<?php endif; ?>>
 							<img src="<?php echo esc_url( $thumbnail_image ); ?>" alt="<?php echo esc_attr( $video_title ); ?>" class="absolute top-0 h-full w-full object-cover rounded-xl">
 
 							<div class="video-title absolute left-5 bottom-4 z-20">
@@ -72,10 +77,10 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 
 	<!-- Related news  -->
 	<?php
-	$args = array(
+	$args      = array(
 		'post_type'      => 'news',
 		'posts_per_page' => 3,
-		'post_status'    => array('publish'),
+		'post_status'    => array( 'publish' ),
 		'meta_query'     => array(
 			array(
 				'key'     => 'realted_campaign_realted_campaign',
@@ -85,7 +90,8 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 		),
 	);
 	$the_query = new WP_Query( $args );
-	if ( $the_query->have_posts() ) { ?>
+	if ( $the_query->have_posts() ) {
+		?>
 		<div class="related-news">
 			<h2 class="font-bold">Related news</h2>
 			<hr class="bg-n-100 h-1">
@@ -93,10 +99,10 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 				<?php
 				while ( $the_query->have_posts() ) {
 					$the_query->the_post();
-					$news_id = get_the_ID();
-					$excerpt = excerpt( 115 );
-					$feature_img = (has_post_thumbnail()) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
-				?>
+					$news_id     = get_the_ID();
+					$excerpt     = excerpt( 115 );
+					$feature_img = ( has_post_thumbnail() ) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
+					?>
 					<div id="news_<?php echo (int) $news_id; ?>" class="p-5 border border-n-30 rounded-3xl news-card-hover">
 						<div class="pt-[63.8%] relative">
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>">
@@ -122,7 +128,8 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 				</a>
 			</div>
 		</div>
-	<?php }
+		<?php
+	}
 	wp_reset_postdata();
 	?>
 </div>
@@ -133,22 +140,23 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 	<div class="container py-10 sm:py-14 md:pt-24 md:pb-32">
 		<h2 class="font-bold">Other Campaigns</h2>
 		<?php
-		$args = array(
+		$args      = array(
 			'post_type'      => 'campaign',
 			'posts_per_page' => 2,
-			'post_status'    => array('publish'),
-			'post__not_in'   => array($current_id),
+			'post_status'    => array( 'publish' ),
+			'post__not_in'   => array( $current_id ),
 		);
 		$the_query = new WP_Query( $args );
-		if ( $the_query->have_posts() ) { ?>
+		if ( $the_query->have_posts() ) {
+			?>
 			<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8">
 				<?php
 				while ( $the_query->have_posts() ) {
 					$the_query->the_post();
 					$other_campaign_id = get_the_ID();
-					$excerpt = excerpt( 115 );
-					$feature_img = (has_post_thumbnail()) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
-				?>
+					$excerpt           = excerpt( 115 );
+					$feature_img       = ( has_post_thumbnail() ) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
+					?>
 					<div id="campaign_<?php echo (int) $other_campaign_id; ?>" class="card-subtle-hover bg-n-0 rounded-3xl">
 						<div class="pt-[65%] relative card-image-container">
 							<a href="<?php echo esc_url( get_the_permalink() ); ?>">
@@ -167,7 +175,8 @@ $campaign_videos = (is_array( $campaign ) && isset( $campaign['campaign_videos']
 					</div>
 				<?php } ?>
 			</div>
-		<?php }
+			<?php
+		}
 		wp_reset_postdata();
 		?>
 	</div>

@@ -1,10 +1,10 @@
 <?php
 
-$current_id = get_the_ID();
-$posttype = get_post_type( $current_id );
-$feature_img = get_the_post_thumbnail_url();
+$current_id     = get_the_ID();
+$posttype       = get_post_type( $current_id );
+$feature_img    = get_the_post_thumbnail_url();
 $published_date = get_the_date( 'd M, Y' );
-$tags = get_the_tags();
+$tags           = get_the_tags();
 
 ?>
 

@@ -7,7 +7,7 @@ $button_link = get_post_type_archive_link( 'member' );
 $args = array(
 	'post_type'      => 'member',
 	'posts_per_page' => -1,
-	'post_status'    => array('publish'),
+	'post_status'    => array( 'publish' ),
 	'tax_query'      => array(
 		array(
 			'taxonomy' => 'type_of_member',
@@ -20,10 +20,10 @@ $args = array(
 $the_query = new WP_Query( $args );
 
 $render_member_card = function () {
-	$member_id = get_the_ID();
-	$members = get_field( 'members', $member_id );
-	$logoprofile_photo = is_array( $members ) ? ($members['logoprofile_photo'] ?? '') : '';
-	$photo_src = ($logoprofile_photo) ? $logoprofile_photo : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
+	$member_id         = get_the_ID();
+	$members           = get_field( 'members', $member_id );
+	$logoprofile_photo = is_array( $members ) ? ( $members['logoprofile_photo'] ?? '' ) : '';
+	$photo_src         = ( $logoprofile_photo ) ? $logoprofile_photo : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
 	?>
 	<div id="member_<?php echo (int) $member_id; ?>" class="member-item mb-6">
 		<div class="pt-[124%] relative overflow-hidden rounded-3xl homepage-member-container">
@@ -56,7 +56,8 @@ $render_member_card = function () {
 				</a>
 			</div>
 			<?php
-			if ( $the_query->have_posts() ) { ?>
+			if ( $the_query->have_posts() ) {
+				?>
 			<div class="member-animation">
 				<div class="member-data">
 					<div class="left-side-data -mt-28">
@@ -67,7 +68,7 @@ $render_member_card = function () {
 							if ( $i % 2 == 0 ) {
 								$render_member_card();
 							}
-							$i++;
+							++$i;
 						}
 						?>
 					</div>
@@ -79,13 +80,13 @@ $render_member_card = function () {
 							if ( $i % 2 != 0 ) {
 								$render_member_card();
 							}
-							$i++;
+							++$i;
 						}
 						?>
 					</div>
 				</div>
 			</div>
-			<?php
+				<?php
 			}
 			wp_reset_postdata();
 			?>

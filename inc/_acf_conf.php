@@ -3,14 +3,13 @@
 
 /**
  * ================================================
- * Local sync - Save json file 
+ * Local sync - Save json file
  * ================================================
  */
 
 add_filter( 'acf/settings/save_json', 'my_acf_json_save_point' );
 
-function my_acf_json_save_point($path)
-{
+function my_acf_json_save_point( $path ) {
 
 	$path = get_stylesheet_directory() . '/acf_json';
 
@@ -25,8 +24,7 @@ function my_acf_json_save_point($path)
 
 add_filter( 'acf/settings/load_json', 'my_acf_json_load_point' );
 
-function my_acf_json_load_point($paths)
-{
+function my_acf_json_load_point( $paths ) {
 
 	unset( $paths[0] );
 

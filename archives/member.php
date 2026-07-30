@@ -1,33 +1,33 @@
 <?php
 
-$current_id           = get_the_ID();
-$posttype     = get_post_type( $current_id );
-$post_object  = get_post_type_object( $posttype );
-$labels       = $post_object->labels;
+$current_id               = get_the_ID();
+$posttype                 = get_post_type( $current_id );
+$post_object              = get_post_type_object( $posttype );
+$labels                   = $post_object->labels;
 $person_member_data       = array();
 $organization_member_data = array();
-$taxonomies   = 'type_of_member';
+$taxonomies               = 'type_of_member';
 
 if ( have_posts() ) {
 	$i = 0;
 	while ( have_posts() ) {
 		the_post();
 		$member_id     = get_the_ID();
-		$post_title         = get_the_title();
+		$post_title    = get_the_title();
 		$content       = get_the_content();
 		$member_fields = get_field( 'members' );
 		if ( ! is_array( $member_fields ) ) {
 			continue;
 		}
 		$member_terms      = get_the_terms( $member_id, 'type_of_member' );
-		$type_of_member    = (is_array( $member_terms ) && $member_terms) ? $member_terms[0]->name : '';
+		$type_of_member    = ( is_array( $member_terms ) && $member_terms ) ? $member_terms[0]->name : '';
 		$logoprofile_photo = $member_fields['logoprofile_photo'] ?? '';
 		$address           = $member_fields['address'] ?? '';
 		$email             = $member_fields['email'] ?? '';
 		$photo_src         = $logoprofile_photo ? $logoprofile_photo : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
 
 		if ( $type_of_member == 'Person' ) {
-			$person_member_data[$i] = array(
+			$person_member_data[ $i ] = array(
 				'id'                => $member_id,
 				'title'             => $post_title,
 				'content'           => $content,
@@ -38,7 +38,7 @@ if ( have_posts() ) {
 				'quotes'            => $member_fields['quotes'] ?? '',
 			);
 		} elseif ( $type_of_member == 'Organization' ) {
-			$organization_member_data[$i] = array(
+			$organization_member_data[ $i ] = array(
 				'id'                => $member_id,
 				'title'             => $post_title,
 				'content'           => $content,
@@ -49,7 +49,7 @@ if ( have_posts() ) {
 				'website'           => $member_fields['website'] ?? '',
 			);
 		}
-		$i++;
+		++$i;
 	}
 }
 
@@ -62,7 +62,7 @@ if ( $display_breadcrumb && $default_breadcrumb ) {
 	echo breadcrumb_section( $current_id );
 }
 if ( $display_breadcrumb && ! $default_breadcrumb && $add_custom_breadcrumb ) {
-?>
+	?>
 	<div class="breadcrumb bg-n-10">
 		<div class="breadcrumb-menu container">
 			<?php foreach ( $add_custom_breadcrumb as $value ) { ?>
@@ -73,7 +73,7 @@ if ( $display_breadcrumb && ! $default_breadcrumb && $add_custom_breadcrumb ) {
 			<div class="breadcrumb-menu__item"> <?php echo esc_html( $labels->name ); ?> </div>
 		</div>
 	</div>
-<?php
+	<?php
 }
 ?>
 

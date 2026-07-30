@@ -1,11 +1,11 @@
 <?php
 
 $current_id = get_the_ID();
-$posttype = get_post_type( $current_id );
+$posttype   = get_post_type( $current_id );
 
 if ( have_posts() ) {
-?>
-<?php echo breadcrumb_section( $current_id ); ?>
+	?>
+	<?php echo breadcrumb_section( $current_id ); ?>
 <div class="container">
 	<div class="<?php echo esc_attr( $posttype ); ?> py-10 sm:py-14 lg:pt-16 lg:pb-32 grid gird-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7 gap-y-6">
 		<?php
@@ -13,10 +13,10 @@ if ( have_posts() ) {
 			the_post();
 			$card_id     = get_the_ID();
 			$permalink   = get_the_permalink( $card_id );
-			$post_title       = get_the_title();
-			$feature_img = (has_post_thumbnail()) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
+			$post_title  = get_the_title();
+			$feature_img = ( has_post_thumbnail() ) ? get_the_post_thumbnail_url() : get_template_directory_uri() . '/dist/images/default-post-img.jpg';
 			$excerpt     = excerpt();
-		?>
+			?>
 
 		<div data-id="<?php echo (int) $card_id; ?>" class="card-subtle-hover bg-n-0 rounded-3xl">
 			<a href="<?php echo esc_url( $permalink ); ?>">
@@ -40,6 +40,6 @@ if ( have_posts() ) {
 		<?php } ?>
 	</div>
 </div>
-<?php
+	<?php
 }
 echo main_query_pagination();
