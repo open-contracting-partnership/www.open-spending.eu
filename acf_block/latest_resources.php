@@ -43,11 +43,13 @@ $resource_cards = array(
 			<div class="mt-8 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
 				<?php
 				foreach ( $resource_cards as $card ) {
-					$card_query = new WP_Query(array(
-						'post_type'      => $card['post_type'],
-						'posts_per_page' => 1,
-						'post_status'    => array( 'publish' ),
-					));
+					$card_query = new WP_Query(
+						array(
+							'post_type'      => $card['post_type'],
+							'posts_per_page' => 1,
+							'post_status'    => array( 'publish' ),
+						)
+					);
 					?>
 				<div class="bg-n-0 px-8 py-6 rounded-3xl resources-card">
 					<div class="flex gap-x-2.5 items-center">

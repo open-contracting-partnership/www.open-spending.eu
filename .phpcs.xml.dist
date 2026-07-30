@@ -27,14 +27,6 @@
         <!-- Short config arrays are clearer on one line:
              array( 'slug' => 'news', 'with_front' => true ). -->
         <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound"/>
-
-        <!-- These three fight `add_action( 'hook', function () { … } );` — a call
-             whose arguments fit the first line, but which spans several because the
-             last one is a closure. The rule wants every argument on its own line
-             with the paren below. The other three sub-rules stay on. -->
-        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
     </rule>
 
     <!-- Filenames in these three places are derived from code, not chosen:
@@ -49,9 +41,8 @@
         <exclude-pattern>singles/*</exclude-pattern>
     </rule>
 
-    <!-- These three assemble their markup from escaped parts only, so callers
-         don't have to escape what they return. inline_svg() is not among them: it
-         returns raw file contents, so it's justified per call-site instead. -->
+    <!-- These assemble their markup from escaped parts only, so callers don't have
+         to escape what they return. -->
     <rule ref="WordPress.Security.EscapeOutput">
         <properties>
             <property name="customAutoEscapedFunctions" type="array">
@@ -62,9 +53,8 @@
         </properties>
     </rule>
 
-    <!-- includes.php is nothing but require_once lines, and the sniff treats a
-         docblock followed by a require as the require's docblock, so it can't see
-         the file comment that is there. -->
+    <!-- includes.php has a file comment, but the sniff treats a docblock followed
+         by a require as the require's docblock, so it can't see it. -->
     <rule ref="Squiz.Commenting.FileComment.Missing">
         <exclude-pattern>inc/includes.php</exclude-pattern>
     </rule>

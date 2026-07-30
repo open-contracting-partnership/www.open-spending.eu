@@ -13,21 +13,26 @@
  * @package OpenSpendingCoalition
  */
 
-add_action('acf/init', function () {
-	if ( ! function_exists( 'acf_add_options_sub_page' ) ) {
-		return;
-	}
+add_action(
+	'acf/init',
+	function () {
+		if ( ! function_exists( 'acf_add_options_sub_page' ) ) {
+			return;
+		}
 
-	$post_types = array( 'news', 'evidence', 'campaign', 'member', 'toolkit', 'best_practices' );
+		$post_types = array( 'news', 'evidence', 'campaign', 'member', 'toolkit', 'best_practices' );
 
-	foreach ( $post_types as $post_type ) {
-		acf_add_options_sub_page(array(
-			'page_title'  => __( 'Archive Settings', 'openspendingcoalition' ),
-			'menu_title'  => __( 'Archive Settings', 'openspendingcoalition' ),
-			'parent_slug' => 'edit.php?post_type=' . $post_type,
-			'menu_slug'   => $post_type . '-archive-settings',
-			'post_id'     => $post_type . '_options',
-			'capability'  => 'edit_posts',
-		));
+		foreach ( $post_types as $post_type ) {
+			acf_add_options_sub_page(
+				array(
+					'page_title'  => __( 'Archive Settings', 'openspendingcoalition' ),
+					'menu_title'  => __( 'Archive Settings', 'openspendingcoalition' ),
+					'parent_slug' => 'edit.php?post_type=' . $post_type,
+					'menu_slug'   => $post_type . '-archive-settings',
+					'post_id'     => $post_type . '_options',
+					'capability'  => 'edit_posts',
+				)
+			);
+		}
 	}
-});
+);

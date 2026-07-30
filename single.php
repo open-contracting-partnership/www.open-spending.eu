@@ -10,7 +10,8 @@
  * @package OpenSpendingCoalition
  */
 
-$block_content = do_blocks('
+$block_content = do_blocks(
+	'
     <!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
     <main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--50)">
         <!-- wp:group {"layout":{"type":"constrained"}} -->
@@ -25,7 +26,8 @@ $block_content = do_blocks('
         <!-- wp:template-part {"slug":"comments","tagName":"section"} /-->
     </main>
     <!-- /wp:group -->
-');
+'
+);
 
 ob_start();
 block_header_area();

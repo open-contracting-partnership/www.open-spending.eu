@@ -9,90 +9,96 @@
 
 if ( function_exists( 'acf_register_block_type' ) ) :
 
-	acf_register_block_type(array(
-		'name'            => 'hero_banner_1',
-		'title'           => 'Hero Banner',
-		'description'     => '',
-		'category'        => 'home page',
-		'keywords'        => array(
-			0 => 'hero_banner_1',
-		),
-		'post_types'      => array(),
-		'mode'            => 'preview',
-		'align'           => '',
-		'align_content'   => null,
-		'render_template' => 'acf_block/hero_banner_1.php',
-		'render_callback' => '',
-		'enqueue_style'   => '',
-		'enqueue_script'  => '',
-		'enqueue_assets'  => '',
-		'icon'            => '',
-		'supports'        => array(
-			'align'         => false,
-			'mode'          => true,
-			'multiple'      => true,
-			'jsx'           => false,
-			'align_content' => false,
-			'anchor'        => false,
-		),
-	));
+	acf_register_block_type(
+		array(
+			'name'            => 'hero_banner_1',
+			'title'           => 'Hero Banner',
+			'description'     => '',
+			'category'        => 'home page',
+			'keywords'        => array(
+				0 => 'hero_banner_1',
+			),
+			'post_types'      => array(),
+			'mode'            => 'preview',
+			'align'           => '',
+			'align_content'   => null,
+			'render_template' => 'acf_block/hero_banner_1.php',
+			'render_callback' => '',
+			'enqueue_style'   => '',
+			'enqueue_script'  => '',
+			'enqueue_assets'  => '',
+			'icon'            => '',
+			'supports'        => array(
+				'align'         => false,
+				'mode'          => true,
+				'multiple'      => true,
+				'jsx'           => false,
+				'align_content' => false,
+				'anchor'        => false,
+			),
+		)
+	);
 
 
-	acf_register_block_type(array(
-		'name'            => 'campaigns_block',
-		'title'           => 'Campaigns Block',
-		'description'     => '',
-		'category'        => 'home page',
-		'keywords'        => array(
-			0 => 'campaigns_block',
-		),
-		'post_types'      => array(),
-		'mode'            => 'preview',
-		'align'           => '',
-		'align_content'   => null,
-		'render_template' => 'acf_block/campaigns_block.php',
-		'render_callback' => '',
-		'enqueue_style'   => '',
-		'enqueue_script'  => '',
-		'enqueue_assets'  => '',
-		'icon'            => '',
-		'supports'        => array(
-			'align'         => false,
-			'mode'          => true,
-			'multiple'      => true,
-			'jsx'           => false,
-			'align_content' => false,
-			'anchor'        => false,
-		),
-	));
+	acf_register_block_type(
+		array(
+			'name'            => 'campaigns_block',
+			'title'           => 'Campaigns Block',
+			'description'     => '',
+			'category'        => 'home page',
+			'keywords'        => array(
+				0 => 'campaigns_block',
+			),
+			'post_types'      => array(),
+			'mode'            => 'preview',
+			'align'           => '',
+			'align_content'   => null,
+			'render_template' => 'acf_block/campaigns_block.php',
+			'render_callback' => '',
+			'enqueue_style'   => '',
+			'enqueue_script'  => '',
+			'enqueue_assets'  => '',
+			'icon'            => '',
+			'supports'        => array(
+				'align'         => false,
+				'mode'          => true,
+				'multiple'      => true,
+				'jsx'           => false,
+				'align_content' => false,
+				'anchor'        => false,
+			),
+		)
+	);
 
-	acf_register_block_type(array(
-		'name'            => 'member_block',
-		'title'           => 'Member Experts',
-		'description'     => '',
-		'category'        => 'home page',
-		'keywords'        => array(
-			0 => 'member_block',
-		),
-		'post_types'      => array(),
-		'mode'            => 'preview',
-		'align'           => '',
-		'align_content'   => null,
-		'render_template' => 'acf_block/member_block.php',
-		'render_callback' => '',
-		'enqueue_style'   => '',
-		'enqueue_script'  => '',
-		'enqueue_assets'  => '',
-		'icon'            => '',
-		'supports'        => array(
-			'align'         => false,
-			'mode'          => true,
-			'multiple'      => true,
-			'jsx'           => false,
-			'align_content' => false,
-			'anchor'        => false,
-		),
-	));
+	acf_register_block_type(
+		array(
+			'name'            => 'member_block',
+			'title'           => 'Member Experts',
+			'description'     => '',
+			'category'        => 'home page',
+			'keywords'        => array(
+				0 => 'member_block',
+			),
+			'post_types'      => array(),
+			'mode'            => 'preview',
+			'align'           => '',
+			'align_content'   => null,
+			'render_template' => 'acf_block/member_block.php',
+			'render_callback' => '',
+			'enqueue_style'   => '',
+			'enqueue_script'  => '',
+			'enqueue_assets'  => '',
+			'icon'            => '',
+			'supports'        => array(
+				'align'         => false,
+				'mode'          => true,
+				'multiple'      => true,
+				'jsx'           => false,
+				'align_content' => false,
+				'anchor'        => false,
+			),
+		)
+	);
 
 
 	acf_register_block_type(

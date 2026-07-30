@@ -118,17 +118,23 @@ add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 
 add_editor_style( 'dist/css/app.css' );
 
-add_action('init', function () {
-	// Same content-hash version as the main enqueue, so this shares one cached
-	// app.css URL instead of loading it a second time under a different ?ver.
-	$app_css = get_stylesheet_directory() . '/dist/css/app.css';
-	wp_register_style( 'awp-block-styles', get_stylesheet_directory_uri() . '/dist/css/app.css', false, file_exists( $app_css ) ? hash_file( 'crc32b', $app_css ) : null );
-	register_block_style('core/heading', array(
-		'name'         => 'colored-bottom-border',
-		'label'        => __( 'Colored bottom border', 'openspendingcoalition' ),
-		'style_handle' => 'awp-block-styles',
-	));
-});
+add_action(
+	'init',
+	function () {
+		// Same content-hash version as the main enqueue, so this shares one cached
+		// app.css URL instead of loading it a second time under a different ?ver.
+		$app_css = get_stylesheet_directory() . '/dist/css/app.css';
+		wp_register_style( 'awp-block-styles', get_stylesheet_directory_uri() . '/dist/css/app.css', false, file_exists( $app_css ) ? hash_file( 'crc32b', $app_css ) : null );
+		register_block_style(
+			'core/heading',
+			array(
+				'name'         => 'colored-bottom-border',
+				'label'        => __( 'Colored bottom border', 'openspendingcoalition' ),
+				'style_handle' => 'awp-block-styles',
+			)
+		);
+	}
+);
 
 /**
  * Load the theme's PHP modules.

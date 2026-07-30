@@ -104,10 +104,12 @@ function main_query_pagination() {
 	$right_icon = inline_svg( 'page-navigation-next' );
 	$left_icon  = inline_svg( 'page-navigation-prev' );
 
-	$paginate = paginate_links(array(
-		'prev_text' => $left_icon,
-		'next_text' => $right_icon,
-	));
+	$paginate = paginate_links(
+		array(
+			'prev_text' => $left_icon,
+			'next_text' => $right_icon,
+		)
+	);
 
 	$html_paginate = '';
 
@@ -136,21 +138,23 @@ function custom_query_pagination( $query, $paged ) {
 	$right_icon = inline_svg( 'page-navigation-next' );
 	$left_icon  = inline_svg( 'page-navigation-prev' );
 
-	$paginate = paginate_links(array(
-		'base'         => str_replace( $big, '%#%', html_entity_decode( get_pagenum_link( $big ) ) ),
-		'total'        => $query->max_num_pages,
-		'current'      => $paged,
-		'format'       => '?paged=%#%',
-		'show_all'     => false,
-		'type'         => 'plain',
-		'end_size'     => 4,
-		'mid_size'     => 1,
-		'prev_next'    => true,
-		'prev_text'    => $left_icon,
-		'next_text'    => $right_icon,
-		'add_args'     => false,
-		'add_fragment' => '',
-	));
+	$paginate = paginate_links(
+		array(
+			'base'         => str_replace( $big, '%#%', html_entity_decode( get_pagenum_link( $big ) ) ),
+			'total'        => $query->max_num_pages,
+			'current'      => $paged,
+			'format'       => '?paged=%#%',
+			'show_all'     => false,
+			'type'         => 'plain',
+			'end_size'     => 4,
+			'mid_size'     => 1,
+			'prev_next'    => true,
+			'prev_text'    => $left_icon,
+			'next_text'    => $right_icon,
+			'add_args'     => false,
+			'add_fragment' => '',
+		)
+	);
 
 	$html_paginate = '';
 

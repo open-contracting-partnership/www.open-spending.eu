@@ -23,12 +23,14 @@ function render_filterable_archive( $posttype ) {
 
 	// Build the list of campaigns referenced by any post of this type.
 	$campaign_filter_data = array();
-	$filter_query         = new WP_Query(array(
-		'post_type'      => $posttype,
-		'posts_per_page' => -1,
-		'post_status'    => array( 'publish' ),
-		'fields'         => 'ids',
-	));
+	$filter_query         = new WP_Query(
+		array(
+			'post_type'      => $posttype,
+			'posts_per_page' => -1,
+			'post_status'    => array( 'publish' ),
+			'fields'         => 'ids',
+		)
+	);
 	if ( $filter_query->have_posts() ) {
 		foreach ( $filter_query->posts as $filter_post_id ) {
 			$related = get_field( 'realted_campaign', $filter_post_id );

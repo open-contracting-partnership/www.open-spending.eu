@@ -10,7 +10,8 @@
  * @package OpenSpendingCoalition
  */
 
-$block_content = do_blocks('
+$block_content = do_blocks(
+	'
     <!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}}},"layout":{"type":"constrained"}} -->
     <main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--70);margin-bottom:var(--wp--preset--spacing--70)">
         <!-- wp:query-title {"type":"archive","align":"wide","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}}} /-->
@@ -36,7 +37,8 @@ $block_content = do_blocks('
         <!-- /wp:query -->
     </main>
     <!-- /wp:group -->
-');
+'
+);
 
 ob_start();
 block_header_area();
