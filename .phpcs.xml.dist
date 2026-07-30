@@ -56,7 +56,6 @@
              ============================================================== -->
 
         <!-- Naming and filenames. -->
-        <exclude name="WordPress.NamingConventions.ValidVariableName"/>
         <exclude name="WordPress.NamingConventions.ValidFunctionName"/>
         <exclude name="WordPress.Files.FileName"/>
     </rule>

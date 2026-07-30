@@ -53,14 +53,14 @@ function excerpt( $limit = 115 ) {
  * @return string Space-separated slugs, with a trailing space; '' if none.
  */
 function taxoTermsSLug( $id, $taxonomy_val ) {
-	$termsArray = get_the_terms( $id, $taxonomy_val );
-	$termsSLug  = '';
-	if ( $termsArray ) {
-		foreach ( $termsArray as $term ) {
-			$termsSLug .= $term->slug . ' ';
+	$terms_array = get_the_terms( $id, $taxonomy_val );
+	$terms_slug  = '';
+	if ( $terms_array ) {
+		foreach ( $terms_array as $term ) {
+			$terms_slug .= $term->slug . ' ';
 		}
 	}
-	return $termsSLug;
+	return $terms_slug;
 }
 
 if ( ! function_exists( 'useSvg' ) ) {
@@ -97,16 +97,16 @@ if ( ! function_exists( 'useSvg' ) ) {
  */
 function main_query_pagination() {
 
-	global $wp_query, $svgIcon;
+	global $wp_query;
 
 	$big = 999999999;
 
-	$rightIcon = useSvg( 'page-navigation-next' );
-	$leftIcon  = useSvg( 'page-navigation-prev' );
+	$right_icon = useSvg( 'page-navigation-next' );
+	$left_icon  = useSvg( 'page-navigation-prev' );
 
 	$paginate = paginate_links(array(
-		'prev_text' => $leftIcon,
-		'next_text' => $rightIcon,
+		'prev_text' => $left_icon,
+		'next_text' => $right_icon,
 	));
 
 	$html_paginate = '';
@@ -130,11 +130,11 @@ function main_query_pagination() {
  */
 function custom_query_pagination( $query, $paged ) {
 
-	global $wp_query, $svgIcon;
+	global $wp_query;
 
-	$big       = 999999999;
-	$rightIcon = useSvg( 'page-navigation-next' );
-	$leftIcon  = useSvg( 'page-navigation-prev' );
+	$big        = 999999999;
+	$right_icon = useSvg( 'page-navigation-next' );
+	$left_icon  = useSvg( 'page-navigation-prev' );
 
 	$paginate = paginate_links(array(
 		'base'         => str_replace( $big, '%#%', html_entity_decode( get_pagenum_link( $big ) ) ),
@@ -146,8 +146,8 @@ function custom_query_pagination( $query, $paged ) {
 		'end_size'     => 4,
 		'mid_size'     => 1,
 		'prev_next'    => true,
-		'prev_text'    => $leftIcon,
-		'next_text'    => $rightIcon,
+		'prev_text'    => $left_icon,
+		'next_text'    => $right_icon,
 		'add_args'     => false,
 		'add_fragment' => '',
 	));
@@ -245,10 +245,10 @@ function get_tax_post_type( $posttype, $taxonomies ) {
 	if ( $the_query->have_posts() ) {
 		while ( $the_query->have_posts() ) {
 			$the_query->the_post();
-			$id         = get_the_ID();
-			$termsArray = get_the_terms( $id, $taxonomies );
-			if ( $termsArray ) {
-				foreach ( $termsArray as $term ) {
+			$id          = get_the_ID();
+			$terms_array = get_the_terms( $id, $taxonomies );
+			if ( $terms_array ) {
+				foreach ( $terms_array as $term ) {
 					if ( ! in_array( $term->slug, $tax_post_type_array, true ) ) {
 						array_push( $tax_post_type_array, $term->slug );
 						$tax_post_type[ $i ]['slug'] = $term->slug;
