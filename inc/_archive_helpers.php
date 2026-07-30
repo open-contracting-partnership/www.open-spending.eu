@@ -2,7 +2,8 @@
 
 /**
  * Render a filterable post-type archive (campaign + country filters, paginated grid).
- * Used by archives/news.php, archives/evidence.php, archives/best_practices.php.
+ * Used by archives/news.php, archives/evidence.php, archives/best_practices.php
+ * and archives/toolkit.php.
  */
 function render_filterable_archive($posttype)
 {
