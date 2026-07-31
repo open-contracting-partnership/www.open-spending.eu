@@ -22,8 +22,6 @@ $block_content = do_blocks(
         <!-- /wp:group -->
 
         <!-- wp:post-content {"layout":{"type":"constrained"}} /-->
-        <!-- wp:template-part {"slug":"post-meta"} /-->
-        <!-- wp:template-part {"slug":"comments","tagName":"section"} /-->
     </main>
     <!-- /wp:group -->
 '
