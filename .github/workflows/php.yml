@@ -20,4 +20,4 @@ jobs:
       - run: vendor/bin/phpcs
       # Needs no PHP, but this job has already checked out the tree, and the
       # check has to see all of it rather than a changed-file list.
-      - run: bin/check-assets
+      - run: script/check-assets
