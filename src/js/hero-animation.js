@@ -1,4 +1,8 @@
-function initHeroAnimation() {
+/**
+ * The constellation animation over the hero. The canvas only exists on the home
+ * page, so this is a no-op everywhere else. Called by app.js.
+ */
+export function initHeroAnimation() {
   const canvas = document.getElementById("heroCanvas");
   if (!canvas) {
     return;
@@ -101,10 +105,4 @@ function initHeroAnimation() {
   }
 
   tick();
-}
-
-if (document.readyState !== "loading") {
-  initHeroAnimation();
-} else {
-  document.addEventListener("DOMContentLoaded", initHeroAnimation);
 }
