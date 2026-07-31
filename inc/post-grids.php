@@ -192,19 +192,17 @@ function render_filterable_archive( $posttype ) {
 	</div>
 
 	<script>
-	document.addEventListener('DOMContentLoaded', function () {
-		document.querySelectorAll('.filter-input').forEach(function (el) {
-			el.addEventListener('click', function () {
-				document.getElementById('filter-form').submit();
-			});
+	document.querySelectorAll('.filter-input').forEach(function (el) {
+		el.addEventListener('click', function () {
+			document.getElementById('filter-form').submit();
 		});
-		var country = document.getElementById('country-filter');
-		if (country) {
-			country.addEventListener('change', function () {
-				document.getElementById('filter-form').submit();
-			});
-		}
 	});
+	var country = document.getElementById('country-filter');
+	if (country) {
+		country.addEventListener('change', function () {
+			document.getElementById('filter-form').submit();
+		});
+	}
 	</script>
 	<?php
 }
