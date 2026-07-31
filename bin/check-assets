@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+#
+# Fails when the theme's bundled assets and the code that names them drift apart.
+#
+#   1. a file under dist/images/ that nothing references
+#   2. an inline_svg() call naming an icon that does not exist
+#   3. a "/dist/..." path in the source that does not exist
+#
+# (2) and (3) both fail silently at runtime — inline_svg() returns '' for a
+# missing icon, and wp_enqueue_script() happily enqueues a 404 — so neither
+# shows up as an error anywhere.
+
+set -euo pipefail
+
+cd "$(git rev-parse --show-toplevel)"
+
+status=0
+sources=$(mktemp)
+tracked=$(mktemp)
+trap 'rm -f "$sources" "$tracked"' EXIT
+
+# Everything that can name an asset. dist/ is excluded: it is build output, so a
+# reference from inside it would let an orphan vouch for itself.
+git ls-files -z '*.php' '*.html' '*.scss' '*.js' '*.json' '*.cjs' \
+	| grep -zv '^dist/' \
+	| xargs -0 cat > "$sources"
+
+# What a deploy actually receives. Existence is checked against this rather than
+# against the working tree: dist/js/slider.js was enqueued for two commits while
+# present on disk but never committed, so every local checkout looked fine and
+# only a fresh deploy would have 404ed.
+git ls-files > "$tracked"
+
+# The icon names passed to inline_svg(), including the default parameter.
+svg_names=$(grep -oE "inline_svg\(\s*[\$']?[A-Za-z0-9_-]*'?" "$sources" \
+	| grep -oE "'[A-Za-z0-9-]+'" | tr -d "'" | sort -u || true)
+
+# 1. Unreferenced images.
+while IFS= read -r image; do
+	base=${image##*/}
+	stem=${base%.*}
+
+	# Match the basename only after a separator or quote, so that dropdown.svg
+	# is not considered referenced by a mention of select-dropdown.svg.
+	if grep -qF -e "/$base" -e "\"$base\"" -e "'$base'" "$sources"; then
+		continue
+	fi
+
+	# Icons are also named without their extension: literally, as
+	# inline_svg('right-arrow'), or — as in contact-us.php, which builds a list
+	# of social links and calls inline_svg($link['icon']) — as a bare quoted
+	# string that only reaches inline_svg() through a variable. The second form
+	# cannot be traced statically, so any quoted occurrence of the stem counts.
+	case "$image" in
+	dist/images/icons/*.svg)
+		if grep -qF -e "'$stem'" -e "\"$stem\"" "$sources"; then
+			continue
+		fi
+		;;
+	esac
+
+	echo "unreferenced: $image"
+	status=1
+done < <(git ls-files 'dist/images/*')
+
+# 2. inline_svg() names that resolve to nothing. Only literal arguments can be
+# checked; a name reaching inline_svg() through a variable is invisible here.
+for name in $svg_names; do
+	if ! grep -qxF "dist/images/icons/$name.svg" "$tracked"; then
+		echo "inline_svg('$name'): dist/images/icons/$name.svg is not committed"
+		status=1
+	fi
+done
+
+# 3. "/dist/..." paths in the source that are not committed. Two kinds of
+# literal are not files and are skipped: one ending in a slash, which PHP
+# completes at runtime by concatenation, and one naming a directory, such as
+# build.js's esbuild alias for dist/images/icons.
+while IFS= read -r path; do
+	case "$path" in */) continue ;; esac
+	if grep -qF "${path#/}/" "$tracked"; then
+		continue
+	fi
+	if ! grep -qxF "${path#/}" "$tracked"; then
+		echo "missing file: $path is named in the source but not committed"
+		status=1
+	fi
+done < <(grep -ohE "/dist/[A-Za-z0-9_./-]*" "$sources" | sort -u)
+
+if [ "$status" -eq 0 ]; then
+	echo "assets ok: $(git ls-files 'dist/images/*' | wc -l | tr -d ' ') images, all referenced; every inline_svg() and /dist/ path resolves"
+fi
+
+exit "$status"

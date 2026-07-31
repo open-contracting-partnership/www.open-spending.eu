@@ -152,7 +152,7 @@ if ( ! function_exists( 'inline_svg' ) ) {
 	 *                         dist/images/icons.
 	 * @return string The SVG markup, or '' if the name is invalid or unreadable.
 	 */
-	function inline_svg( $filename = 'long-arrow-right' ) {
+	function inline_svg( $filename ) {
 		// Bare names only, so the auto-escaped registration above holds.
 		if ( ! preg_match( '/^[A-Za-z0-9-]+$/', $filename ) ) {
 			return '';
