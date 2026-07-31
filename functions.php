@@ -141,9 +141,6 @@ add_action(
 add_action(
 	'wp_enqueue_scripts',
 	function () {
-		if ( is_admin() ) {
-			return;
-		}
 		wp_scripts()->add_data( 'jquery', 'group', 1 );
 		wp_scripts()->add_data( 'jquery-core', 'group', 1 );
 	},
