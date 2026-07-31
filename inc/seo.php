@@ -110,13 +110,17 @@ function theme_seo_canonical() {
 }
 
 /**
- * Noindex thin and non-content pages (member singles are handled this way instead
- * of by making the post type non-public, which would break the /member/ archive).
+ * Noindex thin and non-content pages.
+ *
+ * Member singles and attachment pages are the same case: a permalink WordPress
+ * publishes that the theme does not want published. Neither can be prevented at
+ * the source — making the member post type non-public would break the /member/
+ * archive, and core gives every upload a permalink regardless.
  */
 add_filter(
 	'wp_robots',
 	function ( $robots ) {
-		if ( is_singular( 'member' ) || is_search() || is_404() || is_tag() ) {
+		if ( is_singular( 'member' ) || is_attachment() || is_search() || is_404() || is_tag() ) {
 			$robots['noindex'] = true;
 		}
 		return $robots;
