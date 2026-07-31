@@ -89,6 +89,7 @@ function theme_scripts() {
 		get_stylesheet_directory_uri() . '/dist/js/app.js',
 		array(),
 		theme_asset_version( '/dist/js/app.js' ),
+		// Note: app.js has no DOM-ready gate: it relies on running after the parse.
 		array(
 			'in_footer' => true,
 			'strategy'  => 'defer',
