@@ -1,7 +1,3 @@
-/**
- * Slick sliders. Slick is a jQuery plugin, so this is the theme's only
- * remaining jQuery consumer.
- */
 jQuery(($) => {
   // Homepage member columns: continuous vertical auto-scroll.
   $(".left-side-data, .right-side-data").slick({

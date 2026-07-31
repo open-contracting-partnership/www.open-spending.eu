@@ -5,10 +5,7 @@
  * Registers news, member, campaign, evidence, toolkit and best_practices, plus a
  * single-select metabox for the type_of_member taxonomy.
  *
- * Only arguments that differ from WordPress' defaults are passed. In particular
- * `rewrite` is omitted because its default slug is the post type's own name, and
- * `publicly_queryable`, `show_ui`, `show_in_menu`, `show_in_nav_menus` and
- * `exclude_from_search` all derive from `public`.
+ * Only arguments that differ from WordPress' defaults are passed.
  *
  * @package OpenSpendingCoalition
  */
@@ -117,7 +114,7 @@ function cptui_register_my_cpts() {
 		'delete_with_user' => false,
 		'can_export'       => false,
 		'menu_icon'        => 'dashicons-megaphone',
-		// page-attributes keeps the "Order" field, which pre-get-posts.php sorts on.
+		// 'page-attributes' keeps the "Order" field, which pre-get-posts.php sorts on.
 		'supports'         => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
 	);
 	register_post_type( 'campaign', $args );

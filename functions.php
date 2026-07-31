@@ -84,7 +84,6 @@ function theme_scripts() {
 		theme_asset_version( '/dist/css/app.css' )
 	);
 
-	// Vanilla, no jQuery — deferred on its own.
 	wp_enqueue_script(
 		'main-script',
 		get_stylesheet_directory_uri() . '/dist/js/app.js',
@@ -104,7 +103,7 @@ function theme_scripts() {
 		true
 	);
 
-	// Slick initialisation — the theme's only jQuery consumer.
+	// Slick initialisation (the only jQuery consumer).
 	wp_enqueue_script(
 		'slider-init',
 		get_stylesheet_directory_uri() . '/dist/js/slider.js',
@@ -116,8 +115,7 @@ function theme_scripts() {
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 
 /**
- * Drop jquery-migrate on the front end — nothing here relies on the legacy
- * jQuery APIs it shims.
+ * Remove jQuery Migrate outside the WordPress Admin.
  */
 add_action(
 	'wp_default_scripts',
@@ -133,10 +131,7 @@ add_action(
 );
 
 /**
- * Load jQuery in the footer instead of the <head>, so it stops blocking the
- * initial render. Safe because the only front-end jQuery consumers (app.js and
- * slick) are already footer-enqueued, and the archive-filter inline script is
- * now vanilla — nothing uses jQuery before the footer.
+ * Load jQuery in the footer instead of the <head>.
  */
 add_action(
 	'wp_enqueue_scripts',

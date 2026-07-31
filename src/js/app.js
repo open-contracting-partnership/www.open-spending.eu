@@ -1,10 +1,5 @@
 import "./hero-animation.js";
 
-/**
- * Front-end behaviour in vanilla JS. The slick sliders — the only remaining
- * jQuery consumers — live in slider.js, so this bundle carries no jQuery
- * dependency and can be deferred on its own.
- */
 function ready(fn) {
   if (document.readyState !== "loading") {
     fn();

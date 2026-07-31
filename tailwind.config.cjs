@@ -1,8 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // Every file that can name a utility class. Omitting one silently purges the
-  // classes only that file uses, so this covers all of the theme's markup:
-  // archive.php and single.php at the root, and the block templates.
+  // List every file that can name a utility class. Omitting one silently purges
+  // the classes that are only used by that file.
   content: [
     "./*.php",
     "./acf_block/*.php",
@@ -14,11 +13,8 @@ module.exports = {
     "./templates/*.html",
     "./src/sass/**/*.scss",
   ],
-  // src/js is deliberately not scanned: `!container.contains(...)` in app.js reads
-  // as Tailwind's important-modifier syntax and generates a junk .\!container
-  // rule. `hidden` is the only utility the JS toggles by name, so safelist it —
-  // it is currently also present in archives/member.php, but this keeps the
-  // members tabs working if that markup ever changes.
+  // Add a Tailwind utility when `src/js`` is the only place that names it: `src/js`
+  //` is not scanned, since `!container.contains()` would emit a `.\!container` rule.
   safelist: ["hidden"],
   theme: {
     colors: {

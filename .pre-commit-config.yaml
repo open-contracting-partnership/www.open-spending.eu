@@ -21,8 +21,5 @@ repos:
         name: check-assets
         entry: script/check-assets
         language: system
-        # It reads the whole tree via git ls-files, so the changed-file list is
-        # neither needed nor meaningful — deleting an image breaks a reference in
-        # a file the commit does not touch.
         pass_filenames: false
         always_run: true

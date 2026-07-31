@@ -2,9 +2,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-// Only the neutral ramp is used by the stylesheets. The brand colours live in
-// tailwind.config.cjs (as `s`/`d`/`m`/`b`/`t` scales) and are applied through
-// utility classes, so they need no custom properties here.
 @layer base {
   :root {
     --n-0: #ffffff;
