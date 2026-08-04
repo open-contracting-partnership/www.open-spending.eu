@@ -134,8 +134,11 @@ add_filter(
  * An attachment page has no content of its own; it renders a bare media file in
  * the site's chrome.
  *
+ * If the wp_attachment_pages_enabled option is off, core's redirect_canonical()
+ * sends every attachment to its file URL. This runs ahead of that at priority 9.
+ *
  * Attachments with no published parent (uploaded directly to the media library)
- * still render and rely on the noindex above.
+ * fall through to core's redirect_canonical().
  */
 add_action(
 	'template_redirect',
@@ -150,7 +153,8 @@ add_action(
 			wp_safe_redirect( get_permalink( $parent ), 301 );
 			exit;
 		}
-	}
+	},
+	9
 );
 
 /**
