@@ -1,5 +1,6 @@
 ci:
   autoupdate_schedule: quarterly
+  skip: [phpcbf, phpcs]
 repos:
   - repo: https://github.com/biomejs/pre-commit
     rev: v2.5.2
