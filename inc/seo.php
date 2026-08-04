@@ -4,7 +4,8 @@
  *
  *   - <title>            -> WordPress core (add_theme_support('title-tag'))
  *   - meta description   -> here (excerpt / tagline)
- *   - robots / noindex   -> here (member singles, search, 404) via wp_robots
+ *   - robots / noindex   -> here (member singles, attachments, search, tags, 404) via wp_robots
+ *   - attachment pages   -> here (redirected to their parent post)
  *   - canonical          -> core for singular; here for front page + archives
  *   - Open Graph/Twitter -> here (featured image, with a site-wide fallback)
  *   - JSON-LD schema     -> here (Organization + WebSite, front page only)
@@ -124,6 +125,31 @@ add_filter(
 			$robots['noindex'] = true;
 		}
 		return $robots;
+	}
+);
+
+/**
+ * Send attachment pages to the post that uses the file.
+ *
+ * An attachment page has no content of its own; it renders a bare media file in
+ * the site's chrome.
+ *
+ * Attachments with no published parent (uploaded directly to the media library)
+ * still render and rely on the noindex above.
+ */
+add_action(
+	'template_redirect',
+	function () {
+		if ( ! is_attachment() ) {
+			return;
+		}
+
+		$parent = get_post_parent();
+
+		if ( $parent && 'publish' === $parent->post_status ) {
+			wp_safe_redirect( get_permalink( $parent ), 301 );
+			exit;
+		}
 	}
 );
 
