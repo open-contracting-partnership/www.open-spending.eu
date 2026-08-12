@@ -56,8 +56,8 @@ function render_filterable_archive( $posttype ) {
 			<form method="GET" role="search" class="campaign-filter md:flex gap-x-8"
 				action="<?php echo esc_url( get_post_type_archive_link( $posttype ) ); ?>" id="filter-form">
 				<?php if ( $campaign_filter_data ) { ?>
-				<div class="mt-8">
-					<p class="text-n-60">Filter <?php echo esc_html( $posttype_label ); ?> by campaign: </p>
+				<fieldset class="mt-8">
+					<legend class="text-n-60">Filter <?php echo esc_html( $posttype_label ); ?> by campaign: </legend>
 					<div class="<?php echo esc_attr( $posttype ); ?>-campaign archive-accordion-category flex flex-wrap gap-2 sm:gap-4 mt-2">
 						<p class="category-item <?php echo $get_campaign ? '' : 'active'; ?>">
 							<label class="filter-input">
@@ -78,12 +78,12 @@ function render_filterable_archive( $posttype ) {
 						</p>
 						<?php } ?>
 					</div>
-				</div>
+				</fieldset>
 				<?php } ?>
 
 				<?php if ( $terms ) { ?>
 				<div class="mt-6 md:mt-8">
-					<p class="text-n-60">Filter <?php echo esc_html( $posttype_label ); ?> by country: </p>
+					<label for="country-filter" class="block text-n-60">Filter <?php echo esc_html( $posttype_label ); ?> by country: </label>
 					<div class="<?php echo esc_attr( $posttype ); ?>-country ">
 						<select name="taxonomy_country" id="country-filter"
 							class="mt-2 py-[2px] pl-2 pr-7 rounded-xl border border-teal transition-all duration-300 hover:border-n-60 cursor-pointer">
