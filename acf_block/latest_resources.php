@@ -65,8 +65,8 @@ $resource_cards = array(
 						$excerpt = excerpt( 200 );
 						?>
 					<div class="my-5 sm:mb-10">
-						<h3 class="font-bold"><a
-								href="<?php echo esc_url( get_the_permalink() ); ?>"><?php echo esc_html( get_the_title() ); ?></a></h3>
+						<a href="<?php echo esc_url( get_the_permalink() ); ?>"
+							class="text-heading-4 md:text-heading-3 font-bold !text-n-100 card-title-hover"><?php echo esc_html( get_the_title() ); ?></a>
 						<div class="text-n-60 mt-3"><?php echo esc_html( $excerpt ); ?></div>
 					</div>
 					<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="flex gap-x-2.5 items-center learn-more-btn">

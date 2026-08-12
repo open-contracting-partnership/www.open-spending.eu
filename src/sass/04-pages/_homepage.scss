@@ -175,13 +175,6 @@
     @apply border-n-10;
   }
 
-  h3 a {
-    @apply text-n-100 transition-all duration-300;
-
-    &:hover {
-      @apply text-teal;
-    }
-  }
 }
 
 .homepage-member-container {
