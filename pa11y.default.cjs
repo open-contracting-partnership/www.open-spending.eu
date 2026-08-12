@@ -40,8 +40,10 @@ const knownWarnings = [
     selectors: [],
   },
   {
-    // "Img element is marked so that it is ignored by Assistive Technology." Correct: these are
-    // decorative images, whose alt attribute is deliberately empty.
+    // "Img element is marked so that it is ignored by Assistive Technology." Fires on every
+    // empty alt, which is right for a decorative image, so it can't be narrowed to the images
+    // that are wrong. It therefore also hides a content image that needs alt text: review
+    // those when publishing, since nothing here will report them.
     // https://www.w3.org/WAI/WCAG21/Techniques/html/H67
     rules: ["WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.2"],
     selectors: [],

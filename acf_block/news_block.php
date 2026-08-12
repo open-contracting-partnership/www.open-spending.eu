@@ -50,7 +50,7 @@ $the_query = new WP_Query( $args );
 			<div id="news_<?php echo (int) $current_id; ?>" class="p-5 border border-n-30 rounded-3xl news-card-hover">
 				<div class="pt-[63.8%] relative">
 					<a href="<?php echo esc_url( get_the_permalink() ); ?>">
-						<?php render_feature_image( array( 'alt' => 'news-image', 'class' => 'absolute top-0 h-full w-full object-cover rounded-2xl' ) ); ?>
+						<?php render_feature_image( array( 'alt' => get_the_title(), 'class' => 'absolute top-0 h-full w-full object-cover rounded-2xl' ) ); ?>
 					</a>
 				</div>
 				<div class="pt-6">
