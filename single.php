@@ -10,10 +10,11 @@
  * @package OpenSpendingCoalition
  */
 
+// The main landmark is the wrapper below, which both branches share.
 $block_content = do_blocks(
 	'
-    <!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
-    <main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--50)">
+    <!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
+    <div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--50)">
         <!-- wp:group {"layout":{"type":"constrained"}} -->
         <div class="wp-block-group">
             <!-- wp:post-featured-image {"overlayColor":"contrast","dimRatio":50,"align":"wide","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50","top":"calc(-1 * var(--wp--preset--spacing--50))"}}}} /-->
@@ -22,7 +23,7 @@ $block_content = do_blocks(
         <!-- /wp:group -->
 
         <!-- wp:post-content {"layout":{"type":"constrained"}} /-->
-    </main>
+    </div>
     <!-- /wp:group -->
 '
 );
@@ -60,7 +61,7 @@ $block_footer_area = ob_get_clean();
 			<?php echo $block_header_area; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output of block_header_area(). ?>
 		</header>
 
-		<div class="single-page wp-block-post-content">
+		<main class="single-page wp-block-post-content">
 			<?php
 				$posttype = get_post_type();
 				$filepath = __DIR__ . '/singles/' . $posttype . '.php';
@@ -70,7 +71,7 @@ $block_footer_area = ob_get_clean();
 				echo $block_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered block markup from do_blocks().
 			}
 			?>
-		</div>
+		</main>
 
 		<footer class="wp-block-template-part">
 			<?php echo $block_footer_area; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output of block_footer_area(). ?>
