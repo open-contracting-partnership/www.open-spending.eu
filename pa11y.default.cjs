@@ -54,15 +54,10 @@ const knownWarnings = [
     selectors: [],
   },
   {
-    // "The heading structure is not logically nested", and "Heading markup should be used if
-    // this content is intended as a heading." Both are the heading levels and bold paragraphs
-    // that editors wrote into post content, so fix them there rather than here.
-    // https://www.w3.org/WAI/WCAG21/Techniques/general/G141
-    rules: [
-      "WCAG2AA.Principle1.Guideline1_3.1_3_1_A.G141",
-      "WCAG2AA.Principle1.Guideline1_3.1_3_1.H42",
-      "heading-order",
-    ],
+    // "Heading markup should be used if this content is intended as a heading." Reported for
+    // the italic pull-quotes in post content, which are emphasis rather than headings.
+    // https://www.w3.org/WAI/WCAG21/Techniques/html/H42
+    rules: ["WCAG2AA.Principle1.Guideline1_3.1_3_1.H42"],
     selectors: [],
   },
   {
