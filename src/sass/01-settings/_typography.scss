@@ -52,3 +52,12 @@ a {
 a:hover {
   text-decoration: none !important;
 }
+
+// Links in prose are underlined, so that they are not distinguished by colour alone.
+.single-detail-content,
+.news-detail-content,
+.entry-content {
+  a {
+    text-decoration: underline !important;
+  }
+}
