@@ -172,14 +172,24 @@ if ( ! function_exists( 'inline_svg' ) ) {
 
 
 /**
+ * A visually hidden label, giving an icon-only pagination arrow an accessible name.
+ *
+ * @param string $label The link's purpose, for example 'Next page'.
+ * @return string A span holding the label, already escaped.
+ */
+function pagination_arrow_label( $label ) {
+	return '<span class="sr-only">' . esc_html( $label ) . '</span>';
+}
+
+/**
  * Pagination for the main query, with the theme's arrow icons.
  *
  * @return string Pagination markup, already escaped, or '' on a single page.
  */
 function main_query_pagination() {
 
-	$right_icon = inline_svg( 'page-navigation-next' );
-	$left_icon  = inline_svg( 'page-navigation-prev' );
+	$right_icon = inline_svg( 'page-navigation-next' ) . pagination_arrow_label( 'Next page' );
+	$left_icon  = inline_svg( 'page-navigation-prev' ) . pagination_arrow_label( 'Previous page' );
 
 	$paginate = paginate_links(
 		array(
@@ -210,8 +220,8 @@ function main_query_pagination() {
 function custom_query_pagination( $query, $paged ) {
 
 	$big        = 999999999;
-	$right_icon = inline_svg( 'page-navigation-next' );
-	$left_icon  = inline_svg( 'page-navigation-prev' );
+	$right_icon = inline_svg( 'page-navigation-next' ) . pagination_arrow_label( 'Next page' );
+	$left_icon  = inline_svg( 'page-navigation-prev' ) . pagination_arrow_label( 'Previous page' );
 
 	$paginate = paginate_links(
 		array(
