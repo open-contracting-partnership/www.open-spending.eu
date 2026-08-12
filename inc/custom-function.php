@@ -282,12 +282,12 @@ function breadcrumb_section( $id ) {
 	$labels      = $post_object->labels;
 	ob_start();
 	?>
-	<div class="breadcrumb bg-n-10">
-		<div class="breadcrumb-menu container">
-			<div class="breadcrumb-menu__item">
+	<nav class="breadcrumb bg-n-10" aria-label="Breadcrumb">
+		<ol class="breadcrumb-menu container">
+			<li class="breadcrumb-menu__item">
 				<a href="<?php echo esc_url( home_url() ); ?>">Home</a>
-			</div>
-			<div class="breadcrumb-menu__item">
+			</li>
+			<li class="breadcrumb-menu__item" <?php echo is_singular() ? '' : 'aria-current="page"'; ?>>
 				<?php if ( is_singular() ) { ?>
 					<a href="<?php echo esc_url( get_post_type_archive_link( $posttype ) ); ?>">
 						<?php echo esc_html( $labels->name ); ?>
@@ -297,14 +297,14 @@ function breadcrumb_section( $id ) {
 					echo esc_html( $labels->name );
 				}
 				?>
-			</div>
+			</li>
 			<?php if ( is_singular() ) { ?>
-			<div class="breadcrumb-menu__item">
+			<li class="breadcrumb-menu__item" aria-current="page">
 				<?php echo esc_html( get_the_title() ); ?>
-			</div>
+			</li>
 			<?php } ?>
-		</div>
-	</div>
+		</ol>
+	</nav>
 
 	<?php
 	$outupt_breadcrumb_section = ob_get_contents();

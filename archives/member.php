@@ -67,16 +67,21 @@ if ( $display_breadcrumb && $default_breadcrumb ) {
 }
 if ( $display_breadcrumb && ! $default_breadcrumb && $add_custom_breadcrumb ) {
 	?>
-	<div class="breadcrumb bg-n-10">
-		<div class="breadcrumb-menu container">
+	<nav class="breadcrumb bg-n-10" aria-label="Breadcrumb">
+		<ol class="breadcrumb-menu container">
 			<?php foreach ( $add_custom_breadcrumb as $value ) { ?>
-				<div class="breadcrumb-menu__item">
-					<a href="<?php echo esc_url( $value['link'] ); ?>"> <?php echo esc_html( $value['item'] ); ?> </a>
-				</div>
+				<li class="breadcrumb-menu__item">
+					<?php // Plain text when the row has no link, since an empty href has no accessible name. ?>
+					<?php if ( $value['link'] ) { ?>
+						<a href="<?php echo esc_url( $value['link'] ); ?>"> <?php echo esc_html( $value['item'] ); ?> </a>
+					<?php } else { ?>
+						<?php echo esc_html( $value['item'] ); ?>
+					<?php } ?>
+				</li>
 			<?php } ?>
-			<div class="breadcrumb-menu__item"> <?php echo esc_html( $labels->name ); ?> </div>
-		</div>
-	</div>
+			<li class="breadcrumb-menu__item" aria-current="page"> <?php echo esc_html( $labels->name ); ?> </li>
+		</ol>
+	</nav>
 	<?php
 }
 ?>
