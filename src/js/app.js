@@ -14,8 +14,10 @@ if (tabMenu) {
     }
     tabMenu.querySelectorAll(".members-tab-item").forEach((i) => {
       i.classList.remove("active");
+      i.setAttribute("aria-pressed", "false");
     });
     item.classList.add("active");
+    item.setAttribute("aria-pressed", "true");
 
     const showExperts = document.querySelector(".members-experts-btn")?.classList.contains("active");
     document.querySelector(".members-experts-list")?.classList.toggle("hidden", !showExperts);
