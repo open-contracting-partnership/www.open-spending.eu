@@ -50,26 +50,38 @@ $campaign_videos = ( is_array( $campaign ) && isset( $campaign['campaign_videos'
 					$has_video         = (bool) $youtube_embed_url;
 					$thumb_class       = $has_video ? 'campaign-vid-thumbnail' : 'campaign-vid-thumbnail--empty';
 					?>
-					<div>
-						<div class="pt-[60%] <?php echo esc_attr( $thumb_class ); ?> relative"
-						<?php
-						if ( $has_video ) :
-							?>
-							data-src="<?php echo esc_url( $youtube_embed_url ); ?>"<?php endif; ?>>
-							<?php render_acf_image( $thumbnail_image, array( 'alt' => $video_title, 'class' => 'absolute top-0 h-full w-full object-cover rounded-xl' ) ); ?>
-
-							<div class="video-title absolute left-5 bottom-4 z-20">
-								<p class="font-bold text-n-0"><?php echo esc_html( $video_title ); ?></p>
-							</div>
+					<?php
+					ob_start();
+					render_acf_image( $thumbnail_image, array( 'alt' => $video_title, 'class' => 'absolute top-0 h-full w-full object-cover rounded-xl' ) );
+					?>
+						<div class="video-title absolute left-5 bottom-4 z-20">
+							<p class="font-bold text-n-0"><?php echo esc_html( $video_title ); ?></p>
 						</div>
+					<?php
+					$thumbnail_inner = ob_get_clean();
+					?>
+					<div>
+						<?php if ( $has_video ) : ?>
+							<?php // A button, so the video opens by keyboard as well as by pointer. ?>
+							<button type="button" class="block w-full pt-[60%] <?php echo esc_attr( $thumb_class ); ?> relative"
+								data-src="<?php echo esc_url( $youtube_embed_url ); ?>"
+								aria-label="<?php echo esc_attr( 'Play video: ' . $video_title ); ?>">
+								<?php echo $thumbnail_inner; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>
+							</button>
+						<?php else : ?>
+							<div class="pt-[60%] <?php echo esc_attr( $thumb_class ); ?> relative">
+								<?php echo $thumbnail_inner; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>
+							</div>
+						<?php endif; ?>
 
 						<?php if ( $has_video ) : ?>
 						<div class="fixed z-30 top-0 left-0 w-screen h-screen video-page">
 							<div class="relative flex  items-center justify-center h-full container">
 								<iframe width="642px" height="361px" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-								<div tabindex="0" class="absolute p-3 text-xs text-white border border-white border-solid rounded-full cursor-pointer video-close top-4 right-4">
+								<button type="button" aria-label="Close video"
+									class="absolute p-3 text-xs text-white border border-white border-solid rounded-full video-close top-4 right-4">
 									<?php echo inline_svg( 'cross-icon' ); ?>
-								</div>
+								</button>
 							</div>
 						</div>
 						<?php endif; ?>

@@ -28,6 +28,17 @@ if (tabMenu) {
 /**
  * Campaign detail page: open/close the video popup.
  */
+function closeVideoModal(modal) {
+  document.body.style.overflowY = "auto";
+  modal.classList.remove("show");
+  const iframe = modal.querySelector("iframe");
+  if (iframe) {
+    iframe.setAttribute("src", "");
+  }
+  // Return focus to the thumbnail that opened the popup.
+  modal.parentElement?.querySelector(".campaign-vid-thumbnail")?.focus();
+}
+
 document.querySelectorAll(".campaign-vid-thumbnail").forEach((thumb) => {
   thumb.addEventListener("click", () => {
     const match = thumb
@@ -46,18 +57,22 @@ document.querySelectorAll(".campaign-vid-thumbnail").forEach((thumb) => {
     if (iframe) {
       iframe.setAttribute("src", `https://www.youtube.com/embed/${match[1]}`);
     }
+    modal.querySelector(".video-close")?.focus();
   });
 });
 document.querySelectorAll(".video-close").forEach((close) => {
   close.addEventListener("click", () => {
     const modal = close.closest(".video-page");
-    document.body.style.overflowY = "auto";
-    modal?.classList.remove("show");
-    const iframe = modal?.querySelector("iframe");
-    if (iframe) {
-      iframe.setAttribute("src", "");
+    if (modal) {
+      closeVideoModal(modal);
     }
   });
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") {
+    return;
+  }
+  document.querySelectorAll(".video-page.show").forEach(closeVideoModal);
 });
 
 /**
