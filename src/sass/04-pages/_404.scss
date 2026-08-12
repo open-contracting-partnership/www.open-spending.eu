@@ -5,7 +5,8 @@
 }
 
 .error404 main {
-  @apply bg-n-20;
+  // Light enough for the teal .back-links to clear 4.5:1 (4.96:1).
+  @apply bg-n-10;
 }
 
 .back-links a {
