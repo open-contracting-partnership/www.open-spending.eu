@@ -1,7 +1,3 @@
-// Accessibility checks. See README.md.
-//
-// The .cjs extension is required, because package.json sets "type": "module".
-
 const strategy = process.env.PA11Y_STRATEGY;
 const includeWarnings = "PA11Y_INCLUDE_WARNINGS" in process.env;
 const suppressKnownWarnings = "PA11Y_SUPPRESS_KNOWN_WARNINGS" in process.env;
@@ -114,18 +110,16 @@ module.exports = {
     ...(hideElements.length ? { hideElements: hideElements.join(", ") } : {}),
     ...(ignore.length ? { ignore: ignore } : {}),
   },
-  // Pa11y CI appends the sitemap's URLs to this list. The sitemap omits these templates.
+  // The sitemap omits these templates.
   urls: [
-    // The member archive and single are noindexed. The archive renders every member into two
-    // tabbed columns, and members are the only post type with no singles/ partial, so the
-    // single falls back to single.php's core block layout.
+    // archives/member.php, and single.php's fallback (members have no singles/ partial)
     "http://localhost:8090/member/",
     "http://localhost:8090/member/transparency-international-hungary/",
-    // News is the only archive with enough posts to paginate (12 per page).
+    // inc/post-grids.php pagination: news is the only archive with enough posts (12 per page)
     "http://localhost:8090/news/page/2/",
-    // templates/search.html, which is noindexed.
+    // templates/search.html
     "http://localhost:8090/?s=budget",
-    // templates/404.html and patterns/hidden-404.php.
+    // templates/404.html and patterns/hidden-404.php
     "http://localhost:8090/no-such-page/",
   ],
 };

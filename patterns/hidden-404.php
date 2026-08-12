@@ -37,7 +37,6 @@
 			</div>
 		</div>
 		<div class="text-center">
-			<?php // The page's h1: no other template part renders one on a 404. ?>
 			<h1 class="mt-6 sm:mt-10 mb-1 sm:mb-4 font-bold text-n-100">
 				Looks like you are lost.
 			</h1>

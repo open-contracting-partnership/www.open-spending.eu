@@ -62,7 +62,6 @@ $campaign_videos = ( is_array( $campaign ) && isset( $campaign['campaign_videos'
 					?>
 					<div>
 						<?php if ( $has_video ) : ?>
-							<?php // A button, so the video opens by keyboard as well as by pointer. ?>
 							<button type="button" class="block w-full pt-[60%] <?php echo esc_attr( $thumb_class ); ?> relative"
 								data-src="<?php echo esc_url( $youtube_embed_url ); ?>"
 								aria-label="<?php echo esc_attr( 'Play video: ' . $video_title ); ?>">

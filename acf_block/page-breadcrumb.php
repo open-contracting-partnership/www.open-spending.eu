@@ -33,7 +33,6 @@ if ( $current_id && ( $posttype === 'page' ) ) {
 			<ol class="breadcrumb-menu container">
 				<?php foreach ( $add_custom_breadcrumb as $value ) { ?>
 					<li class="breadcrumb-menu__item">
-						<?php // Plain text when the row has no link, since an empty href has no accessible name. ?>
 						<?php if ( $value['link'] ) { ?>
 							<a href="<?php echo esc_url( $value['link'] ); ?>"> <?php echo esc_html( $value['item'] ); ?> </a>
 						<?php } else { ?>

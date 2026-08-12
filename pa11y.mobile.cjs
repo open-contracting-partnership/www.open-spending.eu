@@ -1,5 +1,3 @@
-// Accessibility checks, at a mobile viewport. See README.md.
-
 const base = require("./pa11y.default.cjs");
 
 module.exports = {

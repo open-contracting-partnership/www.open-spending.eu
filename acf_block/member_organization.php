@@ -27,7 +27,7 @@ $the_query = new WP_Query( $args );
 
 <section class="member-organization who_we_are_block pt-[1px] pb-10 sm:pb-14 md:pb-20">
 	<div class="container">
-		<?php if ( trim( (string) $heading ) !== '' ) : // Skip the heading element if it would be empty. ?>
+		<?php if ( trim( (string) $heading ) !== '' ) : ?>
 		<h2 class="text-center text-n-100 font-bold">
 			<?php echo wp_kses_post( $heading ); ?>
 		</h2>

@@ -16,8 +16,7 @@ jQuery(($) => {
     touchMove: false,
     swipeToSlide: true,
     swipe: false,
-    // The columns are not interactive, so leave the slides out of the tab order:
-    // slick otherwise gives aria-hidden slides a tabindex.
+    // The cards hold no links, so stop slick giving these aria-hidden slides a tabindex.
     accessibility: false,
   });
 

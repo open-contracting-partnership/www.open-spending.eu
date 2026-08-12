@@ -3,7 +3,6 @@
     height: 1em;
   }
 
-  // The heading is the page's h1, but keeps the h2 sizing it was designed at.
   h1 {
     @apply text-heading-2 leading-tight;
 
@@ -14,7 +13,6 @@
 }
 
 .error404 main {
-  // Light enough for the teal .back-links to clear 4.5:1 (4.96:1).
   @apply bg-n-10;
 }
 

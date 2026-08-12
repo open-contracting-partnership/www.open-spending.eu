@@ -10,7 +10,6 @@
  * @package OpenSpendingCoalition
  */
 
-// The main landmark is the wrapper below, which both branches share.
 $block_content = do_blocks(
 	'
     <!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->

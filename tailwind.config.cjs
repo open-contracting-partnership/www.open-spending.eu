@@ -67,7 +67,6 @@ module.exports = {
         30: "#d3d4d5",
         40: "#bdbec0",
         50: "#a7a9ab",
-        // Secondary body text, so it clears 4.5:1 on white (5.24:1) and on n-10 (4.77:1).
         60: "#6b6c71",
         70: "#66686d",
         80: "#505258",
