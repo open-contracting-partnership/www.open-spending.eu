@@ -5,3 +5,5 @@ jobs:
     uses: open-contracting/.github/.github/workflows/spellcheck.yml@main
     permissions:
       contents: read
+    with:
+      skip: pnpm-lock.yaml
