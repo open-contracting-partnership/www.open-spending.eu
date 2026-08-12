@@ -54,6 +54,19 @@ env NODE_ENV=production node build.js
 make diff REF=origin/main
 ```
 
+## Accessibility
+
+Install Chrome:
+
+```bash
+pnpm exec puppeteer browsers install chrome
+```
+
+Build assets for production, run `make serve`, then run [Pa11y](https://ocp-software-handbook.readthedocs.io/en/latest/python/a11y.html) using `http://localhost:8090/wp-sitemap.xml` as the sitemap.
+
+> [!NOTE]
+> There is no `a11y.yml` workflow, because serving the theme needs the two production backups. Run the checks locally before a release.
+
 ## Contributing
 
 One-time setup:
