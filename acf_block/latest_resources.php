@@ -34,9 +34,11 @@ $resource_cards = array(
 <section class="latest_resources py-10 sm:py-14 md:py-20">
 	<div>
 		<div class="container">
+			<?php if ( trim( (string) $heading ) !== '' ) : // Skip the heading element if it would be empty. ?>
 			<h2 class="text-center text-n-100 font-bold">
 				<?php echo wp_kses_post( $heading ); ?>
 			</h2>
+			<?php endif; ?>
 			<div class="text-n-80 text-center max-w-[472px] mt-4 mx-auto text-base sm:text-lg">
 				<?php echo wp_kses_post( $paragraph ); ?>
 			</div>
