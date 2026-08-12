@@ -11,7 +11,9 @@
     "esbuild-plugin-browserslist": "^4.0.0",
     "esbuild-sass-plugin": "^3.7.0",
     "knip": "^6.29.0",
+    "pa11y-ci": "^4.1.1",
     "postcss": "^8.4.21",
+    "puppeteer": "^25.5.0",
     "sass": "^1.58.3",
     "tailwindcss": "3.2.7"
   }

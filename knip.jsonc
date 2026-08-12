@@ -1,5 +1,7 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "entry": ["build.js", "src/js/app.js", "src/js/slider.js", "src/sass/app.scss"],
-  "project": ["src/**"]
+  "project": ["src/**"],
+  // Run as commands, from README.md, rather than imported.
+  "ignoreDependencies": ["pa11y-ci", "puppeteer"]
 }
