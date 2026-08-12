@@ -1,11 +1,13 @@
 jQuery(($) => {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   // Homepage member columns: continuous vertical auto-scroll.
   $(".left-side-data, .right-side-data").slick({
     vertical: true,
     verticalSwiping: true,
     slidesToShow: 3,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: !reduceMotion,
     autoplaySpeed: 0,
     speed: 10000,
     cssEase: "linear",
@@ -23,7 +25,7 @@ jQuery(($) => {
   $(".members-slider").slick({
     dots: false,
     infinite: true,
-    autoplay: true,
+    autoplay: !reduceMotion,
     autoplaySpeed: 2000,
     slidesToShow: 5,
     slidesToScroll: 1,

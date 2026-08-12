@@ -9,6 +9,9 @@ export function initHeroAnimation() {
   }
   const ctx = canvas.getContext("2d");
 
+  // Decorative, so keep it out of the accessibility tree.
+  canvas.setAttribute("aria-hidden", "true");
+
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
@@ -102,6 +105,12 @@ export function initHeroAnimation() {
     draw();
     update();
     requestAnimationFrame(tick);
+  }
+
+  // A single static frame when the visitor asks for reduced motion.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    draw();
+    return;
   }
 
   tick();
