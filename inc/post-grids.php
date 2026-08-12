@@ -99,6 +99,11 @@ function render_filterable_archive( $posttype ) {
 					</div>
 				</div>
 				<?php } ?>
+				<?php // The filters submit on change, so the button is only for people with no JavaScript. ?>
+				<noscript>
+					<button type="submit"
+						class="mt-8 self-end py-1 px-3 text-sm rounded-xl border border-teal">Filter</button>
+				</noscript>
 			</form>
 		</div>
 		<?php
