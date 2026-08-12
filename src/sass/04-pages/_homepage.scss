@@ -39,6 +39,18 @@
   img {
     @apply transition-all duration-300;
   }
+  // The name sits under the section's h2, but keeps the h4 sizing it was designed at.
+  h3 {
+    @apply text-heading-4 leading-normal;
+
+    @include mq("lg", max) {
+      @apply text-heading-5;
+    }
+
+    @include mq("md", max) {
+      @apply text-heading-6;
+    }
+  }
 }
 .member-item:hover {
   p {
