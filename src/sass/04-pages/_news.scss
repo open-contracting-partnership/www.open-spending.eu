@@ -7,6 +7,11 @@
     .filter-input {
       @apply cursor-pointer px-2 py-1;
     }
+    // The radio itself is visually hidden, so show focus on the chip around it.
+    &:focus-within {
+      outline: 2px solid theme("colors.teal");
+      outline-offset: 2px;
+    }
   }
 }
 

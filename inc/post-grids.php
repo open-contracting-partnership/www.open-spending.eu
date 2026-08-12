@@ -61,7 +61,8 @@ function render_filterable_archive( $posttype ) {
 					<div class="<?php echo esc_attr( $posttype ); ?>-campaign archive-accordion-category flex flex-wrap gap-2 sm:gap-4 mt-2">
 						<p class="category-item <?php echo $get_campaign ? '' : 'active'; ?>">
 							<label class="filter-input">
-								<input type="radio" name="campaign_post" value="" style="display: none">
+								<?php // sr-only keeps each radio focusable while the chip around it shows the state. ?>
+								<input type="radio" name="campaign_post" value="" class="sr-only">
 								<span>All</span>
 							</label>
 						</p>
@@ -71,8 +72,8 @@ function render_filterable_archive( $posttype ) {
 							?>
 						<p class="category-item <?php echo $is_active ? 'active' : ''; ?>">
 							<label class="filter-input">
-								<input type="radio" name="campaign_post"
-									value="<?php echo esc_attr( $value_id ); ?>" <?php checked( $is_active ); ?> style="display: none">
+								<input type="radio" name="campaign_post" class="sr-only"
+									value="<?php echo esc_attr( $value_id ); ?>" <?php checked( $is_active ); ?>>
 								<span><?php echo esc_html( get_the_title( $value_id ) ); ?></span>
 							</label>
 						</p>
