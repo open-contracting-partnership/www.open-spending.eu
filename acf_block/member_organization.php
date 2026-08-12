@@ -58,7 +58,7 @@ $the_query = new WP_Query( $args );
 				<div class="slick-arrow next"></div>
 			</div>
 		</div>
-		<div class="text-n-50 text-center max-w-[748px] mt-4 mx-auto text-base sm:text-lg">
+		<div class="text-n-70 text-center max-w-[748px] mt-4 mx-auto text-base sm:text-lg">
 			<?php echo wp_kses_post( $paragraph ); ?>
 		</div>
 	</div>
