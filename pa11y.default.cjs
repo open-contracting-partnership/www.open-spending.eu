@@ -71,14 +71,6 @@ const knownWarnings = [
     selectors: ["#country-filter"],
   },
   {
-    // "This element has 'position: fixed'. This may require scrolling in two dimensions."
-    // Reported at the mobile viewport only, for the navigation block's overlay menu, which
-    // fills the viewport and scrolls in one dimension.
-    // https://www.w3.org/WAI/WCAG21/Techniques/css/C32
-    rules: ["WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206"],
-    selectors: [".wp-block-navigation__responsive-container"],
-  },
-  {
     // "Check that this applet or plugin provides the ability to move the focus away from itself
     // when using the keyboard." The browser's built-in PDF viewer, embedded by a core file
     // block, which does let the keyboard leave it.
@@ -88,25 +80,34 @@ const knownWarnings = [
   },
 ];
 
-const suppressions = [...knownErrors, ...(includeWarnings && suppressKnownWarnings ? knownWarnings : [])];
+function createDefaults(extraKnownWarnings = []) {
+  const suppressions = [
+    ...knownErrors,
+    ...(includeWarnings && suppressKnownWarnings ? [...knownWarnings, ...extraKnownWarnings] : []),
+  ];
 
-const withoutSelectors = suppressions.filter((suppression) => !suppression.selectors.length);
-const withSelectors = suppressions.filter((suppression) => suppression.selectors.length);
+  const withoutSelectors = suppressions.filter((suppression) => !suppression.selectors.length);
+  const withSelectors = suppressions.filter((suppression) => suppression.selectors.length);
 
-const hideElements = strategy === "hideElements" ? withSelectors.flatMap((suppression) => suppression.selectors) : [];
-const ignore = [
-  ...withoutSelectors.flatMap((suppression) => suppression.rules),
-  ...(strategy === "ignore" ? withSelectors.flatMap((suppression) => suppression.rules) : []),
-];
+  const hideElements =
+    strategy === "hideElements" ? withSelectors.flatMap((suppression) => suppression.selectors) : [];
+  const ignore = [
+    ...withoutSelectors.flatMap((suppression) => suppression.rules),
+    ...(strategy === "ignore" ? withSelectors.flatMap((suppression) => suppression.rules) : []),
+  ];
 
-module.exports = {
-  defaults: {
+  return {
     runners: ["htmlcs", "axe"],
     levelCapWhenNeedsReview: "warning",
     includeWarnings: includeWarnings,
     ...(hideElements.length ? { hideElements: hideElements.join(", ") } : {}),
     ...(ignore.length ? { ignore: ignore } : {}),
-  },
+  };
+}
+
+module.exports = {
+  createDefaults,
+  defaults: createDefaults(),
   // The sitemap omits these templates.
   urls: [
     // archives/member.php, and single.php's fallback (members have no singles/ partial)
