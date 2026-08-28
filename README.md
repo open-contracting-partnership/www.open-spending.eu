@@ -4,9 +4,9 @@
 
 - **PHP 8.x**
 - **MySQL** (`mysql -uroot`, no password)
-- Two production backups in the repository root (auto-detected):
-  - `*_public_html_backup_*.tar` files (override with `TAR=`)
-  - `*_coalition_wp*.sql` database (override with `DUMP=`)
+- A `public_html` files backup and a database backup from production, in the repository root (the newest of each is auto-detected):
+  - `*.tar` or `*.tar.gz` (override with `TAR=`)
+  - `*.sql` or `*.sql.gz` (override with `DUMP=`)
 
 ## Tasks
 
@@ -14,11 +14,11 @@
 |---|---|
 | `make up` | `setup` and `serve` |
 | `make setup` | `db` and `wp` |
-| `make db` | create and load the `coalition_wp` database (`FORCE=1` to re-load), rewrite the site URL to localhost, and disable production-only plugins |
+| `make db` | create and load the database (`FORCE=1` to re-load), rewrite the site URL to localhost, activate this theme, and disable production-only plugins |
 | `make wp` | extract files into a working directory (`FORCE=1` to re-extract), patch `wp-config.php`, and symlink this directory as the theme |
-| `make serve` | start PHP's built-in server (`php -S`) at http://localhost:8090, with OPcache off so file edits take effect immediately |
+| `make serve` | start PHP's built-in server (`php -S`) at http://localhost:8090, with 4 request workers (`WORKERS=`) and OPcache off so file edits take effect immediately |
 | `make flush` | drop cached rewrite rules |
-| `make clean` | drop the `coalition_wp` database and remove the working directory |
+| `make clean` | drop the database and remove the working directory |
 | `make diff` | diff the built assets against git (`REF=HEAD`), pretty-printing them so the change is readable |
 | `make help` | list the available commands (runs by default) |
 
