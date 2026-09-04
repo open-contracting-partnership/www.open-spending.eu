@@ -2,8 +2,9 @@
 
 ## Prerequisites
 
-- **PHP 8.x**
+- **PHP 8.1** (`brew install php@8.1`), which the Makefile finds at its Homebrew path from `PHP_VERSION`; override that, or point `PHP=` at a binary
 - **MySQL** (`mysql -uroot`, no password)
+- **wp-cli** (`brew install wp-cli`), for `make urls`
 - A `public_html` files backup and a database backup from production, in the repository root (the newest of each is auto-detected):
   - `*.tar` or `*.tar.gz` (override with `TAR=`)
   - `*.sql` or `*.sql.gz` (override with `DUMP=`)
@@ -13,9 +14,10 @@
 | Command | Description |
 |---|---|
 | `make up` | `setup` and `serve` |
-| `make setup` | `db` and `wp` |
-| `make db` | create and load the database (`FORCE=1` to re-load), rewrite the site URL to localhost, activate this theme, and disable production-only plugins |
+| `make setup` | `db`, `wp` and `urls` |
+| `make db` | create and load the database (`FORCE=1` to re-load), rewrite the site URL to localhost, activate this theme, disable production-only plugins, and drop caches of production paths |
 | `make wp` | extract files into a working directory (`FORCE=1` to re-extract), patch `wp-config.php`, and symlink this directory as the theme |
+| `make urls` | rewrite production URLs to localhost, including inside serialized and JSON values |
 | `make serve` | start PHP's built-in server (`php -S`) at http://localhost:8090, with 4 request workers (`WORKERS=`) and OPcache off so file edits take effect immediately |
 | `make flush` | drop cached rewrite rules |
 | `make clean` | drop the database and remove the working directory |
