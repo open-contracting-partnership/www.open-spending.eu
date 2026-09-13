@@ -9,7 +9,7 @@ THEME        := www.open-spending.eu
 DB           ?= coalition_wp
 PROD_URL     := https://www.open-spending.eu
 PROD_WP      := /home/coalition/public_html
-DISABLE      := ["wordfence","wp-cloudflare-page-cache"]
+DISABLE      := ["wp-cloudflare-page-cache"]
 PHP_VERSION  := 8.1
 # Cached options that embed absolute paths or IDs from the source site.
 DROP_OPTIONS := 'rewrite_rules'
