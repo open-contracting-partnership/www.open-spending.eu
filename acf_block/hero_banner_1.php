@@ -56,15 +56,18 @@ header {
 <?php
 // Archive heading band: the post type's label, plus its ACF sub-heading.
 if ( is_archive() ) {
-	$post_object = get_post_type_object( $posttype );
-	$labels      = $post_object->labels;
-	$sub_heading = theme_field( 'sub_heading', $posttype . '_options' );
-	?>
+	$queried_object = get_queried_object();
+	$post_object    = $queried_object instanceof WP_Post_Type ? $queried_object : get_post_type_object( $posttype );
+
+	if ( $post_object ) {
+		$sub_heading = theme_field( 'sub_heading', $post_object->name . '_options' );
+		?>
 <div class="archive-header container text-center text-n-0 pt-12 pb-10 md:pt-20 md:pb-16">
-	<h1 class="font-bold"><?php echo esc_html( $labels->name ); ?></h1>
+	<h1 class="font-bold"><?php echo esc_html( $post_object->labels->name ); ?></h1>
 	<p class="text-lg mt-2"><?php echo wp_kses_post( $sub_heading ); ?></p>
 </div>
-	<?php
+		<?php
+	}
 }
 
 // Heading band for searches, singles and non-front pages.
