@@ -98,6 +98,7 @@ wp: ## extract files into a working directory (FORCE=1 to re-extract), patch wp-
 		-e "s#define\( *'DB_USER'[^;]*;#define('DB_USER', 'root');#" \
 		-e "s#define\( *'DB_PASSWORD'[^;]*;#define('DB_PASSWORD', '');#" \
 		-e "s#define\( *'WP_CACHE'[^;]*;#define('WP_CACHE', false);#" \
+		-e "s#define\( *'WP_SENTRY_(PHP|BROWSER)_DSN'[^;]*;#define('WP_SENTRY_\1_DSN', '');#" \
 		"$(WP)/wp-config.php" && rm -f "$(WP)/wp-config.php.bak"
 	@for f in "$(WP)"/wp-content/advanced-cache.php "$(WP)"/wp-content/object-cache.php "$(WP)"/wp-content/mu-plugins/*auto-update*.php; do \
 		[ -f "$$f" ] && mv -f "$$f" "$$f.disabled" || true; \
