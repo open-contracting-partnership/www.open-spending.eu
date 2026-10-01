@@ -303,7 +303,6 @@ add_action(
 			return;
 		}
 
-	// phpcs:disable PHPCompatibility.FunctionDeclarations.NewClosure.ThisFoundOutsideClass -- false positive: $this is valid inside this anonymous class.
 	// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter -- Signatures are fixed by WP_Sitemaps_Provider, where get_url_list() is abstract.
 		$provider = new class() extends WP_Sitemaps_Provider {
 			/**
@@ -345,7 +344,6 @@ add_action(
 			}
 		};
 	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter
-	// phpcs:enable PHPCompatibility.FunctionDeclarations.NewClosure.ThisFoundOutsideClass
 
 		wp_register_sitemap_provider( 'archives', $provider );
 	}
