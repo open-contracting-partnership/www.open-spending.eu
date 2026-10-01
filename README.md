@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- **PHP 8.1** (`brew install php@8.1`), which the Makefile finds at its Homebrew path from `PHP_VERSION`; override that, or point `PHP=` at a binary
+- **PHP 8.5** (`brew install php@8.5`), which the Makefile finds at its Homebrew path from `PHP_VERSION`; override that, or point `PHP=` at a binary
 - **MySQL** (`mysql -uroot`, no password)
 - **wp-cli** (`brew install wp-cli`), for `make urls`
 - A `public_html` files backup and a database backup from production, in the repository root (the newest of each is auto-detected):

@@ -10,7 +10,7 @@ DB           ?= coalition_wp
 PROD_URL     := https://www.open-spending.eu
 PROD_WP      := /home/coalition/public_html
 DISABLE      := ["wp-cloudflare-page-cache"]
-PHP_VERSION  := 8.1
+PHP_VERSION  := 8.5
 # Cached options that embed absolute paths or IDs from the source site.
 DROP_OPTIONS := 'rewrite_rules'
 # Built assets that `make diff` compares against git.
